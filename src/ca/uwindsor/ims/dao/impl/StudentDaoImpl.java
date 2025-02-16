@@ -5,8 +5,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.hibernate.Query;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -30,7 +30,7 @@ import ca.uwindsor.ims.model.StudentWorkBo;
 @Repository
 public class StudentDaoImpl implements StudentDao {
 	
-	Logger log = Logger.getLogger(StudentDaoImpl.class);
+	private static final Logger log = LogManager.getLogger(StudentDaoImpl.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;

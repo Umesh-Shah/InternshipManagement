@@ -1,30 +1,29 @@
 package ca.uwindsor.ims.model;
 
-public class StudentSkillBo {
-private int student_skill_id,student_id,skill_id;
-private String skill_name;
-public int getStudent_skill_id() {
-	return student_skill_id;
-}
-public void setStudent_skill_id(int student_skill_id) {
-	this.student_skill_id = student_skill_id;
-}
-public int getStudent_id() {
-	return student_id;
-}
-public void setStudent_id(int student_id) {
-	this.student_id = student_id;
-}
-public int getSkill_id() {
-	return skill_id;
-}
-public void setSkill_id(int skill_id) {
-	this.skill_id = skill_id;
-}
-public String getSkill_name() {
-	return skill_name;
-}
-public void setSkill_name(String skill_name) {
-	this.skill_name = skill_name;
-}
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "student_skill")
+public record StudentSkillBo(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "STUDENT_SKILL_ID")
+    int studentSkillId,
+    
+    @Column(name = "STUDENT_ID")
+    int studentId,
+    
+    @Column(name = "SKILL_ID")
+    int skillId,
+    
+    @Column(name = "SKILL_NAME")
+    String skillName
+) {
+    public static StudentSkillBo create(int studentId, int skillId, String skillName) {
+        return new StudentSkillBo(0, studentId, skillId, skillName);
+    }
+    
+    public StudentSkillBo withId(int id) {
+        return new StudentSkillBo(id, studentId, skillId, skillName);
+    }
 }

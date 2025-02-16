@@ -17,5 +17,6 @@ public interface SkillDao {
 	
 	public void savestudent_skill(int student_id, String[] shah);
 	
+	public SkillBo saveSkill(SkillBo skill);
 
 }

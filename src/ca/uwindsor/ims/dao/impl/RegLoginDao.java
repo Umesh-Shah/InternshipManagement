@@ -1,20 +1,20 @@
 package ca.uwindsor.ims.dao.impl;
 
-import org.springframework.stereotype.Component;
-
+import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import ca.uwindsor.ims.model.VbctLoginBO;
 
-@Component
+@Repository
 public interface RegLoginDao {
 	
-	public boolean changePassword(String login_id, String newPass) throws Exception;
+	boolean changePassword(String loginId, String newPass);
 
-	public boolean checkPassword(String login_id, String oldPass) throws Exception;
+	boolean checkPassword(String loginId, String oldPass);
 
-	public VbctLoginBO getEmployeeList(String username, String password) throws Exception;
+	Optional<VbctLoginBO> getEmployeeList(String username, String password);
 
-	public <T> T saveDataComon(T t) throws Exception;
+	<T> T saveDataComon(T entity);
 
-	public boolean checkLogin(String username, String password) throws Exception;
+	boolean checkLogin(String username, String password);
 
 }

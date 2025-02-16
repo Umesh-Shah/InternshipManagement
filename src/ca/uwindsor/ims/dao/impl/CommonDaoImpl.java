@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.jdt.internal.compiler.flow.FinallyFlowContext;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,12 +17,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import ca.uwindsor.ims.model.VbctLoginBO;
+import org.hibernate.query.Query;
 
 @Component
 @Repository
 public class CommonDaoImpl implements CommonDao {
 
-	Logger log = Logger.getLogger(CommonDaoImpl.class);
+	private static final Logger log = LogManager.getLogger(CommonDaoImpl.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;

@@ -1,0 +1,5 @@
+ca\uwindsor\ims\exception\DatabaseException.class
+ca\uwindsor\ims\dao\impl\SkillDaoImplTest.class
+ca\uwindsor\ims\dao\impl\RegLoginDaoImplTest.class
+ca\uwindsor\ims\config\TestConfig.class
+ca\uwindsor\ims\test\BaseTest.class

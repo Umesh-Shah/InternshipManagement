@@ -3,11 +3,11 @@ package ca.uwindsor.ims.model;
 import java.io.Serializable;
 import java.util.Set;
 
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 public class Employee implements Serializable {
 	private String id;
-	private CommonsMultipartFile file;
+	private MultipartFile file;
 	private String first_name;
 	private String last_name;
 	private String middle_name;
@@ -24,11 +24,11 @@ public class Employee implements Serializable {
 		this.contentBytes = contentBytes;
 	}
 
-	public CommonsMultipartFile getFile() {
+	public MultipartFile getFile() {
 		return file;
 	}
 
-	public void setFile(CommonsMultipartFile file) {
+	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
 

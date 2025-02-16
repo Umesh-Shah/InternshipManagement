@@ -1,10 +1,6 @@
-/**
- * Purpose: Handling all the user requests
- * @author Jay Raichandani 
- */
-
 package ca.uwindsor.ims.controller;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,58 +9,36 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.LinkedHashMap;
 
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
-import com.sun.mail.smtp.SMTPTransport;
+import jakarta.mail.Message;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
-import ca.uwindsor.ims.model.ApprovalStudentBo;
-import ca.uwindsor.ims.model.CommonDTO;
-import ca.uwindsor.ims.model.CompanyBo;
-import ca.uwindsor.ims.model.InternshipTypeBo;
-import ca.uwindsor.ims.model.JobBo;
-import ca.uwindsor.ims.model.Login;
-import ca.uwindsor.ims.model.LoginBo;
-import ca.uwindsor.ims.model.ReportBo;
-import ca.uwindsor.ims.model.ReportlistBo;
-import ca.uwindsor.ims.model.SkillBo;
-import ca.uwindsor.ims.model.StudentCertificateBo;
-import ca.uwindsor.ims.model.StudentEducationBo;
-import ca.uwindsor.ims.model.StudentGpaBo;
-import ca.uwindsor.ims.model.StudentInfoBo;
-import ca.uwindsor.ims.model.StudentInternshipBo;
-import ca.uwindsor.ims.model.StudentJobSkillbo;
-import ca.uwindsor.ims.model.StudentSkillBo;
-import ca.uwindsor.ims.model.StudentWorkBo;
-import ca.uwindsor.ims.model.Student_Job_mapping;
-import ca.uwindsor.ims.service.CommonService;
-import ca.uwindsor.ims.service.CompanyService;
-import ca.uwindsor.ims.service.InternshipService;
-import ca.uwindsor.ims.service.JobService;
-import ca.uwindsor.ims.service.RegLoginService;
-import ca.uwindsor.ims.service.ReportService;
-import ca.uwindsor.ims.service.SkillService;
-import ca.uwindsor.ims.service.StudentService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.google.gson.Gson;
+import org.eclipse.angus.mail.smtp.SMTPTransport;
+
+import ca.uwindsor.ims.model.*;
+import ca.uwindsor.ims.service.*;
 
 @Controller
-@RequestMapping(value="main")
 public class MainController {
 	
 	Logger log = Logger.getLogger(MainController.class);

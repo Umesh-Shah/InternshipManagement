@@ -1,11 +1,11 @@
 package ca.uwindsor.ims.model;
 
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 public class BalanceSheetBO {
 	private String sheet_id,sheet_title,sheet_year,upd_dt,upd_usr,crt_dt,crt_usr;
 	private String status = "N";
-	private CommonsMultipartFile file;
+	private MultipartFile file;
 	private byte[] sheet_data;
 	
 	
@@ -15,10 +15,10 @@ public class BalanceSheetBO {
 	public void setSheet_data(byte[] sheet_data) {
 		this.sheet_data = sheet_data;
 	}
-	public CommonsMultipartFile getFile() {
+	public MultipartFile getFile() {
 		return file;
 	}
-	public void setFile(CommonsMultipartFile file) {
+	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
 	public String getSheet_id() {

@@ -15,13 +15,13 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class NoticeGeneration {
 	
 
-	private static final Logger logger = Logger
-			.getLogger(NoticeGeneration.class);
+	private static final Logger logger = LogManager.getLogger(NoticeGeneration.class);
 	
 	public byte[] generatePDF(String jasperName, ArrayList arrBeanData, String type)throws Exception
 	{

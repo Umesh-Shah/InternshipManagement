@@ -2,8 +2,9 @@ package ca.uwindsor.ims.service;
 
 
 import java.util.List;
-import javax.transaction.Transactional;
-import org.apache.log4j.Logger;
+import jakarta.transaction.Transactional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.uwindsor.ims.dao.impl.SkillDao;
@@ -17,7 +18,7 @@ public class SkillServiceImpl implements SkillService {
 	@Autowired
 	private SkillDao dao;
 
-	Logger log = Logger.getLogger(SkillServiceImpl.class);
+	private static final Logger log = LogManager.getLogger(SkillServiceImpl.class);
 
 	@Override
 	public List<SkillBo> getskilllist() throws Exception {

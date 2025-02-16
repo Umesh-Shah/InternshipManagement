@@ -1,128 +1,105 @@
 package ca.uwindsor.ims.dao.impl;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.transform.Transformers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 import ca.uwindsor.ims.model.SkillBo;
 import ca.uwindsor.ims.model.StudentJobSkillbo;
 import ca.uwindsor.ims.model.StudentSkillBo;
+import ca.uwindsor.ims.exception.DatabaseException;
 
-@Component
 @Repository
+@Transactional
 public class SkillDaoImpl implements SkillDao {
 	
-	Logger log = Logger.getLogger(SkillDaoImpl.class);
+	private static final Logger log = LogManager.getLogger(SkillDaoImpl.class);
 	
-	@Autowired
-	private SessionFactory sessionFactory;
-	DateFormat dateandtime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	@Override
 	public List<SkillBo> getskilllist() throws Exception {
-		// TODO Auto-generated method stub
 		log.info("START");
-		Session session = null;
-		List<SkillBo> lstboo = null;
-		try{
-			session = getSessionFactory().openSession();
-			Query query= session.createQuery("from SkillBo");
-			lstboo = query.list();
+		try {
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+			CriteriaQuery<SkillBo> query = cb.createQuery(SkillBo.class);
+			Root<SkillBo> root = query.from(SkillBo.class);
+			query.select(root);
 			
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		finally{
+			TypedQuery<SkillBo> typedQuery = entityManager.createQuery(query);
+			return typedQuery.getResultList();
+		} catch (Exception e) {
+			log.error("Error retrieving skill list", e);
+			throw new DatabaseException("Error retrieving skill list", e);
+		} finally {
 			log.info("END");
-			session.close();
 		}
-		return lstboo;
 	}
 	
 	@Override
-	public List<StudentJobSkillbo> getstudentfromjjob(String job_id) throws Exception {
-		// TODO Auto-generated method stub
-		Session session = null;
-		List<StudentJobSkillbo> info=null;
-		List<SkillBo> list1=null;
-		try{
-			session = getSessionFactory().openSession();
-			Query query= null;
-			String sql =" select  j.student_id as student_id,string_agg(sk.skill_name,', ')  as skill_name from  student_job_master j,student_skill s,skill sk where j.student_id=s.student_id and s.skill_name=sk.skill_id and j.job_id='"+job_id+"' group by j.student_id";
-			query = session.createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(StudentJobSkillbo.class));
-			info = query.list();
+	public List<StudentJobSkillbo> getstudentfromjjob(String jobId) throws Exception {
+		log.info("START");
+		try {
+			String sql = """
+				SELECT new ca.uwindsor.ims.model.StudentJobSkillbo(
+					j.studentId as studentId,
+					string_agg(sk.skillName, ', ') as skillName
+				)
+				FROM StudentJobMaster j
+				JOIN StudentSkillBo s ON j.studentId = s.studentId
+				JOIN SkillBo sk ON s.skillName = sk.skillId
+				WHERE j.jobId = :jobId
+				GROUP BY j.studentId
+				""";
 			
-			
-			
-		}catch(Exception e){
-			e.printStackTrace();
+			return entityManager.createQuery(sql, StudentJobSkillbo.class)
+				.setParameter("jobId", jobId)
+				.getResultList();
+		} catch (Exception e) {
+			log.error("Error retrieving student job skills", e);
+			throw new DatabaseException("Error retrieving student job skills", e);
+		} finally {
+			log.info("END");
 		}
-		finally{
-		log.info("END");
-			session.close();
-		}
-		
-		
-		
-		return info;
 	}
-
+	
 	@Override
-	public void savestudent_skill(int student_id, String[] shah) {
-
-		StudentSkillBo s = new StudentSkillBo();
-		String student_id1 = student_id + "";
-		Serializable serializable = null;
-		for (int i = 0; i < shah.length; i++) {
-			Session session = null;
-			Transaction tr = null;
-			boolean flag = false;
-			try {
-				session = getSessionFactory().openSession();
-				tr = session.beginTransaction();
-
-				s.setStudent_id(student_id);
-				s.setSkill_name(shah[i]);
-				serializable = session.save(s);
-				System.out.println(serializable);
-				if (null != serializable) {
-					flag = true;
-				} else {
-					flag = false;
-				}
-				tr.commit();
-			} catch (Exception e) {
-				log.error("ERROR OCCURED");
-				log.error(e.getMessage(), e);
-				e.printStackTrace();
-				tr.rollback();
-			} finally {
-				log.info("END");
-				session.close();
+	public void savestudent_skill(int studentId, String[] skills) {
+		log.info("START");
+		try {
+			for (String skill : skills) {
+				StudentSkillBo studentSkill = StudentSkillBo.create(studentId, 0, skill);
+				entityManager.persist(studentSkill);
 			}
+		} catch (Exception e) {
+			log.error("Error saving student skills", e);
+			throw new DatabaseException("Error saving student skills", e);
+		} finally {
+			log.info("END");
 		}
 	}
-
 	
-
+	public SkillBo saveSkill(SkillBo skill) {
+		log.info("START");
+		try {
+			entityManager.persist(skill);
+			return skill;
+		} catch (Exception e) {
+			log.error("Error saving skill", e);
+			throw new DatabaseException("Error saving skill", e);
+		} finally {
+			log.info("END");
+		}
+	}
 }

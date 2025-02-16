@@ -1,30 +1,29 @@
 package ca.uwindsor.ims.model;
 
-public class InternshipTypeBo {
-private int id;
-private String internship_type,description,internship_name;
-public String getInternship_name() {
-	return internship_name;
-}
-public void setInternship_name(String internship_name) {
-	this.internship_name = internship_name;
-}
-public int getId() {
-	return id;
-}
-public void setId(int id) {
-	this.id = id;
-}
-public String getInternship_type() {
-	return internship_type;
-}
-public void setInternship_type(String internship_type) {
-	this.internship_type = internship_type;
-}
-public String getDescription() {
-	return description;
-}
-public void setDescription(String description) {
-	this.description = description;
-}
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "internship")
+public record InternshipTypeBo(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "internship_id")
+    int id,
+    
+    @Column(name = "INTERNSHIP_TYPE")
+    String internshipType,
+    
+    @Column(name = "internship_desc")
+    String description,
+    
+    @Column(name = "INTERNSHIP_NAME")
+    String internshipName
+) {
+    public static InternshipTypeBo create(String internshipType, String description, String internshipName) {
+        return new InternshipTypeBo(0, internshipType, description, internshipName);
+    }
+    
+    public InternshipTypeBo withId(int id) {
+        return new InternshipTypeBo(id, internshipType, description, internshipName);
+    }
 }
