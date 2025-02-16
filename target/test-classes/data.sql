@@ -8,14 +8,16 @@ VALUES
 INSERT INTO vbct_login (LOGIN_ID, LOGIN_NAME, LOGIN_PASSWORD, FIRST_NAME, LAST_NAME, EMAIL_ID, SERVICE_FLG)
 VALUES 
 ('admin1', 'admin', 'adminpass', 'Admin', 'User', 'admin@test.com', 'Y'),
-('user1', 'user', 'userpass', 'Test', 'User', 'user@test.com', 'Y');
+('user1', 'user', 'userpass', 'Test', 'User', 'user@test.com', 'Y'),
+('test1', 'testuser', 'password123', 'Test', 'User', 'test@example.com', 'Y');
 
 -- Insert test data into skill table
 INSERT INTO skill (SKILL_NAME, SKILL_TYPE)
 VALUES 
 ('Java Programming', 'Technical'),
 ('Python', 'Technical'),
-('Project Management', 'Soft Skill');
+('Project Management', 'Soft Skill'),
+('Communication', 'Soft Skill');
 
 -- Insert test data into student_skill table
 INSERT INTO student_skill (STUDENT_ID, SKILL_ID, SKILL_NAME)
@@ -25,7 +27,7 @@ VALUES
 (2, 3, 'Project Management');
 
 -- Insert test data into internship table
-INSERT INTO internship (INTERNSHIP_TYPE, internship_desc, INTERNSHIP_NAME)
+INSERT INTO internship (INTERNSHIP_TYPE, INTERNSHIP_DESC, INTERNSHIP_NAME)
 VALUES 
 ('Summer', 'Summer internship program', 'Summer 2024 Program'),
 ('Co-op', 'Co-op work term', 'Fall 2024 Co-op'),

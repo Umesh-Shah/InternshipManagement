@@ -217,7 +217,7 @@ public class MainController {
 	
 	@RequestMapping(value = "/checklogin", method = RequestMethod.POST)
 	public String onLoginCheck(@ModelAttribute("Login") Login login, HttpServletRequest request, Model model) throws Exception {
-		log.info("-START--" + login.getLogin());
+		log.info("Validating login for user: {}", login.getLogin());
 		String username = login.getLogin();
 		String password = login.getXtxtKllFbbd3ES();
 		
@@ -227,21 +227,25 @@ public class MainController {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("admin", "admin");
 			return "internship/admin/admin_welcome";
-		} else {
-			boolean flag = regLoginService.checkLogin(username, password);
-			if (flag) {
-				HttpSession session = request.getSession(true);
-				StudentLoginBo loginbo = this.studentService.getStudentList(username, password);
-				if (loginbo != null) {
-					session.setAttribute("studentDtl", loginbo);
-					List<StudentInfoBo> info = studentService.getstudentlistfromid(loginbo.getStudent_id());
-					session.setAttribute("student", info.get(0).getFname() + " " + info.get(0).getLname());
-				}
-				request.setAttribute("filename", "main");
-				return "internship/student/student_welcome";
-			}
 		}
-		return null;
+		
+		LoginBo user = regLoginService.validateLogin(username, password);
+		if (user != null) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("studentDtl", user);
+			
+			List<StudentInfoBo> info = studentService.getstudentlistfromid(user.getStudentId());
+			if (!info.isEmpty()) {
+				session.setAttribute("student", info.get(0).getFname() + " " + info.get(0).getLname());
+			}
+			
+			request.setAttribute("filename", "main");
+			return "internship/student/student_welcome";
+		}
+		
+		model.addAttribute("error", "Invalid credentials");
+		request.setAttribute("filename", "login");
+		return "welcome";
 	}
 		
 	
@@ -301,67 +305,63 @@ public class MainController {
 		return "internship/admin/admin_welcome";
 	}
 	@RequestMapping(value="/saveDemo")
-	public String saveDemo(HttpServletRequest request,RedirectAttributes redirect, @ModelAttribute("common") @Valid CommonDTO commondto)throws Exception{
-		
-		StudentEducationBo e=commondto.getEdu();
-		StudentInfoBo i=commondto.getInfo();
-		StudentCertificateBo certificatebo=commondto.getCerti();
-		StudentWorkBo work=commondto.getWork();
-		Integer stu_id=i.getStudent_id();
-		
+	public String saveDemo(HttpServletRequest request, RedirectAttributes redirect, @ModelAttribute("common") @Valid CommonDTO commondto) throws Exception {
+		StudentEducationBo e = commondto.getEdu();
+		StudentInfoBo i = commondto.getInfo();
+		StudentCertificateBo certificatebo = commondto.getCerti();
+		StudentWorkBo work = commondto.getWork();
+		Integer stu_id = i.getStudent_id();
 		
 		/**
 		 * Registration Confirmation Email Trigger
 		 */
 		
-        String email_id=(String) i.getStu_email();
-		  final String username = "jay.raichandani05@gmail.com";
-		    final String password = "Mteverestjay1";
-		    
-		    
-		    Properties props = System.getProperties();
-	        props.put("mail.smtps.host","smtp.gmail.com");
-	        props.put("mail.smtps.auth","true");
-	        props.put("mail.smtp.port", "25");
-	        Session session = Session.getInstance(props, null);
-	        Message msg = new MimeMessage(session);
-	        msg.setFrom(new InternetAddress(username));
-	        
-	        msg.setRecipients(Message.RecipientType.TO,
-	        InternetAddress.parse(email_id, false));
-	        String fname=i.getFname();
-	        String[] email_id1=email_id.split("@");
-	        String upToNCharacters = email_id.substring(0, Math.min(email_id.length(), 4));
-	   
-	        String stu_id1= String.valueOf(i.getStudent_id());
-	        String stu_idPwd=stu_id1.substring(4,8);
-	        msg.setSubject("Successfully Register");
-	        msg.setText("Dear  " +i.getFname()+" "+ i.getLname()+""+
-	        "\n\n You are succesfully register in Internship Management System!" +
-	        "\n Your Username is  "+fname+stu_idPwd+""+"And Password is "+upToNCharacters+stu_idPwd+"");
-	        msg.setSentDate(new Date());
-	        SMTPTransport t =
-	            (SMTPTransport)session.getTransport("smtps");
+		String email_id = i.getStu_email();
+		final String username = "jay.raichandani05@gmail.com";
+		final String password = "Mteverestjay1";
+		
+		Properties props = System.getProperties();
+		props.put("mail.smtps.host","smtp.gmail.com");
+		props.put("mail.smtps.auth","true");
+		props.put("mail.smtp.port", "25");
+		Session session = Session.getInstance(props, null);
+		Message msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress(username));
+		
+		msg.setRecipients(Message.RecipientType.TO,
+		InternetAddress.parse(email_id, false));
+		String fname=i.getFname();
+		String[] email_id1=email_id.split("@");
+		String upToNCharacters = email_id.substring(0, Math.min(email_id.length(), 4));
+   
+		String stu_id1= String.valueOf(i.getStudent_id());
+		String stu_idPwd=stu_id1.substring(4,8);
+		msg.setSubject("Successfully Register");
+		msg.setText("Dear  " +i.getFname()+" "+ i.getLname()+""+
+		"\n\n You are succesfully register in Internship Management System!" +
+		"\n Your Username is  "+fname+stu_idPwd+""+"And Password is "+upToNCharacters+stu_idPwd+"");
+		msg.setSentDate(new Date());
+		SMTPTransport t =
+			(SMTPTransport)session.getTransport("smtps");
 
-	        t.connect("smtp.gmail.com",username, password);
-	        t.sendMessage(msg, msg.getAllRecipients());
-	        System.out.println("Response: " + t.getLastServerResponse());
-	        t.close();
-		 
-	        studentService.savestudentinfo(i);
-	        studentService.savestudentedu(e,stu_id);
-	        studentService.savestucertificate(certificatebo,stu_id);
-	        studentService.saveworkexp(work,stu_id);
-	        StudentLoginBo loginbo=new StudentLoginBo();
-	        loginbo.setUsername(email_id1[0]);
-	        loginbo.setPwd(upToNCharacters+stu_idPwd);
-	        loginbo.setFlag("Y");
-	        loginbo.setUser_type("Student");
-	        loginbo.setStudent_id(stu_id);
-	        commonService.saveDataComon(loginbo);
+		t.connect("smtp.gmail.com",username, password);
+		t.sendMessage(msg, msg.getAllRecipients());
+		System.out.println("Response: " + t.getLastServerResponse());
+		t.close();
+	 
+		studentService.savestudentinfo(i);
+		studentService.savestudentedu(e, stu_id);
+		studentService.savestucertificate(certificatebo, stu_id);
+		studentService.saveworkexp(work, stu_id);
+		StudentLoginBo loginbo = new StudentLoginBo();
+		loginbo.setUsername(email_id1[0]);
+		loginbo.setPwd(upToNCharacters+stu_idPwd);
+		loginbo.setFlag("Y");
+		loginbo.setUser_type("Student");
+		loginbo.setStudent_id(stu_id);
+		commonService.saveDataComon(loginbo);
 		request.setAttribute("filename", "student_info");
 		return "internship/admin/admin_welcome";
-		
 	}
 	
 	@RequestMapping(value="/addcompany")
@@ -386,66 +386,62 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/jobInterest")
-	public String jobInterest(HttpServletRequest request, Model model) throws Exception{
-		String jobid=request.getParameter("job_id");
-	
-				HttpSession session = request.getSession(false);
-				StudentLoginBo loginbo=(StudentLoginBo)session.getAttribute("studentDtl");
-				int student_id=loginbo.getStudent_id();
-				int i = Integer.parseInt(jobid);
-				Student_Job_mapping s=new Student_Job_mapping();
-				s.setJob_id(i);
-				s.setStudent_id(student_id);
-				commonService.saveDataComon(s);
-				System.out.println(student_id+"ssss"+jobid);
-				List<JobBo> lst = jobService.getjoblist();
-				request.setAttribute("lst", lst);
-				List<JobBo> s1=jobService.getstudentjoblist(student_id);
-				request.setAttribute("s", s1);
-	        	request.setAttribute("filename", "job_tab");
-		        return "internship/student/student_welcome";
+	public String jobInterest(HttpServletRequest request, Model model) throws Exception {
+		String jobid = request.getParameter("job_id");
+		HttpSession session = request.getSession(false);
+		StudentLoginBo loginbo = (StudentLoginBo)session.getAttribute("studentDtl");
+		int student_id = loginbo.getStudent_id();
+		int i = Integer.parseInt(jobid);
+		Student_Job_mapping s = new Student_Job_mapping();
+		s.setJob_id(i);
+		s.setStudent_id(student_id);
+		commonService.saveDataComon(s);
+		System.out.println(student_id + "ssss" + jobid);
+		List<JobBo> lst = jobService.getjoblist();
+		request.setAttribute("lst", lst);
+		List<JobBo> s1 = jobService.getstudentjoblist(student_id);
+		request.setAttribute("s", s1);
+		request.setAttribute("filename", "job_tab");
+		return "internship/student/student_welcome";
 	}
 	@RequestMapping(value="/saveinternship")
-	public String saveinternship(HttpServletRequest request,RedirectAttributes redirect, @ModelAttribute("AddInternship") @Valid InternshipTypeBo i)throws Exception{
+	public String saveinternship(HttpServletRequest request, RedirectAttributes redirect, @ModelAttribute("AddInternship") @Valid InternshipTypeBo i) throws Exception {
 		log.info("-START--<<< ");
-		
-		
 		commonService.saveDataComon(i);
 		request.setAttribute("filename", "add_internship");
 		System.out.println(request.getAttribute("filename"));
 		return "internship/admin/admin_welcome";
-		}
+	}
 
 	@RequestMapping(value="/loadinternship")
-	public String loadinternship(HttpServletRequest request, Model model) throws Exception{
+	public String loadinternship(HttpServletRequest request, Model model) throws Exception {
 		request.setAttribute("filename", "add_internship");
 		return "internship/admin/admin_welcome";
 	}
 	@RequestMapping(value="/student_report")
-	public String student_report(HttpServletRequest request, Model model) throws Exception{
-		
-		List<ReportlistBo> year=reportService.getstudentyear();
+	public String student_report(HttpServletRequest request, Model model) throws Exception {
+		List<ReportlistBo> year = reportService.getstudentyear();
 		request.setAttribute("year", year);
-		List<ReportlistBo> country=reportService.getstudentcountry();
+		List<ReportlistBo> country = reportService.getstudentcountry();
 		request.setAttribute("country", country);
 		request.setAttribute("filename", "search_report");
 		return "internship/admin/admin_welcome";
 	}
 	@RequestMapping(value="/internshp_type_report")
-	public String internshp_type_report(HttpServletRequest request, Model model) throws Exception{
-		List<InternshipTypeBo> i=internshipService.getinternshiplist();
+	public String internshp_type_report(HttpServletRequest request, Model model) throws Exception {
+		List<InternshipTypeBo> i = internshipService.getinternshiplist();
 		request.setAttribute("i", i);
-		List<StudentInfoBo> li=studentService.getstudentinternshipwise();
+		List<StudentInfoBo> li = studentService.getstudentinternshipwise();
 		request.setAttribute("list_internshiiipStu", li);
 		request.setAttribute("filename", "search_internship_type");
 		return "internship/admin/admin_welcome";
 	}
 	@RequestMapping(value="/company_report")
-	public String company_report(HttpServletRequest request, Model model) throws Exception{
+	public String company_report(HttpServletRequest request, Model model) throws Exception {
 		List<CompanyBo> lst = companyService.getcompanylist();
 		System.out.println(lst.get(0).getCompany_name());
-		request.setAttribute("employers_lst", lst);
-		request.setAttribute("filename", "search_report_employers");
+		request.setAttribute("lst", lst);
+		request.setAttribute("filename", "search_company");
 		return "internship/admin/admin_welcome";
 	}
 	
@@ -589,30 +585,27 @@ response.getWriter().write(json);
 		return "internship/student/student_welcome";
 	}
 	@RequestMapping(value="/saveStudentskill")
-	public String saveStudentskill(HttpServletRequest request,RedirectAttributes redirect, @ModelAttribute("StudentSkill") @Valid StudentSkillBo r)throws Exception{
+	public String saveStudentskill(HttpServletRequest request, RedirectAttributes redirect, @ModelAttribute("StudentSkill") @Valid StudentSkillBo r) throws Exception {
 		log.info("-START--<<< ");
-		String[] shah=request.getParameterValues("student_id");
-		String s="";
-		for(int i=0;i<shah.length;i++)
-		{
-			 s= s+shah[i]+","+"";
-		}
-		s = s.substring(0, s.length()-1);
-		System.out.println(s);
+		String[] skillIds = request.getParameterValues("student_id");
 		HttpSession session = request.getSession(false);
+		StudentLoginBo loginbo = (StudentLoginBo)session.getAttribute("studentDtl");
+		int studentId = loginbo.getStudent_id();
 		
-		StudentLoginBo loginbo=(StudentLoginBo)session.getAttribute("studentDtl");
-		int student_id=loginbo.getStudent_id();
-		System.out.println(student_id);
-		r.setSkill_name(s);
-		r.setStudent_id(student_id);
-		List<SkillBo> skill_list=skillService.getskilllist();
-		request.setAttribute("skill_list", skill_list);
-		skillService.savestudent_skill(student_id,shah);
-		request.setAttribute("filename", "Student_skill");
-		System.out.println(request.getAttribute("filename"));
-		return "internship/student/student_welcome";
+		// Save each skill for the student
+		for (String skillId : skillIds) {
+			StudentSkillBo skill = new StudentSkillBo();
+			skill.setStudentId(studentId);
+			skill.setSkillId(Integer.parseInt(skillId));
+			skill.setSkillLevel("Intermediate"); // Default level
+			commonService.saveDataComon(skill);
 		}
+		
+		List<SkillBo> skill_list = skillService.getskilllist();
+		request.setAttribute("skill_list", skill_list);
+		request.setAttribute("filename", "Student_skill");
+		return "internship/student/student_welcome";
+	}
 	
 	@RequestMapping(value="/student_basic_info")
 	public String student_basic_info(HttpServletRequest request, Model model) throws Exception{

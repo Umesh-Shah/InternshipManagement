@@ -9,6 +9,7 @@ ca\uwindsor\ims\model\Employee.class
 ca\uwindsor\ims\model\StudentGpaBo.class
 ca\uwindsor\ims\dao\impl\ReportDao.class
 ca\uwindsor\ims\dto\ApiResponse.class
+ca\uwindsor\ims\model\LoginBo.class
 ca\uwindsor\ims\model\StudentSkillBo.class
 ca\uwindsor\ims\service\StudentService.class
 ca\uwindsor\ims\model\BalanceSheetBO.class

@@ -1,61 +1,77 @@
 package ca.uwindsor.ims.model;
 
 import jakarta.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "student_skill")
-public class StudentSkillBo {
+public class StudentSkillBo implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "STUDENT_SKILL_ID")
-	private int student_skill_id;
+	private Integer studentSkillId;
 	
 	@Column(name = "STUDENT_ID")
-	private int student_id;
+	private Integer studentId;
 	
 	@Column(name = "SKILL_ID")
-	private int skill_id;
+	private Integer skillId;
 	
-	@Column(name = "SKILL_NAME")
-	private String skill_name;
+	@Column(name = "SKILL_LEVEL")
+	private String skillLevel;
 
-	public int getStudent_skill_id() {
-		return student_skill_id;
-	}
-	
-	public void setStudent_skill_id(int student_skill_id) {
-		this.student_skill_id = student_skill_id;
-	}
-	
-	public int getStudent_id() {
-		return student_id;
-	}
-	
-	public void setStudent_id(int student_id) {
-		this.student_id = student_id;
-	}
-	
-	public int getSkill_id() {
-		return skill_id;
-	}
-	
-	public void setSkill_id(int skill_id) {
-		this.skill_id = skill_id;
-	}
-	
-	public String getSkill_name() {
-		return skill_name;
-	}
-	
-	public void setSkill_name(String skill_name) {
-		this.skill_name = skill_name;
+	// Default constructor for JPA
+	public StudentSkillBo() {}
+
+	// Constructor for creating new student skills
+	public StudentSkillBo(Integer studentId, Integer skillId, String skillLevel) {
+		this.studentId = studentId;
+		this.skillId = skillId;
+		this.skillLevel = skillLevel;
 	}
 
-	public static StudentSkillBo create(int studentId, int skillId, String skillName) {
-		StudentSkillBo studentSkill = new StudentSkillBo();
-		studentSkill.setStudent_id(studentId);
-		studentSkill.setSkill_id(skillId);
-		studentSkill.setSkill_name(skillName);
-		return studentSkill;
+	// Constructor with all fields
+	public StudentSkillBo(Integer studentSkillId, Integer studentId, Integer skillId, String skillLevel) {
+		this.studentSkillId = studentSkillId;
+		this.studentId = studentId;
+		this.skillId = skillId;
+		this.skillLevel = skillLevel;
+	}
+
+	public Integer getStudentSkillId() {
+		return studentSkillId;
+	}
+	
+	public void setStudentSkillId(Integer studentSkillId) {
+		this.studentSkillId = studentSkillId;
+	}
+	
+	public Integer getStudentId() {
+		return studentId;
+	}
+	
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
+	}
+	
+	public Integer getSkillId() {
+		return skillId;
+	}
+	
+	public void setSkillId(Integer skillId) {
+		this.skillId = skillId;
+	}
+	
+	public String getSkillLevel() {
+		return skillLevel;
+	}
+	
+	public void setSkillLevel(String skillLevel) {
+		this.skillLevel = skillLevel;
+	}
+
+	// Static factory method
+	public static StudentSkillBo create(Integer studentId, Integer skillId, String skillLevel) {
+		return new StudentSkillBo(studentId, skillId, skillLevel);
 	}
 }

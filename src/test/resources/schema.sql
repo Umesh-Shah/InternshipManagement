@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS student_skill;
+DROP TABLE IF EXISTS internship;
+DROP TABLE IF EXISTS skill;
+DROP TABLE IF EXISTS login;
+DROP TABLE IF EXISTS vbct_login;
+
 CREATE TABLE vbct_login (
     login_id VARCHAR(50) PRIMARY KEY,
     login_name VARCHAR(100) NOT NULL,
