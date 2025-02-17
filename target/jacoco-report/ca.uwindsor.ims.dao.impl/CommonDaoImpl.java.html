@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommonDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Internship Management System</a> &gt; <a href="index.source.html" class="el_package">ca.uwindsor.ims.dao.impl</a> &gt; <span class="el_source">CommonDaoImpl.java</span></div><h1>CommonDaoImpl.java</h1><pre class="source lang-java linenums">package ca.uwindsor.ims.dao.impl;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+
+import ca.uwindsor.ims.model.VbctLoginBO;
+import ca.uwindsor.ims.exception.DatabaseException;
+import ca.uwindsor.ims.dao.CommonDao;
+
+@Component
+@Repository
+@Transactional
+<span class="fc" id="L29">public class CommonDaoImpl implements CommonDao {</span>
+
+<span class="fc" id="L31">	private static final Logger log = LogManager.getLogger(CommonDaoImpl.class);</span>
+<span class="fc" id="L32">	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy HH:mm:ss&quot;);</span>
+	
+	@PersistenceContext
+	private EntityManager entityManager;
+	
+	@Override
+	public boolean changePassword(String loginId, String newPass) {
+<span class="nc" id="L39">		log.info(&quot;Starting password change for user: {}&quot;, loginId);</span>
+		try {
+<span class="nc" id="L41">			var updateQuery = entityManager.createQuery(&quot;&quot;&quot;</span>
+				UPDATE VbctLoginBO v 
+				SET v.loginPassword = :newPass,
+					v.lastPasswordUpdateDate = :updateTime
+				WHERE v.loginId = :loginId
+				&quot;&quot;&quot;);
+			
+<span class="nc" id="L48">			updateQuery.setParameter(&quot;newPass&quot;, newPass)</span>
+<span class="nc" id="L49">					  .setParameter(&quot;updateTime&quot;, LocalDateTime.now())</span>
+<span class="nc" id="L50">					  .setParameter(&quot;loginId&quot;, loginId);</span>
+			
+<span class="nc" id="L52">			int rowsAffected = updateQuery.executeUpdate();</span>
+<span class="nc" id="L53">			log.info(&quot;Password change affected {} rows&quot;, rowsAffected);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">			return rowsAffected &gt; 0;</span>
+<span class="nc" id="L55">		} catch (Exception e) {</span>
+<span class="nc" id="L56">			log.error(&quot;Failed to change password for user: {}&quot;, loginId, e);</span>
+<span class="nc" id="L57">			throw new DatabaseException(&quot;Failed to update password&quot;, e);</span>
+		}
+	}
+	
+	@Override
+	public &lt;T&gt; T saveDataComon(T entity) {
+<span class="nc" id="L63">		log.info(&quot;Saving entity of type: {}&quot;, entity.getClass().getSimpleName());</span>
+		try {
+<span class="nc" id="L65">			entityManager.persist(entity);</span>
+<span class="nc" id="L66">			return entity;</span>
+<span class="nc" id="L67">		} catch (Exception e) {</span>
+<span class="nc" id="L68">			log.error(&quot;Error saving entity: {}&quot;, entity.getClass().getSimpleName(), e);</span>
+<span class="nc" id="L69">			throw new DatabaseException(&quot;Failed to save entity&quot;, e);</span>
+		}
+	}
+	
+	@Override
+	public List&lt;VbctLoginBO&gt; getEmployeeList() {
+<span class="nc" id="L75">		log.info(&quot;Retrieving all employees&quot;);</span>
+		try {
+<span class="nc" id="L77">			CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L78">			CriteriaQuery&lt;VbctLoginBO&gt; query = cb.createQuery(VbctLoginBO.class);</span>
+<span class="nc" id="L79">			Root&lt;VbctLoginBO&gt; root = query.from(VbctLoginBO.class);</span>
+			
+<span class="nc" id="L81">			query.select(root);</span>
+			
+<span class="nc" id="L83">			TypedQuery&lt;VbctLoginBO&gt; typedQuery = entityManager.createQuery(query);</span>
+<span class="nc" id="L84">			return typedQuery.getResultList();</span>
+<span class="nc" id="L85">		} catch (Exception e) {</span>
+<span class="nc" id="L86">			log.error(&quot;Error retrieving employee list&quot;, e);</span>
+<span class="nc" id="L87">			throw new DatabaseException(&quot;Failed to retrieve employee list&quot;, e);</span>
+		}
+	}
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

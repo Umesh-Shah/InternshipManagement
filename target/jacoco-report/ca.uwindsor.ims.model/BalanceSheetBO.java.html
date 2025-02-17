@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BalanceSheetBO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Internship Management System</a> &gt; <a href="index.source.html" class="el_package">ca.uwindsor.ims.model</a> &gt; <span class="el_source">BalanceSheetBO.java</span></div><h1>BalanceSheetBO.java</h1><pre class="source lang-java linenums">package ca.uwindsor.ims.model;
+
+import org.springframework.web.multipart.MultipartFile;
+
+<span class="nc" id="L5">public class BalanceSheetBO {</span>
+	private String sheet_id,sheet_title,sheet_year,upd_dt,upd_usr,crt_dt,crt_usr;
+<span class="nc" id="L7">	private String status = &quot;N&quot;;</span>
+	private MultipartFile file;
+	private byte[] sheet_data;
+	
+	
+	public byte[] getSheet_data() {
+<span class="nc" id="L13">		return sheet_data;</span>
+	}
+	public void setSheet_data(byte[] sheet_data) {
+<span class="nc" id="L16">		this.sheet_data = sheet_data;</span>
+<span class="nc" id="L17">	}</span>
+	public MultipartFile getFile() {
+<span class="nc" id="L19">		return file;</span>
+	}
+	public void setFile(MultipartFile file) {
+<span class="nc" id="L22">		this.file = file;</span>
+<span class="nc" id="L23">	}</span>
+	public String getSheet_id() {
+<span class="nc" id="L25">		return sheet_id;</span>
+	}
+	public void setSheet_id(String sheet_id) {
+<span class="nc" id="L28">		this.sheet_id = sheet_id;</span>
+<span class="nc" id="L29">	}</span>
+	public String getSheet_title() {
+<span class="nc" id="L31">		return sheet_title;</span>
+	}
+	public void setSheet_title(String sheet_title) {
+<span class="nc" id="L34">		this.sheet_title = sheet_title;</span>
+<span class="nc" id="L35">	}</span>
+	public String getSheet_year() {
+<span class="nc" id="L37">		return sheet_year;</span>
+	}
+	public void setSheet_year(String sheet_year) {
+<span class="nc" id="L40">		this.sheet_year = sheet_year;</span>
+<span class="nc" id="L41">	}</span>
+	public String getUpd_dt() {
+<span class="nc" id="L43">		return upd_dt;</span>
+	}
+	public void setUpd_dt(String upd_dt) {
+<span class="nc" id="L46">		this.upd_dt = upd_dt;</span>
+<span class="nc" id="L47">	}</span>
+	public String getUpd_usr() {
+<span class="nc" id="L49">		return upd_usr;</span>
+	}
+	public void setUpd_usr(String upd_usr) {
+<span class="nc" id="L52">		this.upd_usr = upd_usr;</span>
+<span class="nc" id="L53">	}</span>
+	public String getCrt_dt() {
+<span class="nc" id="L55">		return crt_dt;</span>
+	}
+	public void setCrt_dt(String crt_dt) {
+<span class="nc" id="L58">		this.crt_dt = crt_dt;</span>
+<span class="nc" id="L59">	}</span>
+	public String getCrt_usr() {
+<span class="nc" id="L61">		return crt_usr;</span>
+	}
+	public void setCrt_usr(String crt_usr) {
+<span class="nc" id="L64">		this.crt_usr = crt_usr;</span>
+<span class="nc" id="L65">	}</span>
+	public String getStatus() {
+<span class="nc" id="L67">		return status;</span>
+	}
+	public void setStatus(String status) {
+<span class="nc" id="L70">		this.status = status;</span>
+<span class="nc" id="L71">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

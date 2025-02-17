@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VbctLoginBO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Internship Management System</a> &gt; <a href="index.source.html" class="el_package">ca.uwindsor.ims.model</a> &gt; <span class="el_source">VbctLoginBO.java</span></div><h1>VbctLoginBO.java</h1><pre class="source lang-java linenums">package ca.uwindsor.ims.model;
+
+import java.time.LocalDateTime;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = &quot;VBCT_LOGIN&quot;)
+<span class="nc" id="L8">public class VbctLoginBO {</span>
+	
+	@Id
+	@Column(name = &quot;LOGIN_ID&quot;)
+	private String loginId;
+	
+	@Column(name = &quot;LOGIN_NAME&quot;)
+	private String loginName;
+	
+	@Column(name = &quot;LOGIN_PASSWORD&quot;)
+	private String loginPassword;
+	
+	@Column(name = &quot;FIRST_NAME&quot;)
+	private String firstName;
+	
+	@Column(name = &quot;MIDDLE_NAME&quot;)
+	private String middleName;
+	
+	@Column(name = &quot;LAST_NAME&quot;)
+	private String lastName;
+	
+	@Column(name = &quot;DSGN_ID&quot;)
+	private String designationId;
+	
+	@Column(name = &quot;EMAIL_ID&quot;)
+	private String emailId;
+	
+	@Column(name = &quot;DOB&quot;)
+	private String dateOfBirth;
+	
+	@Column(name = &quot;PHONE_NO&quot;)
+	private String phoneNo;
+	
+	@Column(name = &quot;SERVICE_FLG&quot;)
+	private String serviceFlag;
+	
+	@Column(name = &quot;LANG_ID&quot;)
+	private String languageId;
+	
+	@Column(name = &quot;CRT_DT&quot;)
+	private LocalDateTime createdDate;
+	
+	@Column(name = &quot;CRT_USR&quot;)
+	private String createdUser;
+	
+	@Column(name = &quot;LST_UPD_USR&quot;)
+	private String lastUpdatedUser;
+	
+	@Column(name = &quot;LST_UPD_DT&quot;)
+	private LocalDateTime lastUpdatedDate;
+	
+	@Column(name = &quot;SERVICE_EXPIRY_DT&quot;)
+	private LocalDateTime serviceExpiryDate;
+	
+	@Column(name = &quot;FORGOT_PWD&quot;)
+	private String forgotPassword;
+	
+	@Column(name = &quot;FRST_LOGIN_FLG&quot;)
+	private String firstLoginFlag;
+	
+	@Column(name = &quot;PSWD_EXPIRE_DT&quot;)
+	private LocalDateTime passwordExpiryDate;
+	
+	@Column(name = &quot;LST_PSWD_UPD_DT&quot;)
+	private LocalDateTime lastPasswordUpdateDate;
+	
+	@Column(name = &quot;LOGIN_STARTTIME&quot;)
+	private LocalDateTime loginStartTime;
+	
+	@Column(name = &quot;LOGIN_ENDTIME&quot;)
+	private LocalDateTime loginEndTime;
+	
+	@Column(name = &quot;IPADDR&quot;)
+	private String ipAddress;
+
+	public String getLoginId() {
+<span class="nc" id="L84">		return loginId;</span>
+	}
+
+	public void setLoginId(String loginId) {
+<span class="nc" id="L88">		this.loginId = loginId;</span>
+<span class="nc" id="L89">	}</span>
+
+	public String getLoginName() {
+<span class="nc" id="L92">		return loginName;</span>
+	}
+
+	public void setLoginName(String loginName) {
+<span class="nc" id="L96">		this.loginName = loginName;</span>
+<span class="nc" id="L97">	}</span>
+
+	public String getLoginPassword() {
+<span class="nc" id="L100">		return loginPassword;</span>
+	}
+
+	public void setLoginPassword(String loginPassword) {
+<span class="nc" id="L104">		this.loginPassword = loginPassword;</span>
+<span class="nc" id="L105">	}</span>
+
+	public String getFirstName() {
+<span class="nc" id="L108">		return firstName;</span>
+	}
+
+	public void setFirstName(String firstName) {
+<span class="nc" id="L112">		this.firstName = firstName;</span>
+<span class="nc" id="L113">	}</span>
+
+	public String getMiddleName() {
+<span class="nc" id="L116">		return middleName;</span>
+	}
+
+	public void setMiddleName(String middleName) {
+<span class="nc" id="L120">		this.middleName = middleName;</span>
+<span class="nc" id="L121">	}</span>
+
+	public String getLastName() {
+<span class="nc" id="L124">		return lastName;</span>
+	}
+
+	public void setLastName(String lastName) {
+<span class="nc" id="L128">		this.lastName = lastName;</span>
+<span class="nc" id="L129">	}</span>
+
+	public String getDesignationId() {
+<span class="nc" id="L132">		return designationId;</span>
+	}
+
+	public void setDesignationId(String designationId) {
+<span class="nc" id="L136">		this.designationId = designationId;</span>
+<span class="nc" id="L137">	}</span>
+
+	public String getEmailId() {
+<span class="nc" id="L140">		return emailId;</span>
+	}
+
+	public void setEmailId(String emailId) {
+<span class="nc" id="L144">		this.emailId = emailId;</span>
+<span class="nc" id="L145">	}</span>
+
+	public String getDateOfBirth() {
+<span class="nc" id="L148">		return dateOfBirth;</span>
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+<span class="nc" id="L152">		this.dateOfBirth = dateOfBirth;</span>
+<span class="nc" id="L153">	}</span>
+
+	public String getPhoneNo() {
+<span class="nc" id="L156">		return phoneNo;</span>
+	}
+
+	public void setPhoneNo(String phoneNo) {
+<span class="nc" id="L160">		this.phoneNo = phoneNo;</span>
+<span class="nc" id="L161">	}</span>
+
+	public String getServiceFlag() {
+<span class="nc" id="L164">		return serviceFlag;</span>
+	}
+
+	public void setServiceFlag(String serviceFlag) {
+<span class="nc" id="L168">		this.serviceFlag = serviceFlag;</span>
+<span class="nc" id="L169">	}</span>
+
+	public String getLanguageId() {
+<span class="nc" id="L172">		return languageId;</span>
+	}
+
+	public void setLanguageId(String languageId) {
+<span class="nc" id="L176">		this.languageId = languageId;</span>
+<span class="nc" id="L177">	}</span>
+
+	public LocalDateTime getCreatedDate() {
+<span class="nc" id="L180">		return createdDate;</span>
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+<span class="nc" id="L184">		this.createdDate = createdDate;</span>
+<span class="nc" id="L185">	}</span>
+
+	public String getCreatedUser() {
+<span class="nc" id="L188">		return createdUser;</span>
+	}
+
+	public void setCreatedUser(String createdUser) {
+<span class="nc" id="L192">		this.createdUser = createdUser;</span>
+<span class="nc" id="L193">	}</span>
+
+	public String getLastUpdatedUser() {
+<span class="nc" id="L196">		return lastUpdatedUser;</span>
+	}
+
+	public void setLastUpdatedUser(String lastUpdatedUser) {
+<span class="nc" id="L200">		this.lastUpdatedUser = lastUpdatedUser;</span>
+<span class="nc" id="L201">	}</span>
+
+	public LocalDateTime getLastUpdatedDate() {
+<span class="nc" id="L204">		return lastUpdatedDate;</span>
+	}
+
+	public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
+<span class="nc" id="L208">		this.lastUpdatedDate = lastUpdatedDate;</span>
+<span class="nc" id="L209">	}</span>
+
+	public LocalDateTime getServiceExpiryDate() {
+<span class="nc" id="L212">		return serviceExpiryDate;</span>
+	}
+
+	public void setServiceExpiryDate(LocalDateTime serviceExpiryDate) {
+<span class="nc" id="L216">		this.serviceExpiryDate = serviceExpiryDate;</span>
+<span class="nc" id="L217">	}</span>
+
+	public String getForgotPassword() {
+<span class="nc" id="L220">		return forgotPassword;</span>
+	}
+
+	public void setForgotPassword(String forgotPassword) {
+<span class="nc" id="L224">		this.forgotPassword = forgotPassword;</span>
+<span class="nc" id="L225">	}</span>
+
+	public String getFirstLoginFlag() {
+<span class="nc" id="L228">		return firstLoginFlag;</span>
+	}
+
+	public void setFirstLoginFlag(String firstLoginFlag) {
+<span class="nc" id="L232">		this.firstLoginFlag = firstLoginFlag;</span>
+<span class="nc" id="L233">	}</span>
+
+	public LocalDateTime getPasswordExpiryDate() {
+<span class="nc" id="L236">		return passwordExpiryDate;</span>
+	}
+
+	public void setPasswordExpiryDate(LocalDateTime passwordExpiryDate) {
+<span class="nc" id="L240">		this.passwordExpiryDate = passwordExpiryDate;</span>
+<span class="nc" id="L241">	}</span>
+
+	public LocalDateTime getLastPasswordUpdateDate() {
+<span class="nc" id="L244">		return lastPasswordUpdateDate;</span>
+	}
+
+	public void setLastPasswordUpdateDate(LocalDateTime lastPasswordUpdateDate) {
+<span class="nc" id="L248">		this.lastPasswordUpdateDate = lastPasswordUpdateDate;</span>
+<span class="nc" id="L249">	}</span>
+
+	public LocalDateTime getLoginStartTime() {
+<span class="nc" id="L252">		return loginStartTime;</span>
+	}
+
+	public void setLoginStartTime(LocalDateTime loginStartTime) {
+<span class="nc" id="L256">		this.loginStartTime = loginStartTime;</span>
+<span class="nc" id="L257">	}</span>
+
+	public LocalDateTime getLoginEndTime() {
+<span class="nc" id="L260">		return loginEndTime;</span>
+	}
+
+	public void setLoginEndTime(LocalDateTime loginEndTime) {
+<span class="nc" id="L264">		this.loginEndTime = loginEndTime;</span>
+<span class="nc" id="L265">	}</span>
+
+	public String getIpAddress() {
+<span class="nc" id="L268">		return ipAddress;</span>
+	}
+
+	public void setIpAddress(String ipAddress) {
+<span class="nc" id="L272">		this.ipAddress = ipAddress;</span>
+<span class="nc" id="L273">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

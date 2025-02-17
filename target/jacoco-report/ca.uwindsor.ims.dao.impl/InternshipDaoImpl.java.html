@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InternshipDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Internship Management System</a> &gt; <a href="index.source.html" class="el_package">ca.uwindsor.ims.dao.impl</a> &gt; <span class="el_source">InternshipDaoImpl.java</span></div><h1>InternshipDaoImpl.java</h1><pre class="source lang-java linenums">package ca.uwindsor.ims.dao.impl;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.hibernate.query.Query;
+
+import ca.uwindsor.ims.model.InternshipTypeBo;
+
+@Component
+@Repository
+<span class="fc" id="L20">public class InternshipDaoImpl implements InternshipDao {</span>
+	
+<span class="fc" id="L22">	private static final Logger log = LogManager.getLogger(InternshipDaoImpl.class);</span>
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+<span class="fc" id="L26">	DateFormat dateandtime = new SimpleDateFormat(&quot;dd/MM/yyyy HH:mm:ss&quot;);</span>
+
+	public SessionFactory getSessionFactory() {
+<span class="nc" id="L29">		return sessionFactory;</span>
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+<span class="nc" id="L33">		this.sessionFactory = sessionFactory;</span>
+<span class="nc" id="L34">	}</span>
+
+	@Override
+	public List&lt;InternshipTypeBo&gt; getinternshiplist() throws Exception {
+		// TODO Auto-generated method stub
+<span class="nc" id="L39">		log.info(&quot;START&quot;);</span>
+<span class="nc" id="L40">		Session session = null;</span>
+<span class="nc" id="L41">		List&lt;InternshipTypeBo&gt; lstboo = null;</span>
+		try{
+<span class="nc" id="L43">			session = getSessionFactory().openSession();</span>
+<span class="nc" id="L44">			Query query= session.createQuery(&quot;from InternshipTypeBo&quot;);</span>
+<span class="nc" id="L45">			lstboo = query.list();</span>
+			
+			
+<span class="nc" id="L48">		}catch(Exception e){</span>
+<span class="nc" id="L49">			e.printStackTrace();</span>
+		}
+		finally{
+<span class="nc" id="L52">			log.info(&quot;END&quot;);</span>
+<span class="nc" id="L53">			session.close();</span>
+		}
+<span class="nc" id="L55">		return lstboo;	}</span>
+
+	@Override
+	public void updatestudent_status(int i,String internship_type) throws Exception {
+		// TODO Auto-generated method stub
+<span class="nc" id="L60">		log.info(&quot;START&quot;);</span>
+<span class="nc" id="L61">		Session session = null;</span>
+		try{
+<span class="nc" id="L63">			session = getSessionFactory().openSession();</span>
+<span class="nc" id="L64">			Query query= session.createQuery(&quot;update StudentInfoBo set student_status='Hired',internship_status=? where student_id=&quot;+i);</span>
+<span class="nc" id="L65">	       query.setParameter(0, internship_type);</span>
+<span class="nc" id="L66">			query.executeUpdate();</span>
+<span class="nc" id="L67">		}catch(Exception e){</span>
+<span class="nc" id="L68">			e.printStackTrace();</span>
+		}
+		finally{
+<span class="nc" id="L71">			log.info(&quot;END&quot;);</span>
+<span class="nc" id="L72">			session.close();</span>
+		}
+<span class="nc" id="L74">	}</span>
+
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

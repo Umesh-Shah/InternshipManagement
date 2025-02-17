@@ -2762,3 +2762,1085 @@ Caused by: java.lang.IllegalAccessException: Can not set final int field ca.uwin
 2025-02-16 16:45:30.100  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
 2025-02-16 16:45:30.133  INFO Umesh --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-02-16 16:45:30.133  INFO Umesh --- [ionShutdownHook] o.s.j.d.e.EmbeddedDatabaseFactory        : Shutting down embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false'
+2025-02-16 21:24:50.744  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest
+2025-02-16 21:24:51.139  INFO Umesh --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2025-02-16 21:24:51.172  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Starting RegLoginDaoImplTest using Java 21.0.2 with PID 18160 (started by umesh in C:\Users\umesh\VS code\internship\InternshipManagement)
+2025-02-16 21:24:51.172 DEBUG Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-02-16 21:24:51.172  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : The following 1 profile is active: "test"
+2025-02-16 21:24:51.963  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-16 21:24:51.994  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 JPA repository interfaces.
+2025-02-16 21:24:52.438  INFO Umesh --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-02-16 21:24:52.776  INFO Umesh --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-16 21:24:52.854  INFO Umesh --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.2.Final
+2025-02-16 21:24:52.909  INFO Umesh --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2025-02-16 21:24:53.228  INFO Umesh --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-16 21:24:53.291  WARN Umesh --- [           main] o.h.o.deprecation                        : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-16 21:24:54.211  INFO Umesh --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-16 21:24:54.211  INFO Umesh --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:24:54.574  WARN Umesh --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-16 21:24:55.026  INFO Umesh --- [           main] o.s.b.a.h.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console '. Database available at 'jdbc:h2:mem:testdb'
+2025-02-16 21:24:55.231  INFO Umesh --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1ec96512, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3d00c2ae, org.springframework.security.web.context.SecurityContextHolderFilter@73a5cc47, org.springframework.security.web.header.HeaderWriterFilter@3d5b2c1e, org.springframework.web.filter.CorsFilter@665574fb, org.springframework.security.web.csrf.CsrfFilter@58f8ce0f, org.springframework.security.web.authentication.logout.LogoutFilter@60147536, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@63bb719d, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@31d09031, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3eb7ff78, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@5b5f06bb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@50ac63b2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1545ef47, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6b83ec49, org.springframework.security.web.access.ExceptionTranslationFilter@20a434a8, org.springframework.security.web.access.intercept.AuthorizationFilter@3a3375d8]
+2025-02-16 21:24:55.278  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Started RegLoginDaoImplTest in 4.372 seconds (process running for 5.912)
+2025-02-16 21:24:55.865  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:24:55.896 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:24:55.912  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: testuser
+2025-02-16 21:24:56.295 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:24:56.311 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    update
+        login 
+    set
+        FLAG=?,
+        PWD=?,
+        STUDENT_ID=?,
+        USER_TYPE=?,
+        USERNAME=? 
+    where
+        LOGIN_ID=?
+2025-02-16 21:24:56.358  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:24:56.380 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:24:56.402  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:24:56.418 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:24:56.419  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:24:56.419 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:24:56.419  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:24:56.419 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:24:56.419  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:24:56.419 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:24:56.435  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: nonexistent
+2025-02-16 21:24:56.435 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:24:56.435  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:24:56.435  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: nonexistent
+2025-02-16 21:24:56.435 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:24:56.451  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:24:56.465  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.SkillDaoImplTest
+2025-02-16 21:24:56.474  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:24:56.475 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:24:56.476  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:24:56.476  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:24:56.502 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:24:56.502  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:24:56.519  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:24:56.534 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:24:56.535  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:24:56.535  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:24:56.535 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:24:56.535  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:24:56.552  INFO Umesh --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:24:56.552  INFO Umesh --- [ionShutdownHook] o.s.j.d.e.EmbeddedDatabaseFactory        : Shutting down embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false'
+2025-02-16 21:40:04.606  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest
+2025-02-16 21:40:05.386  INFO Umesh --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2025-02-16 21:40:05.453  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Starting RegLoginDaoImplTest using Java 21.0.2 with PID 18896 (started by umesh in C:\Users\umesh\VS code\internship\InternshipManagement)
+2025-02-16 21:40:05.462 DEBUG Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-02-16 21:40:05.463  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : The following 1 profile is active: "test"
+2025-02-16 21:40:06.917  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-16 21:40:06.972  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 0 JPA repository interfaces.
+2025-02-16 21:40:07.688  INFO Umesh --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-02-16 21:40:08.229  INFO Umesh --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-16 21:40:08.377  INFO Umesh --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.2.Final
+2025-02-16 21:40:08.456  INFO Umesh --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2025-02-16 21:40:09.091  INFO Umesh --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-16 21:40:09.175  WARN Umesh --- [           main] o.h.o.deprecation                        : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-16 21:40:10.837  INFO Umesh --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-16 21:40:10.853  INFO Umesh --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:40:11.520  WARN Umesh --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-16 21:40:12.350  INFO Umesh --- [           main] o.s.b.a.h.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console '. Database available at 'jdbc:h2:mem:testdb'
+2025-02-16 21:40:12.668  INFO Umesh --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@770be0d0, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c54d0dc, org.springframework.security.web.context.SecurityContextHolderFilter@20a434a8, org.springframework.security.web.header.HeaderWriterFilter@7040d71, org.springframework.web.filter.CorsFilter@5b5f06bb, org.springframework.security.web.csrf.CsrfFilter@26c494d7, org.springframework.security.web.authentication.logout.LogoutFilter@732ae29c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@77d7d2d0, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@1545ef47, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7c74ef4a, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@39d44217, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3d5b2c1e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@137a9d69, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@54519d74, org.springframework.security.web.access.ExceptionTranslationFilter@650d5a3d, org.springframework.security.web.access.intercept.AuthorizationFilter@3b32f0b4]
+2025-02-16 21:40:12.779  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Started RegLoginDaoImplTest in 7.882 seconds (process running for 10.862)
+2025-02-16 21:40:13.781  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:40:13.821 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:40:13.871  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: testuser
+2025-02-16 21:40:14.656 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:40:14.681 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    update
+        login 
+    set
+        FLAG=?,
+        PWD=?,
+        STUDENT_ID=?,
+        USER_TYPE=?,
+        USERNAME=? 
+    where
+        LOGIN_ID=?
+2025-02-16 21:40:14.766  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:40:14.794 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:40:14.861  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:40:14.862 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:40:14.863  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:40:14.868 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:40:14.876  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:40:14.877 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:40:14.879  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:40:14.880 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:40:14.889  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: nonexistent
+2025-02-16 21:40:14.891 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:40:14.893  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:40:14.901  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: nonexistent
+2025-02-16 21:40:14.902 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:40:14.903  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:40:14.925  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.SkillDaoImplTest
+2025-02-16 21:40:14.934  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:40:14.935 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:40:14.936  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:40:14.936  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:40:14.977 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:40:14.984  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:40:15.004  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:40:15.005 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:40:15.007  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:40:15.008  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:40:15.009 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:40:15.011  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:40:15.065  INFO Umesh --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:40:15.067  INFO Umesh --- [ionShutdownHook] o.s.j.d.e.EmbeddedDatabaseFactory        : Shutting down embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false'
+2025-02-16 21:47:17.064  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest
+2025-02-16 21:47:17.818  INFO Umesh --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2025-02-16 21:47:17.889  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Starting RegLoginDaoImplTest using Java 21.0.2 with PID 14056 (started by umesh in C:\Users\umesh\VS code\internship\InternshipManagement)
+2025-02-16 21:47:17.898 DEBUG Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-02-16 21:47:17.899  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : The following 1 profile is active: "test"
+2025-02-16 21:47:19.482  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-16 21:47:19.652  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 127 ms. Found 0 JPA repository interfaces.
+2025-02-16 21:47:20.405  INFO Umesh --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-02-16 21:47:20.919  INFO Umesh --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-16 21:47:21.061  INFO Umesh --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.2.Final
+2025-02-16 21:47:21.135  INFO Umesh --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2025-02-16 21:47:21.668  INFO Umesh --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-16 21:47:21.740  WARN Umesh --- [           main] o.h.o.deprecation                        : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-16 21:47:23.436  INFO Umesh --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-16 21:47:23.443  INFO Umesh --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:47:24.637  WARN Umesh --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-16 21:47:25.516  INFO Umesh --- [           main] o.s.b.a.h.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console '. Database available at 'jdbc:h2:mem:testdb'
+2025-02-16 21:47:25.892  INFO Umesh --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1ec96512, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3d00c2ae, org.springframework.security.web.context.SecurityContextHolderFilter@73a5cc47, org.springframework.security.web.header.HeaderWriterFilter@3d5b2c1e, org.springframework.web.filter.CorsFilter@665574fb, org.springframework.security.web.csrf.CsrfFilter@58f8ce0f, org.springframework.security.web.authentication.logout.LogoutFilter@60147536, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@63bb719d, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@31d09031, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3eb7ff78, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@5b5f06bb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@50ac63b2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1545ef47, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6b83ec49, org.springframework.security.web.access.ExceptionTranslationFilter@20a434a8, org.springframework.security.web.access.intercept.AuthorizationFilter@3a3375d8]
+2025-02-16 21:47:26.036  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Started RegLoginDaoImplTest in 8.648 seconds (process running for 11.599)
+2025-02-16 21:47:26.937  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:47:26.974 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:47:27.012  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: testuser
+2025-02-16 21:47:27.761 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:47:27.782 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    update
+        login 
+    set
+        FLAG=?,
+        PWD=?,
+        STUDENT_ID=?,
+        USER_TYPE=?,
+        USERNAME=? 
+    where
+        LOGIN_ID=?
+2025-02-16 21:47:27.860  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:47:27.883 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:47:27.959  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:47:27.960 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:47:27.962  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:47:27.964 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:47:27.973  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:47:27.974 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:47:27.976  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:47:27.977 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:47:27.984  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: nonexistent
+2025-02-16 21:47:27.984 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:47:27.986  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:47:27.992  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: nonexistent
+2025-02-16 21:47:27.993 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:47:27.995  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:47:28.011  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.SkillDaoImplTest
+2025-02-16 21:47:28.019  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:47:28.020 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:47:28.021  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:47:28.022  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:47:28.061 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:47:28.071  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:47:28.101  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:47:28.102 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:47:28.105  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:47:28.105  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:47:28.107 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:47:28.108  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:47:28.164  INFO Umesh --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:47:28.166  INFO Umesh --- [ionShutdownHook] o.s.j.d.e.EmbeddedDatabaseFactory        : Shutting down embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false'
+2025-02-16 21:52:05.816  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest
+2025-02-16 21:52:07.196  INFO Umesh --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2025-02-16 21:52:07.423  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Starting RegLoginDaoImplTest using Java 21.0.2 with PID 9336 (started by umesh in C:\Users\umesh\VS code\internship\InternshipManagement)
+2025-02-16 21:52:07.450 DEBUG Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-02-16 21:52:07.454  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : The following 1 profile is active: "test"
+2025-02-16 21:52:08.809  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-16 21:52:08.996  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 130 ms. Found 0 JPA repository interfaces.
+2025-02-16 21:52:10.181  INFO Umesh --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-02-16 21:52:10.955  INFO Umesh --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-16 21:52:11.110  INFO Umesh --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.2.Final
+2025-02-16 21:52:11.189  INFO Umesh --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2025-02-16 21:52:11.851  INFO Umesh --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-16 21:52:11.952  WARN Umesh --- [           main] o.h.o.deprecation                        : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-16 21:52:14.688  INFO Umesh --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-16 21:52:14.697  INFO Umesh --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:52:15.397  WARN Umesh --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-16 21:52:16.189  INFO Umesh --- [           main] o.s.b.a.h.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console '. Database available at 'jdbc:h2:mem:testdb'
+2025-02-16 21:52:16.550  INFO Umesh --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1c4ea118, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7d821bd9, org.springframework.security.web.context.SecurityContextHolderFilter@77b7a383, org.springframework.security.web.header.HeaderWriterFilter@3a1ecfdb, org.springframework.web.filter.CorsFilter@70d7be53, org.springframework.security.web.csrf.CsrfFilter@55f2111b, org.springframework.security.web.authentication.logout.LogoutFilter@13bd8fee, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@263a5cf2, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@76b7ce27, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7fdf3d7e, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@1a8f644c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@11476fd1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@14b26bc2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@167005fc, org.springframework.security.web.access.ExceptionTranslationFilter@832c75f, org.springframework.security.web.access.intercept.AuthorizationFilter@31388a92]
+2025-02-16 21:52:16.632  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Started RegLoginDaoImplTest in 10.415 seconds (process running for 14.971)
+2025-02-16 21:52:17.890  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:52:17.954 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:52:18.014  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: testuser
+2025-02-16 21:52:18.798 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:52:18.830 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    update
+        login 
+    set
+        FLAG=?,
+        PWD=?,
+        STUDENT_ID=?,
+        USER_TYPE=?,
+        USERNAME=? 
+    where
+        LOGIN_ID=?
+2025-02-16 21:52:19.001  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:52:19.027 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:52:19.084  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:52:19.085 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:52:19.090  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:52:19.093 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:52:19.104  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:52:19.105 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:52:19.109  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:52:19.110 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:52:19.122  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: nonexistent
+2025-02-16 21:52:19.123 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:52:19.126  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:52:19.139  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: nonexistent
+2025-02-16 21:52:19.141 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:52:19.145  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:52:19.167  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.SkillDaoImplTest
+2025-02-16 21:52:19.180  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:52:19.181 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:52:19.183  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:52:19.184  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:52:19.206 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:52:19.212  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:52:19.247  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:52:19.249 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:52:19.252  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:52:19.252  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:52:19.255 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:52:19.257  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:52:19.598  INFO Umesh --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:52:19.600  INFO Umesh --- [ionShutdownHook] o.s.j.d.e.EmbeddedDatabaseFactory        : Shutting down embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false'
+2025-02-16 21:57:47.794  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest
+2025-02-16 21:57:48.642  INFO Umesh --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2025-02-16 21:57:48.695  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Starting RegLoginDaoImplTest using Java 21.0.2 with PID 19736 (started by umesh in C:\Users\umesh\VS code\internship\InternshipManagement)
+2025-02-16 21:57:48.700 DEBUG Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-02-16 21:57:48.700  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : The following 1 profile is active: "test"
+2025-02-16 21:57:50.088  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-16 21:57:50.240  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 104 ms. Found 0 JPA repository interfaces.
+2025-02-16 21:57:51.288  INFO Umesh --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-02-16 21:57:52.121  INFO Umesh --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-16 21:57:52.296  INFO Umesh --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.2.Final
+2025-02-16 21:57:52.387  INFO Umesh --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2025-02-16 21:57:53.109  INFO Umesh --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-16 21:57:53.244  WARN Umesh --- [           main] o.h.o.deprecation                        : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-16 21:57:56.078  INFO Umesh --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-16 21:57:56.083  INFO Umesh --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:57:56.806  WARN Umesh --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-16 21:57:58.317  INFO Umesh --- [           main] o.s.b.a.h.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console '. Database available at 'jdbc:h2:mem:testdb'
+2025-02-16 21:57:59.039  INFO Umesh --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5e59888e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3fb6d686, org.springframework.security.web.context.SecurityContextHolderFilter@43128ab8, org.springframework.security.web.header.HeaderWriterFilter@68661b94, org.springframework.web.filter.CorsFilter@37f2f6b8, org.springframework.security.web.csrf.CsrfFilter@51326836, org.springframework.security.web.authentication.logout.LogoutFilter@2cc753a0, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1c4ea118, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7e6f4961, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@58ff0c7b, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@51561b18, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31288ffc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1d9d6273, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4a70e212, org.springframework.security.web.access.ExceptionTranslationFilter@10c75f1e, org.springframework.security.web.access.intercept.AuthorizationFilter@1892f2ad]
+2025-02-16 21:57:59.141  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Started RegLoginDaoImplTest in 10.967 seconds (process running for 15.202)
+2025-02-16 21:58:00.281  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:58:00.316 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:58:00.383  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: testuser
+2025-02-16 21:58:01.287 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:58:01.327 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    update
+        login 
+    set
+        FLAG=?,
+        PWD=?,
+        STUDENT_ID=?,
+        USER_TYPE=?,
+        USERNAME=? 
+    where
+        LOGIN_ID=?
+2025-02-16 21:58:01.496  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:58:01.538 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:58:01.615  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:58:01.616 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:58:01.618  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:58:01.621 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:58:01.630  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 21:58:01.631 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 21:58:01.635  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 21:58:01.636 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:58:01.647  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: nonexistent
+2025-02-16 21:58:01.648 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 21:58:01.652  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:58:01.661  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: nonexistent
+2025-02-16 21:58:01.661 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 21:58:01.664  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 21:58:01.689  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.SkillDaoImplTest
+2025-02-16 21:58:01.698  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:58:01.698 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:58:01.703  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:58:01.704  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:58:01.729 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:58:01.737  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:58:01.788  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:58:01.789 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 21:58:01.791  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:58:01.792  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 21:58:01.793 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 21:58:01.794  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 21:58:02.131  INFO Umesh --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 21:58:02.132  INFO Umesh --- [ionShutdownHook] o.s.j.d.e.EmbeddedDatabaseFactory        : Shutting down embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false'
+2025-02-16 22:39:20.469  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest
+2025-02-16 22:39:21.546  INFO Umesh --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2025-02-16 22:39:21.611  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Starting RegLoginDaoImplTest using Java 21.0.2 with PID 5592 (started by umesh in C:\Users\umesh\VS code\internship\InternshipManagement)
+2025-02-16 22:39:21.617 DEBUG Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-02-16 22:39:21.618  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : The following 1 profile is active: "test"
+2025-02-16 22:39:22.877  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-16 22:39:22.938  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 0 JPA repository interfaces.
+2025-02-16 22:39:24.319  INFO Umesh --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-02-16 22:39:25.398  INFO Umesh --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-16 22:39:25.553  INFO Umesh --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.2.Final
+2025-02-16 22:39:25.630  INFO Umesh --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2025-02-16 22:39:26.341  INFO Umesh --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-16 22:39:26.463  WARN Umesh --- [           main] o.h.o.deprecation                        : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-16 22:39:28.763  INFO Umesh --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-16 22:39:28.767  INFO Umesh --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 22:39:29.461  WARN Umesh --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-16 22:39:30.782  INFO Umesh --- [           main] o.s.b.a.h.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console '. Database available at 'jdbc:h2:mem:testdb'
+2025-02-16 22:39:31.157  INFO Umesh --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@59acd373, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3c0790ed, org.springframework.security.web.context.SecurityContextHolderFilter@ab410ec, org.springframework.security.web.header.HeaderWriterFilter@4b71be02, org.springframework.web.filter.CorsFilter@334ec94d, org.springframework.security.web.csrf.CsrfFilter@585b81c1, org.springframework.security.web.authentication.logout.LogoutFilter@37f2f6b8, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@35754437, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7fdf3d7e, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3bf4390d, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3e3b6ead, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5076da27, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@65c03f1b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4fc424b, org.springframework.security.web.access.ExceptionTranslationFilter@7391fee4, org.springframework.security.web.access.intercept.AuthorizationFilter@6d82339e]
+2025-02-16 22:39:31.245  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Started RegLoginDaoImplTest in 10.366 seconds (process running for 14.554)
+2025-02-16 22:39:32.232  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 22:39:32.267 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 22:39:32.328  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: testuser
+2025-02-16 22:39:33.133 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 22:39:33.156 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    update
+        login 
+    set
+        FLAG=?,
+        PWD=?,
+        STUDENT_ID=?,
+        USER_TYPE=?,
+        USERNAME=? 
+    where
+        LOGIN_ID=?
+2025-02-16 22:39:33.278  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 22:39:33.303 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 22:39:33.354  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 22:39:33.355 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 22:39:33.358  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 22:39:33.361 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 22:39:33.372  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 22:39:33.373 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        login
+        (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
+    values
+        (?, ?, ?, ?, ?, default)
+2025-02-16 22:39:33.376  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 22:39:33.377 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 22:39:33.386  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: nonexistent
+2025-02-16 22:39:33.387 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=?
+2025-02-16 22:39:33.390  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 22:39:33.399  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: nonexistent
+2025-02-16 22:39:33.400 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        lb1_0.LOGIN_ID,
+        lb1_0.FLAG,
+        lb1_0.PWD,
+        lb1_0.STUDENT_ID,
+        lb1_0.USER_TYPE,
+        lb1_0.USERNAME 
+    from
+        login lb1_0 
+    where
+        lb1_0.USERNAME=? 
+        and lb1_0.PWD=?
+2025-02-16 22:39:33.403  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 22:39:33.423  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.SkillDaoImplTest
+2025-02-16 22:39:33.434  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 22:39:33.435 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 22:39:33.438  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 22:39:33.439  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 22:39:33.483 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 22:39:33.494  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 22:39:33.533  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 22:39:33.534 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    insert 
+    into
+        skill
+        (SKILL_NAME, SKILL_TYPE, SKILL_ID) 
+    values
+        (?, ?, default)
+2025-02-16 22:39:33.538  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 22:39:33.539  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : START
+2025-02-16 22:39:33.540 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    select
+        sb1_0.SKILL_ID,
+        sb1_0.SKILL_NAME,
+        sb1_0.SKILL_TYPE 
+    from
+        skill sb1_0
+2025-02-16 22:39:33.542  INFO Umesh --- [           main] c.u.i.d.i.SkillDaoImpl                   : END
+2025-02-16 22:39:33.555  INFO Umesh --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ca.uwindsor.ims.model.SkillBoTest]: SkillBoTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-02-16 22:39:33.595  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.model.SkillBoTest
+2025-02-16 22:39:33.637  INFO Umesh --- [           main] c.u.i.m.SkillBoTest                      : Starting SkillBoTest using Java 21.0.2 with PID 5592 (started by umesh in C:\Users\umesh\VS code\internship\InternshipManagement)
+2025-02-16 22:39:33.638 DEBUG Umesh --- [           main] c.u.i.m.SkillBoTest                      : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-02-16 22:39:33.638  INFO Umesh --- [           main] c.u.i.m.SkillBoTest                      : The following 1 profile is active: "test"
+2025-02-16 22:39:33.981  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-16 22:39:34.003  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2025-02-16 22:39:34.261  INFO Umesh --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-16 22:39:34.269  INFO Umesh --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2025-02-16 22:39:34.280  INFO Umesh --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-16 22:39:34.289  WARN Umesh --- [           main] o.h.o.deprecation                        : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-16 22:39:34.510  INFO Umesh --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-16 22:39:34.510  INFO Umesh --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 22:39:34.584  WARN Umesh --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-16 22:39:34.728  INFO Umesh --- [           main] o.s.b.a.h.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console '. Database available at 'jdbc:h2:mem:testdb'
+2025-02-16 22:39:34.767  INFO Umesh --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3bb7f2e8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@20a561f8, org.springframework.security.web.context.SecurityContextHolderFilter@6975f167, org.springframework.security.web.header.HeaderWriterFilter@70e75ffa, org.springframework.web.filter.CorsFilter@5bbdb22b, org.springframework.security.web.csrf.CsrfFilter@24314943, org.springframework.security.web.authentication.logout.LogoutFilter@732f3b2f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7e80bc63, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@74c40813, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f631d7d, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@747c06df, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@47a0d65b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3e1688a4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4b4786cb, org.springframework.security.web.access.ExceptionTranslationFilter@65039982, org.springframework.security.web.access.intercept.AuthorizationFilter@2da6d5eb]
+2025-02-16 22:39:34.794  INFO Umesh --- [           main] c.u.i.m.SkillBoTest                      : Started SkillBoTest in 1.193 seconds (process running for 18.103)
+2025-02-16 22:39:34.837  INFO Umesh --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ca.uwindsor.ims.model.StudentSkillBoTest]: StudentSkillBoTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-02-16 22:39:34.840  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.model.StudentSkillBoTest
+2025-02-16 22:39:35.195  INFO Umesh --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 22:39:35.198  INFO Umesh --- [ionShutdownHook] o.s.j.d.e.EmbeddedDatabaseFactory        : Shutting down embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false'
+2025-02-16 22:39:35.206  INFO Umesh --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'

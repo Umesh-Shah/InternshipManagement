@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="6.988" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="14.574" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CA"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21.0.2\bin"/>
-    <property name="sun.java.command" value="C:\Users\umesh\AppData\Local\Temp\surefire3776916969577795014\surefirebooter-20250216164522320_3.jar C:\Users\umesh\AppData\Local\Temp\surefire3776916969577795014 2025-02-16T16-45-22_198-jvmRun1 surefire-20250216164522320_1tmp surefire_0-20250216164522320_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\umesh\AppData\Local\Temp\surefire12221727889151496827\surefirebooter-20250216223916513_3.jar C:\Users\umesh\AppData\Local\Temp\surefire12221727889151496827 2025-02-16T22-39-16_342-jvmRun1 surefire-20250216223916513_1tmp surefire_0-20250216223916513_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\umesh\VS code\internship\InternshipManagement\target\test-classes;C:\Users\umesh\VS code\internship\InternshipManagement\target\classes;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.2.3\spring-boot-starter-web-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.2.3\spring-boot-starter-json-3.2.3.jar;C:\Users\umesh\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.15.4\jackson-datatype-jdk8-2.15.4.jar;C:\Users\umesh\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.15.4\jackson-datatype-jsr310-2.15.4.jar;C:\Users\umesh\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.15.4\jackson-module-parameter-names-2.15.4.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.2.3\spring-boot-starter-tomcat-3.2.3.jar;C:\Users\umesh\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.19\tomcat-embed-core-10.1.19.jar;C:\Users\umesh\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.19\tomcat-embed-websocket-10.1.19.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-web\6.1.4\spring-web-6.1.4.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-beans\6.1.4\spring-beans-6.1.4.jar;C:\Users\umesh\.m2\repository\io\micrometer\micrometer-observation\1.12.3\micrometer-observation-1.12.3.jar;C:\Users\umesh\.m2\repository\io\micrometer\micrometer-commons\1.12.3\micrometer-commons-1.12.3.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-webmvc\6.1.4\spring-webmvc-6.1.4.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-context\6.1.4\spring-context-6.1.4.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-expression\6.1.4\spring-expression-6.1.4.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.2.3\spring-boot-starter-data-jpa-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-aop\3.2.3\spring-boot-starter-aop-3.2.3.jar;C:\Users\umesh\.m2\repository\org\aspectj\aspectjweaver\1.9.21\aspectjweaver-1.9.21.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.2.3\spring-boot-starter-jdbc-3.2.3.jar;C:\Users\umesh\.m2\repository\com\zaxxer\HikariCP\5.0.1\HikariCP-5.0.1.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-jdbc\6.1.4\spring-jdbc-6.1.4.jar;C:\Users\umesh\.m2\repository\org\springframework\data\spring-data-jpa\3.2.3\spring-data-jpa-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\data\spring-data-commons\3.2.3\spring-data-commons-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-orm\6.1.4\spring-orm-6.1.4.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-tx\6.1.4\spring-tx-6.1.4.jar;C:\Users\umesh\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-aspects\6.1.4\spring-aspects-6.1.4.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.2.3\spring-boot-starter-validation-3.2.3.jar;C:\Users\umesh\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.19\tomcat-embed-el-10.1.19.jar;C:\Users\umesh\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.1.Final\hibernate-validator-8.0.1.Final.jar;C:\Users\umesh\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.2.3\spring-boot-starter-security-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-aop\6.1.4\spring-aop-6.1.4.jar;C:\Users\umesh\.m2\repository\org\springframework\security\spring-security-config\6.2.2\spring-security-config-6.2.2.jar;C:\Users\umesh\.m2\repository\org\springframework\security\spring-security-web\6.2.2\spring-security-web-6.2.2.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-mail\3.2.3\spring-boot-starter-mail-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-context-support\6.1.4\spring-context-support-6.1.4.jar;C:\Users\umesh\.m2\repository\org\eclipse\angus\jakarta.mail\2.0.2\jakarta.mail-2.0.2.jar;C:\Users\umesh\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.2\jakarta.activation-api-2.1.2.jar;C:\Users\umesh\.m2\repository\org\eclipse\angus\angus-activation\2.0.1\angus-activation-2.0.1.jar;C:\Users\umesh\.m2\repository\com\mysql\mysql-connector-j\8.3.0\mysql-connector-j-8.3.0.jar;C:\Users\umesh\.m2\repository\com\h2database\h2\2.2.224\h2-2.2.224.jar;C:\Users\umesh\.m2\repository\org\hibernate\orm\hibernate-core\6.4.2.Final\hibernate-core-6.4.2.Final.jar;C:\Users\umesh\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\umesh\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\umesh\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\umesh\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\umesh\.m2\repository\com\fasterxml\classmate\1.6.0\classmate-1.6.0.jar;C:\Users\umesh\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\umesh\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.1\jakarta.xml.bind-api-4.0.1.jar;C:\Users\umesh\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.4\jaxb-runtime-4.0.4.jar;C:\Users\umesh\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.4\jaxb-core-4.0.4.jar;C:\Users\umesh\.m2\repository\org\glassfish\jaxb\txw2\4.0.4\txw2-4.0.4.jar;C:\Users\umesh\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\umesh\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\umesh\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\umesh\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.3\spring-boot-starter-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot\3.2.3\spring-boot-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.3\spring-boot-autoconfigure-3.2.3.jar;C:\Users\umesh\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-core\6.1.4\spring-core-6.1.4.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-jcl\6.1.4\spring-jcl-6.1.4.jar;C:\Users\umesh\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-log4j2\3.2.3\spring-boot-starter-log4j2-3.2.3.jar;C:\Users\umesh\.m2\repository\org\apache\logging\log4j\log4j-slf4j2-impl\2.22.1\log4j-slf4j2-impl-2.22.1.jar;C:\Users\umesh\.m2\repository\org\apache\logging\log4j\log4j-api\2.22.1\log4j-api-2.22.1.jar;C:\Users\umesh\.m2\repository\org\apache\logging\log4j\log4j-core\2.22.1\log4j-core-2.22.1.jar;C:\Users\umesh\.m2\repository\org\apache\logging\log4j\log4j-jul\2.22.1\log4j-jul-2.22.1.jar;C:\Users\umesh\.m2\repository\net\sf\jasperreports\jasperreports\6.21.0\jasperreports-6.21.0.jar;C:\Users\umesh\.m2\repository\commons-beanutils\commons-beanutils\1.9.4\commons-beanutils-1.9.4.jar;C:\Users\umesh\.m2\repository\commons-collections\commons-collections\3.2.2\commons-collections-3.2.2.jar;C:\Users\umesh\.m2\repository\commons-digester\commons-digester\2.1\commons-digester-2.1.jar;C:\Users\umesh\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\umesh\.m2\repository\org\apache\commons\commons-collections4\4.2\commons-collections4-4.2.jar;C:\Users\umesh\.m2\repository\com\github\librepdf\openpdf\1.3.30.jaspersoft.3\openpdf-1.3.30.jaspersoft.3.jar;C:\Users\umesh\.m2\repository\org\jfree\jcommon\1.0.23\jcommon-1.0.23.jar;C:\Users\umesh\.m2\repository\org\jfree\jfreechart\1.0.19\jfreechart-1.0.19.jar;C:\Users\umesh\.m2\repository\org\eclipse\jdt\ecj\3.21.0\ecj-3.21.0.jar;C:\Users\umesh\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.4\jackson-core-2.15.4.jar;C:\Users\umesh\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.15.4\jackson-databind-2.15.4.jar;C:\Users\umesh\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.15.4\jackson-annotations-2.15.4.jar;C:\Users\umesh\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-xml\2.15.4\jackson-dataformat-xml-2.15.4.jar;C:\Users\umesh\.m2\repository\org\codehaus\woodstox\stax2-api\4.2.1\stax2-api-4.2.1.jar;C:\Users\umesh\.m2\repository\com\fasterxml\woodstox\woodstox-core\6.5.1\woodstox-core-6.5.1.jar;C:\Users\umesh\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.2.3\spring-boot-starter-test-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-test\3.2.3\spring-boot-test-3.2.3.jar;C:\Users\umesh\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.2.3\spring-boot-test-autoconfigure-3.2.3.jar;C:\Users\umesh\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\umesh\.m2\repository\net\minidev\json-smart\2.5.0\json-smart-2.5.0.jar;C:\Users\umesh\.m2\repository\net\minidev\accessors-smart\2.5.0\accessors-smart-2.5.0.jar;C:\Users\umesh\.m2\repository\org\ow2\asm\asm\9.3\asm-9.3.jar;C:\Users\umesh\.m2\repository\org\awaitility\awaitility\4.2.0\awaitility-4.2.0.jar;C:\Users\umesh\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\umesh\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\umesh\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\umesh\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\umesh\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\umesh\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\umesh\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\umesh\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\umesh\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\umesh\.m2\repository\org\mockito\mockito-core\5.7.0\mockito-core-5.7.0.jar;C:\Users\umesh\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\umesh\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\umesh\.m2\repository\org\mockito\mockito-junit-jupiter\5.7.0\mockito-junit-jupiter-5.7.0.jar;C:\Users\umesh\.m2\repository\org\skyscreamer\jsonassert\1.5.1\jsonassert-1.5.1.jar;C:\Users\umesh\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\umesh\.m2\repository\org\springframework\spring-test\6.1.4\spring-test-6.1.4.jar;C:\Users\umesh\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;C:\Users\umesh\.m2\repository\org\springframework\security\spring-security-test\6.2.2\spring-security-test-6.2.2.jar;C:\Users\umesh\.m2\repository\org\springframework\security\spring-security-core\6.2.2\spring-security-core-6.2.2.jar;C:\Users\umesh\.m2\repository\org\springframework\security\spring-security-crypto\6.2.2\spring-security-crypto-6.2.2.jar;C:\Users\umesh\.m2\repository\org\assertj\assertj-core\3.25.3\assertj-core-3.25.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,7 +32,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="FILE_LOG_CHARSET" value="UTF-8"/>
     <property name="java.awt.headless" value="true"/>
-    <property name="surefire.real.class.path" value="C:\Users\umesh\AppData\Local\Temp\surefire3776916969577795014\surefirebooter-20250216164522320_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\umesh\AppData\Local\Temp\surefire12221727889151496827\surefirebooter-20250216223916513_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.2+13-58"/>
@@ -50,7 +50,7 @@
     <property name="user.dir" value="C:\Users\umesh\VS code\internship\InternshipManagement"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="PID" value="420"/>
+    <property name="PID" value="5592"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
     <property name="native.encoding" value="Cp1252"/>
@@ -62,8 +62,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="updatePassword_WithValidUser_ShouldSucceed" classname="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="1.319">
-    <system-out><![CDATA[2025-02-16 16:45:23.881  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest
+  <testcase name="updatePassword_WithValidUser_ShouldSucceed" classname="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="2.055">
+    <system-out><![CDATA[2025-02-16 22:39:20.469  INFO Umesh --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ca.uwindsor.ims.InternshipManagementApplication for test class ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -73,26 +73,26 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.3)
 
-2025-02-16 16:45:24.297  INFO Umesh --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
-2025-02-16 16:45:24.327  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Starting RegLoginDaoImplTest using Java 21.0.2 with PID 420 (started by umesh in C:\Users\umesh\VS code\internship\InternshipManagement)
-2025-02-16 16:45:24.327 DEBUG Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Running with Spring Boot v3.2.3, Spring v6.1.4
-2025-02-16 16:45:24.327  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : The following 1 profile is active: "test"
-2025-02-16 16:45:25.135  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-02-16 16:45:25.166  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 JPA repository interfaces.
-2025-02-16 16:45:25.595  INFO Umesh --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
-2025-02-16 16:45:25.941  INFO Umesh --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-02-16 16:45:26.015  INFO Umesh --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.2.Final
-2025-02-16 16:45:26.053  INFO Umesh --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
-2025-02-16 16:45:26.366  INFO Umesh --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-02-16 16:45:26.432  WARN Umesh --- [           main] o.h.o.deprecation                        : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-02-16 16:45:27.399  INFO Umesh --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-02-16 16:45:27.399  INFO Umesh --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-02-16 16:45:27.768  WARN Umesh --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-02-16 16:45:28.383  INFO Umesh --- [           main] o.s.b.a.h.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console '. Database available at 'jdbc:h2:mem:testdb'
-2025-02-16 16:45:28.618  INFO Umesh --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7c74ef4a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@54519d74, org.springframework.security.web.context.SecurityContextHolderFilter@137a9d69, org.springframework.security.web.header.HeaderWriterFilter@20a434a8, org.springframework.web.filter.CorsFilter@1ec96512, org.springframework.security.web.csrf.CsrfFilter@2e549515, org.springframework.security.web.authentication.logout.LogoutFilter@3e7940b3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@73bb782d, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@3dceec83, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3d00c2ae, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@770be0d0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@73a5cc47, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@17fa25f1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@665574fb, org.springframework.security.web.access.ExceptionTranslationFilter@2553fbd0, org.springframework.security.web.access.intercept.AuthorizationFilter@5fa0943d]
-2025-02-16 16:45:28.667  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Started RegLoginDaoImplTest in 4.633 seconds (process running for 6.236)
-2025-02-16 16:45:29.380  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
-2025-02-16 16:45:29.411 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+2025-02-16 22:39:21.546  INFO Umesh --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2025-02-16 22:39:21.611  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Starting RegLoginDaoImplTest using Java 21.0.2 with PID 5592 (started by umesh in C:\Users\umesh\VS code\internship\InternshipManagement)
+2025-02-16 22:39:21.617 DEBUG Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-02-16 22:39:21.618  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : The following 1 profile is active: "test"
+2025-02-16 22:39:22.877  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-16 22:39:22.938  INFO Umesh --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 0 JPA repository interfaces.
+2025-02-16 22:39:24.319  INFO Umesh --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-02-16 22:39:25.398  INFO Umesh --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-16 22:39:25.553  INFO Umesh --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.2.Final
+2025-02-16 22:39:25.630  INFO Umesh --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2025-02-16 22:39:26.341  INFO Umesh --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-16 22:39:26.463  WARN Umesh --- [           main] o.h.o.deprecation                        : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-16 22:39:28.763  INFO Umesh --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-16 22:39:28.767  INFO Umesh --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-16 22:39:29.461  WARN Umesh --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-16 22:39:30.782  INFO Umesh --- [           main] o.s.b.a.h.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console '. Database available at 'jdbc:h2:mem:testdb'
+2025-02-16 22:39:31.157  INFO Umesh --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@59acd373, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3c0790ed, org.springframework.security.web.context.SecurityContextHolderFilter@ab410ec, org.springframework.security.web.header.HeaderWriterFilter@4b71be02, org.springframework.web.filter.CorsFilter@334ec94d, org.springframework.security.web.csrf.CsrfFilter@585b81c1, org.springframework.security.web.authentication.logout.LogoutFilter@37f2f6b8, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@35754437, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7fdf3d7e, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3bf4390d, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3e3b6ead, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5076da27, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@65c03f1b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4fc424b, org.springframework.security.web.access.ExceptionTranslationFilter@7391fee4, org.springframework.security.web.access.intercept.AuthorizationFilter@6d82339e]
+2025-02-16 22:39:31.245  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImplTest            : Started RegLoginDaoImplTest in 10.366 seconds (process running for 14.554)
+2025-02-16 22:39:32.232  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 22:39:32.267 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     insert 
     into
         login
@@ -106,8 +106,8 @@ Hibernate:
         (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
     values
         (?, ?, ?, ?, ?, default)
-2025-02-16 16:45:29.442  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: testuser
-2025-02-16 16:45:29.880 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+2025-02-16 22:39:32.328  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: testuser
+2025-02-16 22:39:33.133 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     select
         lb1_0.LOGIN_ID,
         lb1_0.FLAG,
@@ -131,7 +131,7 @@ Hibernate:
         login lb1_0 
     where
         lb1_0.USERNAME=?
-2025-02-16 16:45:29.896 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+2025-02-16 22:39:33.156 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     update
         login 
     set
@@ -153,8 +153,8 @@ Hibernate:
         USERNAME=? 
     where
         LOGIN_ID=?
-2025-02-16 16:45:29.958  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
-2025-02-16 16:45:29.958 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+2025-02-16 22:39:33.278  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 22:39:33.303 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     select
         lb1_0.LOGIN_ID,
         lb1_0.FLAG,
@@ -187,9 +187,9 @@ WARNING: If a serviceability tool is not in use, please run with -Djdk.instrumen
 WARNING: Dynamic loading of agents will be disallowed by default in a future release
 ]]></system-err>
   </testcase>
-  <testcase name="registerUser_ShouldSaveUserSuccessfully" classname="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="0.01">
-    <system-out><![CDATA[2025-02-16 16:45:30.007  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
-2025-02-16 16:45:30.008 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+  <testcase name="registerUser_ShouldSaveUserSuccessfully" classname="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="0.017">
+    <system-out><![CDATA[2025-02-16 22:39:33.354  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 22:39:33.355 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     insert 
     into
         login
@@ -203,8 +203,8 @@ Hibernate:
         (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
     values
         (?, ?, ?, ?, ?, default)
-2025-02-16 16:45:30.010  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
-2025-02-16 16:45:30.011 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+2025-02-16 22:39:33.358  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 22:39:33.361 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     select
         lb1_0.LOGIN_ID,
         lb1_0.FLAG,
@@ -232,9 +232,9 @@ Hibernate:
         and lb1_0.PWD=?
 ]]></system-out>
   </testcase>
-  <testcase name="validateLogin_WithValidCredentials_ShouldReturnUser" classname="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="0.01">
-    <system-out><![CDATA[2025-02-16 16:45:30.019  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
-2025-02-16 16:45:30.019 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+  <testcase name="validateLogin_WithValidCredentials_ShouldReturnUser" classname="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="0.014">
+    <system-out><![CDATA[2025-02-16 22:39:33.372  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Registering new user: testuser
+2025-02-16 22:39:33.373 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     insert 
     into
         login
@@ -248,8 +248,8 @@ Hibernate:
         (FLAG, PWD, STUDENT_ID, USER_TYPE, USERNAME, LOGIN_ID) 
     values
         (?, ?, ?, ?, ?, default)
-2025-02-16 16:45:30.021  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
-2025-02-16 16:45:30.022 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+2025-02-16 22:39:33.376  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: testuser
+2025-02-16 22:39:33.377 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     select
         lb1_0.LOGIN_ID,
         lb1_0.FLAG,
@@ -278,8 +278,8 @@ Hibernate:
 ]]></system-out>
   </testcase>
   <testcase name="updatePassword_WithNonexistentUser_ShouldReturnFalse" classname="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="0.011">
-    <system-out><![CDATA[2025-02-16 16:45:30.024  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: nonexistent
-2025-02-16 16:45:30.024 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+    <system-out><![CDATA[2025-02-16 22:39:33.386  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Updating password for user: nonexistent
+2025-02-16 22:39:33.387 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     select
         lb1_0.LOGIN_ID,
         lb1_0.FLAG,
@@ -303,12 +303,12 @@ Hibernate:
         login lb1_0 
     where
         lb1_0.USERNAME=?
-2025-02-16 16:45:30.032  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 22:39:33.390  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
 ]]></system-out>
   </testcase>
-  <testcase name="validateLogin_WithInvalidCredentials_ShouldReturnNull" classname="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="0.001">
-    <system-out><![CDATA[2025-02-16 16:45:30.037  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: nonexistent
-2025-02-16 16:45:30.037 DEBUG Umesh --- [           main] o.h.SQL                                  : 
+  <testcase name="validateLogin_WithInvalidCredentials_ShouldReturnNull" classname="ca.uwindsor.ims.dao.impl.RegLoginDaoImplTest" time="0.012">
+    <system-out><![CDATA[2025-02-16 22:39:33.399  INFO Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : Validating login for user: nonexistent
+2025-02-16 22:39:33.400 DEBUG Umesh --- [           main] o.h.SQL                                  : 
     select
         lb1_0.LOGIN_ID,
         lb1_0.FLAG,
@@ -334,7 +334,7 @@ Hibernate:
     where
         lb1_0.USERNAME=? 
         and lb1_0.PWD=?
-2025-02-16 16:45:30.037  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
+2025-02-16 22:39:33.403  WARN Umesh --- [           main] c.u.i.d.i.RegLoginDaoImpl                : No user found with username: nonexistent
 ]]></system-out>
   </testcase>
 </testsuite>

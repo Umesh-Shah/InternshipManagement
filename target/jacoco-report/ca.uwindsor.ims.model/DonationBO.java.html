@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DonationBO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Internship Management System</a> &gt; <a href="index.source.html" class="el_package">ca.uwindsor.ims.model</a> &gt; <span class="el_source">DonationBO.java</span></div><h1>DonationBO.java</h1><pre class="source lang-java linenums">package ca.uwindsor.ims.model;
+
+<span class="nc" id="L3">public class DonationBO {</span>
+	
+	private String donor_id, donor_name, donation_purpose, donation_amount, country, mobile_number, email,upd_dt ,
+	upd_usr ,
+	crt_dt ,
+	crt_usr,status;
+	private String receipt_no,receipt_dt,pay_mode,std_code,remarks,address;
+	
+	
+
+	public String getAddress() {
+<span class="nc" id="L14">		return address;</span>
+	}
+
+	public void setAddress(String address) {
+<span class="nc" id="L18">		this.address = address;</span>
+<span class="nc" id="L19">	}</span>
+
+	public String getRemarks() {
+<span class="nc" id="L22">		return remarks;</span>
+	}
+
+	public void setRemarks(String remarks) {
+<span class="nc" id="L26">		this.remarks = remarks;</span>
+<span class="nc" id="L27">	}</span>
+
+	public String getReceipt_no() {
+<span class="nc" id="L30">		return receipt_no;</span>
+	}
+
+	public void setReceipt_no(String receipt_no) {
+<span class="nc" id="L34">		this.receipt_no = receipt_no;</span>
+<span class="nc" id="L35">	}</span>
+
+	public String getReceipt_dt() {
+<span class="nc" id="L38">		return receipt_dt;</span>
+	}
+
+	public void setReceipt_dt(String receipt_dt) {
+<span class="nc" id="L42">		this.receipt_dt = receipt_dt;</span>
+<span class="nc" id="L43">	}</span>
+
+	public String getPay_mode() {
+<span class="nc" id="L46">		return pay_mode;</span>
+	}
+
+	public void setPay_mode(String pay_mode) {
+<span class="nc" id="L50">		this.pay_mode = pay_mode;</span>
+<span class="nc" id="L51">	}</span>
+
+	public String getStd_code() {
+<span class="nc" id="L54">		return std_code;</span>
+	}
+
+	public void setStd_code(String std_code) {
+<span class="nc" id="L58">		this.std_code = std_code;</span>
+<span class="nc" id="L59">	}</span>
+
+	public String getDonor_id() {
+<span class="nc" id="L62">		return donor_id;</span>
+	}
+
+	public void setDonor_id(String donor_id) {
+<span class="nc" id="L66">		this.donor_id = donor_id;</span>
+<span class="nc" id="L67">	}</span>
+
+	public String getDonor_name() {
+<span class="nc" id="L70">		return donor_name;</span>
+	}
+
+	public void setDonor_name(String donor_name) {
+<span class="nc" id="L74">		this.donor_name = donor_name;</span>
+<span class="nc" id="L75">	}</span>
+
+	public String getDonation_purpose() {
+<span class="nc" id="L78">		return donation_purpose;</span>
+	}
+
+	public void setDonation_purpose(String donation_purpose) {
+<span class="nc" id="L82">		this.donation_purpose = donation_purpose;</span>
+<span class="nc" id="L83">	}</span>
+
+	public String getDonation_amount() {
+<span class="nc" id="L86">		return donation_amount;</span>
+	}
+
+	public void setDonation_amount(String donation_amount) {
+<span class="nc" id="L90">		this.donation_amount = donation_amount;</span>
+<span class="nc" id="L91">	}</span>
+
+	public String getCountry() {
+<span class="nc" id="L94">		return country;</span>
+	}
+
+	public void setCountry(String country) {
+<span class="nc" id="L98">		this.country = country;</span>
+<span class="nc" id="L99">	}</span>
+
+	public String getMobile_number() {
+<span class="nc" id="L102">		return mobile_number;</span>
+	}
+
+	public void setMobile_number(String mobile_number) {
+<span class="nc" id="L106">		this.mobile_number = mobile_number;</span>
+<span class="nc" id="L107">	}</span>
+
+	public String getEmail() {
+<span class="nc" id="L110">		return email;</span>
+	}
+
+	public void setEmail(String email) {
+<span class="nc" id="L114">		this.email = email;</span>
+<span class="nc" id="L115">	}</span>
+
+	public String getUpd_dt() {
+<span class="nc" id="L118">		return upd_dt;</span>
+	}
+
+	public void setUpd_dt(String upd_dt) {
+<span class="nc" id="L122">		this.upd_dt = upd_dt;</span>
+<span class="nc" id="L123">	}</span>
+
+	public String getUpd_usr() {
+<span class="nc" id="L126">		return upd_usr;</span>
+	}
+
+	public void setUpd_usr(String upd_usr) {
+<span class="nc" id="L130">		this.upd_usr = upd_usr;</span>
+<span class="nc" id="L131">	}</span>
+
+	public String getCrt_dt() {
+<span class="nc" id="L134">		return crt_dt;</span>
+	}
+
+	public void setCrt_dt(String crt_dt) {
+<span class="nc" id="L138">		this.crt_dt = crt_dt;</span>
+<span class="nc" id="L139">	}</span>
+
+	public String getCrt_usr() {
+<span class="nc" id="L142">		return crt_usr;</span>
+	}
+
+	public void setCrt_usr(String crt_usr) {
+<span class="nc" id="L146">		this.crt_usr = crt_usr;</span>
+<span class="nc" id="L147">	}</span>
+
+	public String getStatus() {
+<span class="nc" id="L150">		return status;</span>
+	}
+
+	public void setStatus(String status) {
+<span class="nc" id="L154">		this.status = status;</span>
+<span class="nc" id="L155">	}</span>
+	
+	
+	
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

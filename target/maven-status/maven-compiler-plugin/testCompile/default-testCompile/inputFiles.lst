@@ -2,4 +2,6 @@ C:\Users\umesh\VS code\internship\InternshipManagement\src\test\java\ca\uwindsor
 C:\Users\umesh\VS code\internship\InternshipManagement\src\test\java\ca\uwindsor\ims\dao\impl\RegLoginDaoImplTest.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\test\java\ca\uwindsor\ims\dao\impl\SkillDaoImplTest.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\test\java\ca\uwindsor\ims\exception\DatabaseException.java
-C:\Users\umesh\VS code\internship\InternshipManagement\src\test\java\ca\uwindsor\ims\test\BaseTest.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\test\java\ca\uwindsor\ims\model\BaseTest.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\test\java\ca\uwindsor\ims\model\SkillBoTest.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\test\java\ca\uwindsor\ims\model\StudentSkillBoTest.java
