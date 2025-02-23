@@ -1,18 +1,14 @@
 "use client";
 
 import { useTheme } from "@/hooks/useTheme";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuthContext } from '@/contexts/AuthContext';
 import { cn } from "@/lib/utils";
 import { Sun, Moon } from "lucide-react";
 import { Navigation } from "./Navigation";
 
-interface MainLayoutProps {
-    children: React.ReactNode;
-}
-
-export const MainLayout = ({ children }: MainLayoutProps) => {
+export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { theme, toggleTheme } = useTheme();
-    const { user } = useAuth();
+    const { isAuthenticated } = useAuthContext();
 
     return (
         <div className={cn(
@@ -37,10 +33,10 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
 
             {/* Main Content */}
             <div className="flex h-[calc(100vh-4rem)]">
-                {user && <Navigation />}
+                {isAuthenticated && <Navigation />}
                 <main className={cn(
                     "flex-1 overflow-auto",
-                    user ? "p-6" : "container mx-auto px-4 py-8"
+                    isAuthenticated ? "p-6" : "container mx-auto px-4 py-8"
                 )}>
                     {children}
                 </main>

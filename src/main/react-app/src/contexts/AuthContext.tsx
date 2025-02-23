@@ -1,104 +1,40 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User } from '@/lib/types';
-import { toast } from 'react-toastify';
+import React, { createContext, useContext } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { AuthUser, LoginCredentials } from '@/lib/types/auth';
 
 interface AuthContextType {
-  user: User | null;
-  loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  user: AuthUser | null;
+  isLoading: boolean;
+  isAuthenticated: boolean;
+  login: (credentials: LoginCredentials) => Promise<void>;
   logout: () => Promise<void>;
-  checkAuth: () => Promise<void>;
+  updateUser: (user: AuthUser) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  const checkAuth = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        setUser(null);
-        return;
-      }
-
-      const response = await fetch('/api/auth/me', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data.user);
-      } else {
-        localStorage.removeItem('token');
-        setUser(null);
-      }
-    } catch (error) {
-      console.error('Auth check failed:', error);
-      localStorage.removeItem('token');
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const login = async (email: string, password: string) => {
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        setUser(data.user);
-        toast.success('Login successful!');
-      } else {
-        toast.error(data.message || 'Login failed');
-      }
-    } catch (error) {
-      console.error('Login failed:', error);
-      toast.error('Login failed. Please try again.');
-    }
-  };
-
-  const logout = async () => {
-    try {
-      localStorage.removeItem('token');
-      setUser(null);
-      toast.success('Logged out successfully');
-    } catch (error) {
-      console.error('Logout failed:', error);
-      toast.error('Logout failed. Please try again.');
-    }
-  };
+  const auth = useAuth();
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, checkAuth }}>
-      {children}
+    <AuthContext.Provider value={auth}>
+      {auth.isLoading ? (
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
+export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAuthContext must be used within an AuthProvider');
   }
   return context;
 }; 

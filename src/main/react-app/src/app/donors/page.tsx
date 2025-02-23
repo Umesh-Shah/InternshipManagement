@@ -5,6 +5,12 @@ import { toast } from 'react-toastify'
 import type { DonorListItem, CountryData } from '@/lib/types'
 import { DONATION_PURPOSES } from '@/lib/types'
 import { Eye, EyeOff, Trash2 } from 'lucide-react'
+import { Card } from '@/components/ui/Card'
+import { FormField } from '@/components/ui/FormField'
+import { Select } from '@/components/ui/Select'
+import { Button } from '@/components/ui/Button'
+import { DataTable } from '@/components/ui/DataTable'
+import { useToast } from '@/components/providers/ToastProvider'
 
 // Mock data - replace with API call
 const countries: CountryData[] = [
@@ -40,6 +46,7 @@ interface SearchFilters {
 }
 
 export default function DonorList() {
+    const { toast } = useToast()
     const [donors, setDonors] = useState<DonorListItem[]>(mockDonors)
     const [filters, setFilters] = useState<SearchFilters>({
         name: '',
@@ -67,6 +74,7 @@ export default function DonorList() {
             return nameMatch && purposeMatch && countryMatch && yearMatch
         })
         setDonors(filtered)
+        return filtered
     }
 
     const handleDelete = (donorId: string) => {
@@ -104,115 +112,135 @@ export default function DonorList() {
         }
     }
 
+    const columns = [
+        {
+            key: 'donor_name',
+            header: 'Name',
+            sortable: true
+        },
+        {
+            key: 'country',
+            header: 'Country',
+            sortable: true
+        },
+        {
+            key: 'donation_purpose',
+            header: 'Donation Purpose',
+            sortable: true
+        },
+        {
+            key: 'donation_amount',
+            header: 'Amount (₹)',
+            sortable: true,
+            render: (value: number) => value.toLocaleString('en-IN')
+        },
+        {
+            key: 'status',
+            header: 'Actions',
+            render: (_: string, donor: DonorListItem) => (
+                <div className="flex justify-center gap-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleVisibilityToggle(donor)}
+                    >
+                        {donor.status === 'Y' ? (
+                            <Eye className="h-4 w-4" />
+                        ) : (
+                            <EyeOff className="h-4 w-4" />
+                        )}
+                    </Button>
+                    <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => handleDelete(donor.donor_id)}
+                    >
+                        <Trash2 className="h-4 w-4" />
+                    </Button>
+                </div>
+            )
+        }
+    ]
+
     return (
         <div className="space-y-8">
             <h1 className="text-center text-3xl font-bold">Search Donors</h1>
 
-            {/* Search Filters */}
-            <div className="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+            <Card title="Search Filters">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                    <div>
-                        <label className="block text-sm font-medium">
-                            Full Name
-                        </label>
-                        <input
-                            type="text"
-                            value={filters.name}
-                            onChange={(e) =>
-                                setFilters((prev) => ({
-                                    ...prev,
-                                    name: e.target.value,
-                                }))
-                            }
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700"
-                        />
-                    </div>
+                    <FormField
+                        label="Full Name"
+                        name="name"
+                        value={filters.name}
+                        onChange={(e) =>
+                            setFilters((prev) => ({
+                                ...prev,
+                                name: e.target.value,
+                            }))
+                        }
+                    />
 
-                    <div>
-                        <label className="block text-sm font-medium">
-                            Purpose of Donation
-                        </label>
-                        <select
-                            value={filters.purpose}
-                            onChange={(e) =>
-                                setFilters((prev) => ({
-                                    ...prev,
-                                    purpose: e.target.value,
-                                }))
-                            }
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700"
-                        >
-                            <option value="">--Select--</option>
-                            {DONATION_PURPOSES.map((purpose) => (
-                                <option key={purpose} value={purpose}>
-                                    {purpose}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    <Select
+                        label="Purpose of Donation"
+                        name="purpose"
+                        value={filters.purpose}
+                        onChange={(e) =>
+                            setFilters((prev) => ({
+                                ...prev,
+                                purpose: e.target.value,
+                            }))
+                        }
+                        options={DONATION_PURPOSES.map(purpose => ({
+                            label: purpose,
+                            value: purpose
+                        }))}
+                    />
 
-                    <div>
-                        <label className="block text-sm font-medium">
-                            Country
-                        </label>
-                        <select
-                            value={filters.country}
-                            onChange={(e) =>
-                                setFilters((prev) => ({
-                                    ...prev,
-                                    country: e.target.value,
-                                }))
-                            }
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700"
-                        >
-                            <option value="">--Select--</option>
-                            {countries.map((country) => (
-                                <option
-                                    key={country.country_std_code}
-                                    value={country.country_name}
-                                >
-                                    {country.country_name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    <Select
+                        label="Country"
+                        name="country"
+                        value={filters.country}
+                        onChange={(e) =>
+                            setFilters((prev) => ({
+                                ...prev,
+                                country: e.target.value,
+                            }))
+                        }
+                        options={countries.map(country => ({
+                            label: country.country_name,
+                            value: country.country_name
+                        }))}
+                    />
 
-                    <div>
-                        <label className="block text-sm font-medium">
-                            Donation Year
-                        </label>
-                        <select
-                            value={filters.year}
-                            onChange={(e) =>
-                                setFilters((prev) => ({
-                                    ...prev,
-                                    year: e.target.value,
-                                }))
+                    <Select
+                        label="Donation Year"
+                        name="year"
+                        value={filters.year}
+                        onChange={(e) =>
+                            setFilters((prev) => ({
+                                ...prev,
+                                year: e.target.value,
+                            }))
+                        }
+                        options={Array.from(
+                            { length: 10 },
+                            (_, i) => {
+                                const year = new Date().getFullYear() - i
+                                return {
+                                    label: year.toString(),
+                                    value: year.toString()
+                                }
                             }
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700"
-                        >
-                            <option value="">--Select--</option>
-                            {Array.from(
-                                { length: 10 },
-                                (_, i) =>
-                                    new Date().getFullYear() - i
-                            ).map((year) => (
-                                <option key={year} value={year}>
-                                    {year}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                        )}
+                    />
                 </div>
 
                 <div className="mt-6 flex justify-center gap-4">
-                    <button
-                        onClick={handleSearch}
-                        className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-                    >
+                    <Button onClick={handleSearch}>
                         Search
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                        variant="secondary"
                         onClick={() => {
                             setFilters({
                                 name: '',
@@ -222,100 +250,17 @@ export default function DonorList() {
                             })
                             setDonors(mockDonors)
                         }}
-                        className="rounded-md bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
                     >
                         Reset
-                    </button>
+                    </Button>
                 </div>
-            </div>
+            </Card>
 
-            {/* Donor List */}
-            <div className="rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-                <div className="overflow-x-auto">
-                    <table className="w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead>
-                            <tr className="bg-gray-50 dark:bg-gray-900">
-                                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Name
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Country
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Donation Purpose
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Amount (₹)
-                                </th>
-                                <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
-                            {donors.map((donor) => (
-                                <tr
-                                    key={donor.donor_id}
-                                    className="hover:bg-gray-50 dark:hover:bg-gray-700"
-                                >
-                                    <td className="whitespace-nowrap px-6 py-4">
-                                        <button
-                                            onClick={() =>
-                                                setSelectedDonor(donor)
-                                            }
-                                            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                                        >
-                                            {donor.donor_name}
-                                        </button>
-                                    </td>
-                                    <td className="whitespace-nowrap px-6 py-4">
-                                        {donor.country}
-                                    </td>
-                                    <td className="whitespace-nowrap px-6 py-4">
-                                        {donor.donation_purpose}
-                                    </td>
-                                    <td className="whitespace-nowrap px-6 py-4">
-                                        {donor.donation_amount.toLocaleString()}
-                                    </td>
-                                    <td className="whitespace-nowrap px-6 py-4 text-center">
-                                        <div className="flex justify-center gap-4">
-                                            <button
-                                                onClick={() =>
-                                                    handleDelete(donor.donor_id)
-                                                }
-                                                className="text-red-600 hover:text-red-800"
-                                                title="Delete"
-                                            >
-                                                <Trash2 className="h-5 w-5" />
-                                            </button>
-                                            <button
-                                                onClick={() =>
-                                                    handleVisibilityToggle(donor)
-                                                }
-                                                className={`${donor.status === 'Y'
-                                                        ? 'text-green-600 hover:text-green-800'
-                                                        : 'text-gray-600 hover:text-gray-800'
-                                                    }`}
-                                                title={
-                                                    donor.status === 'Y'
-                                                        ? 'Hide'
-                                                        : 'Show'
-                                                }
-                                            >
-                                                {donor.status === 'Y' ? (
-                                                    <Eye className="h-5 w-5" />
-                                                ) : (
-                                                    <EyeOff className="h-5 w-5" />
-                                                )}
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <DataTable
+                data={handleSearch()}
+                columns={columns}
+                showSearch={false}
+            />
 
             {/* Donor Details Modal */}
             {selectedDonor && (

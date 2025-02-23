@@ -1,1 +1,5 @@
 - Created a modern Next.js frontend with TypeScript, TailwindCSS, and dark mode support to replace the JSP-based UI.
+- Migrated JSP files to React TypeScript project
+- Implemented JWT authentication and secure API integration
+- Organized types into modular structure
+- Fixed type errors and built successfully

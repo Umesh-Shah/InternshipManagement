@@ -1,121 +1,99 @@
 "use client"
 
-import { useState } from 'react'
-import { useAuth } from '@/contexts/AuthContext'
-import { useRouter } from 'next/navigation'
-import { toast } from 'react-toastify'
-import { cn } from '@/lib/utils'
-import { LogIn } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useAuthContext } from '@/contexts/AuthContext'
+import Link from 'next/link'
+import { Card } from '@/components/ui/Card'
+import { FormField } from '@/components/ui/FormField'
+import { Button } from '@/components/ui/Button'
+import { useForm } from '@/hooks/useForm'
+import { z } from 'zod'
+
+const loginSchema = z.object({
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(1, 'Password is required')
+})
+
+type LoginFormData = z.infer<typeof loginSchema>
 
 export default function LoginPage() {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    })
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const { login } = useAuth()
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const { login } = useAuthContext()
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setIsSubmitting(true)
-
-        try {
-            await login(formData.email, formData.password)
-            router.push('/student/dashboard')
-        } catch (error) {
-            // Error handling is done in the AuthContext
-        } finally {
-            setIsSubmitting(false)
+    const {
+        values: formData,
+        handleChange,
+        handleSubmit,
+        isSubmitting
+    } = useForm<LoginFormData>({
+        initialValues: {
+            email: '',
+            password: ''
+        },
+        validationSchema: loginSchema,
+        onSubmit: async (values) => {
+            await login(values)
+            const redirectTo = searchParams.get('from') || '/dashboard'
+            router.push(redirectTo)
         }
-    }
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-    }
+    })
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-4">
-            <div className="max-w-md w-full space-y-8">
-                <div className="text-center">
-                    <h2 className="text-3xl font-bold">Welcome Back</h2>
-                    <p className="mt-2 text-gray-600 dark:text-gray-400">
-                        Sign in to your account to continue
-                    </p>
-                </div>
+        <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-900 sm:px-6 lg:px-8">
+            <div className="w-full max-w-md">
+                <Card>
+                    <div className="text-center">
+                        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
+                            Sign in to your account
+                        </h2>
+                    </div>
 
-                <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-                    <div className="space-y-4">
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium">
-                                Email Address
-                            </label>
-                            <input
-                                id="email"
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                        <div className="space-y-4">
+                            <FormField
+                                label="Email address"
                                 name="email"
                                 type="email"
-                                autoComplete="email"
-                                required
                                 value={formData.email}
                                 onChange={handleChange}
-                                className={cn(
-                                    "mt-1 block w-full px-3 py-2 border rounded-md",
-                                    "bg-white dark:bg-gray-800",
-                                    "border-gray-300 dark:border-gray-700",
-                                    "focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                )}
+                                autoComplete="email"
+                                required
+                                placeholder="Email address"
                             />
-                        </div>
 
-                        <div>
-                            <label htmlFor="password" className="block text-sm font-medium">
-                                Password
-                            </label>
-                            <input
-                                id="password"
+                            <FormField
+                                label="Password"
                                 name="password"
                                 type="password"
-                                autoComplete="current-password"
-                                required
                                 value={formData.password}
                                 onChange={handleChange}
-                                className={cn(
-                                    "mt-1 block w-full px-3 py-2 border rounded-md",
-                                    "bg-white dark:bg-gray-800",
-                                    "border-gray-300 dark:border-gray-700",
-                                    "focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                )}
+                                autoComplete="current-password"
+                                required
+                                placeholder="Password"
                             />
                         </div>
-                    </div>
 
-                    <div>
-                        <button
+                        <div className="flex items-center justify-between">
+                            <div className="text-sm">
+                                <Link
+                                    href="/forgot-password"
+                                    className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
+                                >
+                                    Forgot your password?
+                                </Link>
+                            </div>
+                        </div>
+
+                        <Button
                             type="submit"
-                            disabled={isSubmitting}
-                            className={cn(
-                                "w-full flex justify-center items-center gap-2",
-                                "px-4 py-2 rounded-md text-white",
-                                "bg-blue-600 hover:bg-blue-700",
-                                "focus:outline-none focus:ring-2 focus:ring-blue-500",
-                                "disabled:opacity-50 disabled:cursor-not-allowed"
-                            )}
+                            className="w-full"
+                            isLoading={isSubmitting}
                         >
-                            {isSubmitting ? (
-                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                            ) : (
-                                <>
-                                    <LogIn size={20} />
-                                    Sign In
-                                </>
-                            )}
-                        </button>
-                    </div>
-                </form>
+                            Sign in
+                        </Button>
+                    </form>
+                </Card>
             </div>
         </div>
     )
