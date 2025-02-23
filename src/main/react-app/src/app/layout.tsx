@@ -1,37 +1,30 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { ThemeProvider } from '@/components/providers/ThemeProvider'
-import Header from '@/components/layout/Header'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+"use client";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+import { Inter } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { MainLayout } from "@/components/layout/MainLayout";
 
-export const metadata: Metadata = {
-    title: 'Internship Management System',
-    description: 'A system for managing student internships at the University of Windsor',
-}
+import "react-toastify/dist/ReactToastify.css";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
     children,
 }: {
-    children: React.ReactNode
+    children: React.ReactNode;
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${inter.variable} font-sans antialiased`}>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <Header />
-                    <main className="min-h-[calc(100vh-4rem)]">{children}</main>
+            <body className={inter.className}>
+                <AuthProvider>
+                    <MainLayout>
+                        {children}
+                    </MainLayout>
                     <ToastContainer
-                        position="bottom-right"
-                        autoClose={5000}
+                        position="top-right"
+                        autoClose={3000}
                         hideProgressBar={false}
                         newestOnTop
                         closeOnClick
@@ -41,8 +34,8 @@ export default function RootLayout({
                         pauseOnHover
                         theme="colored"
                     />
-                </ThemeProvider>
+                </AuthProvider>
             </body>
         </html>
-    )
+    );
 } 

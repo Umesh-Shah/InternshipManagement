@@ -1,33 +1,36 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// Add any paths that should be accessible without authentication
-const publicPaths = [
-    '/',
-    '/login',
-    '/register',
-    '/api/auth/login',
-    '/api/auth/register',
-]
-
 export function middleware(request: NextRequest) {
-    const token = request.cookies.get('token')
+    const token = request.cookies.get('token')?.value
     const { pathname } = request.nextUrl
 
-    // Allow access to public paths
-    if (publicPaths.some((path) => pathname.startsWith(path))) {
+    // Public paths that don't require authentication
+    const publicPaths = ['/login', '/register', '/forgot-password']
+    const isPublicPath = publicPaths.some(path => pathname.startsWith(path))
+
+    // Auth paths that should redirect to dashboard if already authenticated
+    const authPaths = ['/login', '/register']
+    const isAuthPath = authPaths.some(path => pathname.startsWith(path))
+
+    // If the user is on an auth path and is already authenticated,
+    // redirect them to the dashboard
+    if (isAuthPath && token) {
+        return NextResponse.redirect(new URL('/student/dashboard', request.url))
+    }
+
+    // If the path is public, allow access
+    if (isPublicPath) {
         return NextResponse.next()
     }
 
-    // Redirect to login if no token is present
+    // If the user is not authenticated and the path is not public,
+    // redirect to login
     if (!token) {
-        const loginUrl = new URL('/login', request.url)
-        loginUrl.searchParams.set('from', pathname)
-        return NextResponse.redirect(loginUrl)
+        const redirectUrl = new URL('/login', request.url)
+        redirectUrl.searchParams.set('from', pathname)
+        return NextResponse.redirect(redirectUrl)
     }
-
-    // TODO: Add token validation logic here
-    // For now, we'll just check if the token exists
 
     return NextResponse.next()
 }
@@ -36,11 +39,11 @@ export const config = {
     matcher: [
         /*
          * Match all request paths except for the ones starting with:
+         * - api (API routes)
          * - _next/static (static files)
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
-         * - public folder
          */
-        '/((?!_next/static|_next/image|favicon.ico|public/).*)',
+        '/((?!api|_next/static|_next/image|favicon.ico).*)',
     ],
 } 

@@ -1,29 +1,27 @@
 import Link from 'next/link'
 
-export default function Home() {
+export default function HomePage() {
     return (
-        <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center bg-gradient-to-b from-white to-gray-50 px-4 dark:from-gray-950 dark:to-gray-900">
-            <div className="container mx-auto max-w-4xl text-center">
-                <h1 className="mb-6 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-                    Welcome to the Internship Management System
+        <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-900 sm:px-6 lg:px-8">
+            <div className="text-center">
+                <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
+                    <span className="block">Welcome to</span>
+                    <span className="block text-indigo-600 dark:text-indigo-400">
+                        Shree Vraj Bhagirathi Charitable Trust
+                    </span>
                 </h1>
-                <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
-                    A comprehensive platform for managing student internships at the University of Windsor.
-                    Connect with employers, track applications, and manage your internship journey.
+                <p className="mx-auto mt-3 max-w-md text-base text-gray-500 dark:text-gray-400 sm:text-lg md:mt-5 md:max-w-3xl md:text-xl">
+                    A charitable trust dedicated to helping those in need
                 </p>
-                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <Link
-                        href="/login"
-                        className="w-full rounded-lg bg-primary-600 px-8 py-3 text-center text-sm font-medium text-white hover:bg-primary-700 sm:w-auto"
-                    >
-                        Student Login
-                    </Link>
-                    <Link
-                        href="/register"
-                        className="w-full rounded-lg border border-gray-300 bg-white px-8 py-3 text-center text-sm font-medium text-gray-900 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 sm:w-auto"
-                    >
-                        Register Account
-                    </Link>
+                <div className="mx-auto mt-5 max-w-md sm:flex sm:justify-center md:mt-8">
+                    <div className="rounded-md shadow">
+                        <Link
+                            href="/login"
+                            className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:px-10 md:py-4 md:text-lg"
+                        >
+                            Sign in
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
