@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/providers/ToastProvider";
 import { z } from "zod";
 
 interface UseFormOptions<T> {
@@ -14,7 +14,7 @@ interface UseFormReturn<T> {
     values: T;
     errors: Record<string, string>;
     isSubmitting: boolean;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
     handleSubmit: (e: React.FormEvent) => Promise<void>;
     setFieldValue: (field: keyof T, value: any) => void;
 }
@@ -24,11 +24,12 @@ export function useForm<T extends Record<string, any>>({
     validationSchema,
     onSubmit
 }: UseFormOptions<T>): UseFormReturn<T> {
+    const { toast } = useToast();
     const [values, setValues] = useState<T>(initialValues);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
         let parsedValue: any = value;
 
@@ -74,7 +75,7 @@ export function useForm<T extends Record<string, any>>({
             }
 
             await onSubmit(validatedValues);
-            toast.success("Form submitted successfully");
+            toast('success', 'Form submitted successfully');
         } catch (error) {
             if (error instanceof z.ZodError) {
                 const newErrors: Record<string, string> = {};
@@ -84,9 +85,9 @@ export function useForm<T extends Record<string, any>>({
                     }
                 });
                 setErrors(newErrors);
-                toast.error("Please fix the form errors");
+                toast('error', 'Please fix the form errors');
             } else {
-                toast.error("An error occurred while submitting the form");
+                toast('error', 'An error occurred while submitting the form');
                 console.error("Form submission error:", error);
             }
         } finally {

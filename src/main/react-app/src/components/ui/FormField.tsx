@@ -17,6 +17,7 @@ interface FormFieldProps {
     step?: number;
     rows?: number;
     disabled?: boolean;
+    autoComplete?: string;
 }
 
 export const FormField = ({
@@ -33,7 +34,8 @@ export const FormField = ({
     max,
     step,
     rows,
-    disabled = false
+    disabled = false,
+    autoComplete
 }: FormFieldProps) => {
     const isTextarea = type === "textarea";
     const InputComponent = isTextarea ? "textarea" as const : "input" as const;
@@ -66,6 +68,7 @@ export const FormField = ({
                     className
                 )}
                 required={required}
+                autoComplete={autoComplete}
             />
             {error && (
                 <p className="mt-1 text-sm text-red-500">

@@ -229,6 +229,7 @@ public class MainController {
 			return "internship/admin/admin_welcome";
 		}
 		
+		// Use legacy auth endpoint
 		LoginBo user = regLoginService.validateLogin(username, password);
 		if (user != null) {
 			HttpSession session = request.getSession(true);

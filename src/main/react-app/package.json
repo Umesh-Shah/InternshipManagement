@@ -13,6 +13,7 @@
     "@trpc/client": "^11.0.0-next-beta.294",
     "@trpc/react-query": "^11.0.0-next-beta.294",
     "@trpc/server": "^11.0.0-next-beta.294",
+    "axios": "^1.7.9",
     "clsx": "^2.1.1",
     "framer-motion": "^11.0.5",
     "lucide-react": "^0.338.0",
@@ -20,7 +21,7 @@
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-toastify": "^10.0.4",
+    "react-toastify": "^10.0.6",
     "tailwind-merge": "^3.0.2",
     "zod": "^3.22.4"
   },

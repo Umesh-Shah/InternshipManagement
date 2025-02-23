@@ -1,4 +1,5 @@
-C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\controller\api\AuthController.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\controller\api\LegacyAuthController.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\controller\AuthController.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\controller\ErrorController.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\controller\MainController.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\dao\CommonDao.java
@@ -51,7 +52,13 @@ C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\model\StudentLoginBo.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\model\StudentSkillBo.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\model\StudentWorkBo.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\model\User.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\model\UserRole.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\model\VbctLoginBO.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\repository\UserRepository.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\security\JwtAuthenticationFilter.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\security\JwtUtil.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\security\SecurityConfig.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\service\CommonService.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\service\CommonServiceImpl.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\service\CompanyService.java
@@ -68,5 +75,6 @@ C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\service\SkillServiceImpl.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\service\StudentService.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\service\StudentServiceImpl.java
+C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\service\UserService.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\utility\CommonUtility.java
 C:\Users\umesh\VS code\internship\InternshipManagement\src\main\java\ca\uwindsor\ims\utility\NoticeGeneration.java

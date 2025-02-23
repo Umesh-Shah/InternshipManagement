@@ -22,7 +22,10 @@ export class AuthService {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(credentials),
+                body: JSON.stringify({
+                    username: credentials.email,
+                    password: credentials.password
+                }),
             });
 
             if (!response.ok) {
@@ -30,9 +33,25 @@ export class AuthService {
                 throw new Error(error.message || 'Login failed');
             }
 
-            const data: AuthResponse = await response.json();
-            this.setToken(data.token);
-            return data;
+            const { token } = await response.json();
+
+            // Get user info with the token
+            const userResponse = await fetch(`${API_URL}/auth/me`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!userResponse.ok) {
+                throw new Error('Failed to get user info');
+            }
+
+            const user = await userResponse.json();
+            const authResponse: AuthResponse = { user, token };
+
+            this.setToken(token);
+            return authResponse;
         } catch (error) {
             throw error;
         }

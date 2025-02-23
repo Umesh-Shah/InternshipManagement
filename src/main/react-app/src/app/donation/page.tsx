@@ -207,7 +207,7 @@ export default function DonationForm() {
                             label="Remarks"
                             name="remarks"
                             type="textarea"
-                            value={formData.remarks}
+                            value={formData.remarks || ''}
                             onChange={handleChange}
                             placeholder="Remarks if any"
                             rows={3}

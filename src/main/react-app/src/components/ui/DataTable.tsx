@@ -6,7 +6,7 @@ import { SearchInput } from "./SearchInput";
 import { useTable } from "@/hooks/useTable";
 import { cn } from "@/lib/utils";
 
-interface Column<T> {
+export interface Column<T> {
     key: keyof T;
     header: string;
     sortable?: boolean;

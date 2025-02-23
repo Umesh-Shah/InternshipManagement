@@ -78,6 +78,7 @@ export const Toast = ({
 interface ToastContainerProps {
     position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
     className?: string;
+    children?: React.ReactNode;
 }
 
 const positionStyles = {
@@ -89,7 +90,8 @@ const positionStyles = {
 
 export const ToastContainer = ({
     position = "top-right",
-    className
+    className,
+    children
 }: ToastContainerProps) => {
     return createPortal(
         <div
@@ -101,7 +103,7 @@ export const ToastContainer = ({
             role="region"
             aria-label="Notifications"
         >
-            {/* Toasts will be rendered here by the ToastProvider */}
+            {children}
         </div>,
         document.body
     );

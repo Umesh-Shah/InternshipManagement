@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from 'react'
-import { toast } from 'react-toastify'
 import type { DonorListItem, CountryData } from '@/lib/types'
 import { DONATION_PURPOSES } from '@/lib/types'
 import { Eye, EyeOff, Trash2 } from 'lucide-react'
@@ -9,7 +8,7 @@ import { Card } from '@/components/ui/Card'
 import { FormField } from '@/components/ui/FormField'
 import { Select } from '@/components/ui/Select'
 import { Button } from '@/components/ui/Button'
-import { DataTable } from '@/components/ui/DataTable'
+import { DataTable, type Column } from '@/components/ui/DataTable'
 import { useToast } from '@/components/providers/ToastProvider'
 
 // Mock data - replace with API call
@@ -87,7 +86,7 @@ export default function DonorList() {
             setDonors((prev) =>
                 prev.filter((donor) => donor.donor_id !== donorId)
             )
-            toast.success('Donor deleted successfully')
+            toast('success', 'Donor deleted successfully')
         }
     }
 
@@ -106,13 +105,11 @@ export default function DonorList() {
                         : d
                 )
             )
-            toast.success(
-                `Donor ${donor.status === 'Y' ? 'hidden' : 'shown'} successfully`
-            )
+            toast('success', `Donor ${donor.status === 'Y' ? 'hidden' : 'shown'} successfully`)
         }
     }
 
-    const columns = [
+    const columns: Column<DonorListItem>[] = [
         {
             key: 'donor_name',
             header: 'Name',
@@ -132,12 +129,12 @@ export default function DonorList() {
             key: 'donation_amount',
             header: 'Amount (₹)',
             sortable: true,
-            render: (value: number) => value.toLocaleString('en-IN')
+            render: (value, _) => (value as number).toLocaleString('en-IN')
         },
         {
             key: 'status',
             header: 'Actions',
-            render: (_: string, donor: DonorListItem) => (
+            render: (_, donor) => (
                 <div className="flex justify-center gap-2">
                     <Button
                         variant="outline"
