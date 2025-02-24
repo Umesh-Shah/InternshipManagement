@@ -3,3 +3,4 @@
 - Implemented JWT authentication and secure API integration
 - Organized types into modular structure
 - Fixed type errors and built successfully
+- Migrated database from MySQL to PostgreSQL, updated configuration files, and created setup scripts.
