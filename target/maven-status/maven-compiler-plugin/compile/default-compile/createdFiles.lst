@@ -27,6 +27,7 @@ ca\uwindsor\ims\repository\UserRepository.class
 ca\uwindsor\ims\model\CommonDTO.class
 ca\uwindsor\ims\dto\CustomJasperReportDTO.class
 ca\uwindsor\ims\model\Login.class
+ca\uwindsor\ims\security\SecurityBeans.class
 ca\uwindsor\ims\controller\AuthResponse.class
 ca\uwindsor\ims\dao\CommonDao.class
 ca\uwindsor\ims\model\StudentCertificateBo.class

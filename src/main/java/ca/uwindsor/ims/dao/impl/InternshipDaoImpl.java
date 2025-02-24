@@ -1,7 +1,6 @@
 package ca.uwindsor.ims.dao.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,9 +10,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.hibernate.query.Query;
 
 import ca.uwindsor.ims.model.InternshipTypeBo;
+import ca.uwindsor.ims.model.StudentInfoBo;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 @Component
 @Repository
@@ -23,7 +25,8 @@ public class InternshipDaoImpl implements InternshipDao {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	DateFormat dateandtime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	
+	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -35,44 +38,37 @@ public class InternshipDaoImpl implements InternshipDao {
 
 	@Override
 	public List<InternshipTypeBo> getinternshiplist() throws Exception {
-		// TODO Auto-generated method stub
 		log.info("START");
-		Session session = null;
-		List<InternshipTypeBo> lstboo = null;
-		try{
-			session = getSessionFactory().openSession();
-			Query query= session.createQuery("from InternshipTypeBo");
-			lstboo = query.list();
-			
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		finally{
+		try (Session session = getSessionFactory().openSession()) {
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<InternshipTypeBo> criteria = builder.createQuery(InternshipTypeBo.class);
+			Root<InternshipTypeBo> root = criteria.from(InternshipTypeBo.class);
+			criteria.select(root);
+			return session.createQuery(criteria).getResultList();
+		} catch (Exception e) {
+			log.error("Error getting internship list", e);
+			throw e;
+		} finally {
 			log.info("END");
-			session.close();
-		}
-		return lstboo;	}
-
-	@Override
-	public void updatestudent_status(int i,String internship_type) throws Exception {
-		// TODO Auto-generated method stub
-		log.info("START");
-		Session session = null;
-		try{
-			session = getSessionFactory().openSession();
-			Query query= session.createQuery("update StudentInfoBo set student_status='Hired',internship_status=? where student_id="+i);
-	       query.setParameter(0, internship_type);
-			query.executeUpdate();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		finally{
-			log.info("END");
-			session.close();
 		}
 	}
 
-	
-	
+	@Override
+	public void updatestudent_status(int studentId, String internshipType) throws Exception {
+		log.info("START");
+		try (Session session = getSessionFactory().openSession()) {
+			session.beginTransaction();
+			String hql = "update StudentInfoBo s set s.student_status = 'Hired', s.internship_status = :type where s.student_id = :id";
+			session.createQuery(hql)
+				.setParameter("type", internshipType)
+				.setParameter("id", studentId)
+				.executeUpdate();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error("Error updating student status", e);
+			throw e;
+		} finally {
+			log.info("END");
+		}
+	}
 }
