@@ -12,6 +12,9 @@ spring:
       hibernate:
         format_sql: true
 
+cors:
+  allowed-origins: http://localhost:5173
+
 jwt:
   secret: ims-dev-secret-key-min-32-bytes!!
 

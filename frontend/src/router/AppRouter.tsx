@@ -3,9 +3,11 @@ import LoginPage from '@/features/auth/LoginPage';
 import ProtectedRoute from './ProtectedRoute';
 import { AdminRoutes } from './AdminRoutes';
 import { StudentRoutes } from './StudentRoutes';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export default function AppRouter() {
   return (
+    <ErrorBoundary>
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
@@ -21,5 +23,6 @@ export default function AppRouter() {
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
+    </ErrorBoundary>
   );
 }

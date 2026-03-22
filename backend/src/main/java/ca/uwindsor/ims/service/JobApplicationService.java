@@ -2,13 +2,9 @@ package ca.uwindsor.ims.service;
 
 import ca.uwindsor.ims.dto.JobApplicationRequest;
 import ca.uwindsor.ims.dto.JobApplicationResponse;
-import ca.uwindsor.ims.entity.Job;
-import ca.uwindsor.ims.entity.StudentInfo;
 import ca.uwindsor.ims.entity.StudentJobMapping;
-import ca.uwindsor.ims.repository.CompanyRepository;
-import ca.uwindsor.ims.repository.JobRepository;
-import ca.uwindsor.ims.repository.StudentInfoRepository;
 import ca.uwindsor.ims.repository.StudentJobMappingRepository;
+import ca.uwindsor.ims.repository.StudentJobMappingRepository.JobApplicationProjection;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,98 +16,84 @@ import java.util.List;
 public class JobApplicationService {
 
     private final StudentJobMappingRepository mappingRepo;
-    private final JobRepository jobRepo;
-    private final CompanyRepository companyRepo;
-    private final StudentInfoRepository studentRepo;
 
-    public JobApplicationService(
-            StudentJobMappingRepository mappingRepo,
-            JobRepository jobRepo,
-            CompanyRepository companyRepo,
-            StudentInfoRepository studentRepo) {
+    public JobApplicationService(StudentJobMappingRepository mappingRepo) {
         this.mappingRepo = mappingRepo;
-        this.jobRepo = jobRepo;
-        this.companyRepo = companyRepo;
-        this.studentRepo = studentRepo;
     }
 
     // ── Student: mark interest ──────────────────────────────────────────────────
 
     @Transactional
     public JobApplicationResponse apply(JobApplicationRequest req) {
-        // Idempotent: if already applied, return existing record
         return mappingRepo.findByStudentIdAndJobId(req.studentId(), req.jobId())
-                .map(this::toResponse)
+                .map(this::toResponseFromEntity)
                 .orElseGet(() -> {
                     StudentJobMapping m = new StudentJobMapping();
                     m.setStudentId(req.studentId());
                     m.setJobId(req.jobId());
                     m.setFlag("N");
-                    return toResponse(mappingRepo.save(m));
+                    return toResponseFromEntity(mappingRepo.save(m));
                 });
     }
 
     // ── Student: list own applications ─────────────────────────────────────────
 
     public List<JobApplicationResponse> getByStudent(Integer studentId) {
-        return mappingRepo.findByStudentId(studentId).stream()
+        return mappingRepo.findApplications(null, studentId, null).stream()
                 .map(this::toResponse)
                 .toList();
     }
 
-    // ── Admin: list pending applications ───────────────────────────────────────
+    // ── Admin: list pending (flag='N') applications ─────────────────────────────
 
     public List<JobApplicationResponse> getPending() {
-        return mappingRepo.findByFlag("N").stream()
+        return mappingRepo.findApplications("N", null, null).stream()
                 .map(this::toResponse)
                 .toList();
     }
 
-    // ── Admin: list approved students for a job ─────────────────────────────────
-
-    public List<JobApplicationResponse> getApprovedByJob(Integer jobId) {
-        return mappingRepo.findByJobId(jobId).stream()
-                .filter(m -> "A".equals(m.getFlag()))
-                .map(this::toResponse)
-                .toList();
-    }
-
-    // ── Admin: approve ─────────────────────────────────────────────────────────
+    // ── Admin: approve an application ──────────────────────────────────────────
 
     @Transactional
     public JobApplicationResponse approve(Integer studentJobId) {
         StudentJobMapping m = mappingRepo.findById(studentJobId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         m.setFlag("A");
-        return toResponse(mappingRepo.save(m));
+        return toResponseFromEntity(mappingRepo.save(m));
     }
 
-    // ── Private helper ─────────────────────────────────────────────────────────
+    // ── Admin: approved students for a specific job ─────────────────────────────
 
-    private JobApplicationResponse toResponse(StudentJobMapping m) {
-        Job job = jobRepo.findById(m.getJobId()).orElse(null);
-        String jobPosition = job != null ? job.getJobPosition() : null;
-        Integer companyId = job != null ? job.getCompanyId() : null;
-        String companyName = null;
-        if (companyId != null) {
-            companyName = companyRepo.findById(companyId)
-                    .map(c -> c.getCompanyName())
-                    .orElse(null);
-        }
-        StudentInfo student = studentRepo.findByStudentId(m.getStudentId()).orElse(null);
-        String studentName = student != null
-                ? (student.getFname() + " " + student.getLname()).trim()
-                : String.valueOf(m.getStudentId());
+    public List<JobApplicationResponse> getApprovedByJob(Integer jobId) {
+        return mappingRepo.findApplications("A", null, jobId).stream()
+                .map(this::toResponse)
+                .toList();
+    }
 
+    // ── Helpers ────────────────────────────────────────────────────────────────
+
+    private JobApplicationResponse toResponse(JobApplicationProjection p) {
+        return new JobApplicationResponse(
+                p.getStudentJobId(),
+                p.getJobId(),
+                p.getJobPosition(),
+                p.getCompanyId(),
+                p.getCompanyName(),
+                p.getStudentId(),
+                p.getStudentName(),
+                p.getFlag());
+    }
+
+    /** Used when we only have a freshly saved entity (no join data yet). */
+    private JobApplicationResponse toResponseFromEntity(StudentJobMapping m) {
         return new JobApplicationResponse(
                 m.getStudentJobId(),
                 m.getJobId(),
-                jobPosition,
-                companyId,
-                companyName,
+                null,
+                null,
+                null,
                 m.getStudentId(),
-                studentName,
-                m.getFlag()
-        );
+                String.valueOf(m.getStudentId()),
+                m.getFlag());
     }
 }

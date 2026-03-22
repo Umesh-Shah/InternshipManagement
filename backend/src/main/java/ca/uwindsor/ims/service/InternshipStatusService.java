@@ -34,7 +34,11 @@ public class InternshipStatusService {
     }
 
     public InternshipStatusResponse assign(InternshipStatusRequest req) {
-        StudentInternship si = new StudentInternship();
+        // Idempotent: update existing record if the student is already assigned to this job.
+        StudentInternship si = studentInternshipRepository
+                .findByStudentIdAndJobId(req.studentId(), req.jobId())
+                .orElseGet(StudentInternship::new);
+
         si.setStudentId(req.studentId());
         si.setCompanyId(req.companyId());
         si.setJobId(req.jobId());
