@@ -3,9 +3,12 @@ package ca.uwindsor.ims.service;
 import ca.uwindsor.ims.dto.*;
 import ca.uwindsor.ims.entity.*;
 import ca.uwindsor.ims.repository.*;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +25,7 @@ public class StudentService {
     private final LoginRepository loginRepo;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final ApplicationEventPublisher eventPublisher;
 
     public StudentService(
             StudentInfoRepository infoRepo,
@@ -32,7 +36,8 @@ public class StudentService {
             SkillRepository skillMasterRepo,
             LoginRepository loginRepo,
             PasswordEncoder passwordEncoder,
-            EmailService emailService) {
+            EmailService emailService,
+            ApplicationEventPublisher eventPublisher) {
         this.infoRepo = infoRepo;
         this.eduRepo = eduRepo;
         this.certRepo = certRepo;
@@ -42,6 +47,15 @@ public class StudentService {
         this.loginRepo = loginRepo;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.eventPublisher = eventPublisher;
+    }
+
+    /** Internal event fired after a student is persisted, carrying only what email needs. */
+    public record StudentRegisteredEvent(String email, String username, String rawPassword, Integer studentId) {}
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onStudentRegistered(StudentRegisteredEvent event) {
+        emailService.sendRegistrationEmail(event.email(), event.username(), event.rawPassword(), event.studentId());
     }
 
     // ── List / find ────────────────────────────────────────────────────────────
@@ -85,7 +99,7 @@ public class StudentService {
         login.setFlag("A");
         loginRepo.save(login);
 
-        emailService.sendRegistrationEmail(email, username, rawPassword, req.studentId());
+        eventPublisher.publishEvent(new StudentRegisteredEvent(email, username, rawPassword, req.studentId()));
 
         return info;
     }
@@ -119,11 +133,11 @@ public class StudentService {
     // ── Certificate ────────────────────────────────────────────────────────────
 
     public Optional<StudentCertificate> getCertificate(Integer studentId) {
-        return certRepo.findByStudentId(String.valueOf(studentId));
+        return certRepo.findByStudentId(studentId);
     }
 
     public StudentCertificate upsertCertificate(Integer studentId, StudentCertificateRequest req) {
-        StudentCertificate cert = certRepo.findByStudentId(String.valueOf(studentId))
+        StudentCertificate cert = certRepo.findByStudentId(studentId)
                 .orElseGet(StudentCertificate::new);
         cert.setStudentId(String.valueOf(studentId));
         cert.setCertificateTitle(req.certificateTitle());
@@ -161,17 +175,17 @@ public class StudentService {
     @Transactional
     public List<StudentSkill> replaceSkills(Integer studentId, StudentSkillsRequest req) {
         skillRepo.deleteByStudentId(studentId);
-        List<StudentSkill> saved = req.skillIds().stream()
+        List<StudentSkill> toSave = req.skillIds().stream()
                 .map(skillId -> {
                     StudentSkill ss = new StudentSkill();
                     ss.setStudentId(studentId);
                     ss.setSkillId(skillId);
                     skillMasterRepo.findById(skillId)
                             .ifPresent(s -> ss.setSkillName(s.getSkillName()));
-                    return skillRepo.save(ss);
+                    return ss;
                 })
                 .toList();
-        return saved;
+        return skillRepo.saveAll(toSave);
     }
 
     // ── Private helpers ────────────────────────────────────────────────────────

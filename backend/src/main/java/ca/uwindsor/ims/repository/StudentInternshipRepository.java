@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface StudentInternshipRepository extends JpaRepository<StudentInternship, Integer> {
     List<StudentInternship> findByStudentId(Integer studentId);
+    java.util.Optional<StudentInternship> findByStudentIdAndJobId(Integer studentId, Integer jobId);
 }

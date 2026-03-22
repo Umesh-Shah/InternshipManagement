@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { reportsApi } from '@/api/reports.api';
 import type {
+  ReportFilters,
   StudentReportParams,
   GpaReportParams,
 } from '@/api/reports.api';
@@ -20,7 +21,6 @@ const TABS: { id: Tab; label: string }[] = [
 
 export function ReportsPage() {
   const [activeTab, setActiveTab] = useState<Tab>('students');
-  const { download, isDownloading } = usePdfDownload();
 
   const { data: filters } = useQuery({
     queryKey: ['report-filters'],
@@ -48,32 +48,17 @@ export function ReportsPage() {
         ))}
       </div>
 
-      {/* Panels */}
-      {activeTab === 'students' && (
-        <StudentsPanel filters={filters ?? null} download={download} isDownloading={isDownloading} />
-      )}
-      {activeTab === 'companies' && (
-        <CompaniesPanel download={download} isDownloading={isDownloading} />
-      )}
-      {activeTab === 'internship-types' && (
-        <InternshipTypesPanel filters={filters ?? null} download={download} isDownloading={isDownloading} />
-      )}
-      {activeTab === 'gpa' && (
-        <GpaPanel filters={filters ?? null} download={download} isDownloading={isDownloading} />
-      )}
-      {activeTab === 'jobs' && (
-        <JobsPanel download={download} isDownloading={isDownloading} />
-      )}
+      {/* Panels — each mounts its own usePdfDownload so isDownloading is scoped per panel */}
+      {activeTab === 'students' && <StudentsPanel filters={filters ?? null} />}
+      {activeTab === 'companies' && <CompaniesPanel />}
+      {activeTab === 'internship-types' && <InternshipTypesPanel filters={filters ?? null} />}
+      {activeTab === 'gpa' && <GpaPanel filters={filters ?? null} />}
+      {activeTab === 'jobs' && <JobsPanel />}
     </div>
   );
 }
 
 // ── Shared helpers ──────────────────────────────────────────────────────────
-
-interface DownloadProps {
-  download: ReturnType<typeof usePdfDownload>['download'];
-  isDownloading: boolean;
-}
 
 function Select({ label, value, onChange, options }: {
   label: string;
@@ -130,8 +115,9 @@ function EmptyRow({ cols }: { cols: number }) {
 
 // ── Students Panel ──────────────────────────────────────────────────────────
 
-function StudentsPanel({ filters, ...dl }: { filters: import('@/api/reports.api').ReportFilters | null } & DownloadProps) {
+function StudentsPanel({ filters }: { filters: ReportFilters | null }) {
   const [params, setParams] = useState<StudentReportParams>({});
+  const { download, isDownloading } = usePdfDownload();
 
   const { data = [], isFetching } = useQuery({
     queryKey: ['report-students', params],
@@ -145,18 +131,23 @@ function StudentsPanel({ filters, ...dl }: { filters: import('@/api/reports.api'
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-4 items-end">
-        <Select label="Year" value={String(params.year ?? '')} onChange={v => setParams(p => ({ ...p, year: v ? Number(v) : undefined }))} options={(filters as any)?.years ?? []} />
-        <Select label="Country" value={params.country ?? ''} onChange={v => set('country', v)} options={(filters as any)?.countries ?? []} />
+        <Select
+          label="Year"
+          value={String(params.year ?? '')}
+          onChange={v => setParams(p => ({ ...p, year: v ? Number(v) : undefined }))}
+          options={filters?.years ?? []}
+        />
+        <Select label="Country" value={params.country ?? ''} onChange={v => set('country', v)} options={filters?.countries ?? []} />
         <Select label="Semester" value={params.semester ?? ''} onChange={v => set('semester', v)} options={['Fall', 'Winter', 'Summer']} />
         <Select label="Internship Status" value={params.internshipStatus ?? ''} onChange={v => set('internshipStatus', v)} options={['Yes', 'No', 'Pending', 'Completed']} />
         <Select label="Student Status" value={params.studentStatus ?? ''} onChange={v => set('studentStatus', v)} options={['Active', 'Inactive', 'Graduated']} />
         <Button
           variant="outline"
           size="sm"
-          disabled={dl.isDownloading}
-          onClick={() => dl.download(() => reportsApi.downloadStudentsPdf(params), 'students-report.pdf')}
+          disabled={isDownloading}
+          onClick={() => download(() => reportsApi.downloadStudentsPdf(params), 'students-report.pdf')}
         >
-          {dl.isDownloading ? 'Downloading…' : 'Download PDF'}
+          {isDownloading ? 'Downloading…' : 'Download PDF'}
         </Button>
       </div>
 
@@ -188,8 +179,9 @@ function StudentsPanel({ filters, ...dl }: { filters: import('@/api/reports.api'
 
 // ── Companies Panel ─────────────────────────────────────────────────────────
 
-function CompaniesPanel({ ...dl }: DownloadProps) {
+function CompaniesPanel() {
   const [city, setCity] = useState('');
+  const { download, isDownloading } = usePdfDownload();
 
   const { data = [], isFetching } = useQuery({
     queryKey: ['report-companies', city],
@@ -211,10 +203,10 @@ function CompaniesPanel({ ...dl }: DownloadProps) {
         <Button
           variant="outline"
           size="sm"
-          disabled={dl.isDownloading}
-          onClick={() => dl.download(() => reportsApi.downloadCompaniesPdf(city || undefined), 'companies-report.pdf')}
+          disabled={isDownloading}
+          onClick={() => download(() => reportsApi.downloadCompaniesPdf(city || undefined), 'companies-report.pdf')}
         >
-          {dl.isDownloading ? 'Downloading…' : 'Download PDF'}
+          {isDownloading ? 'Downloading…' : 'Download PDF'}
         </Button>
       </div>
 
@@ -244,8 +236,9 @@ function CompaniesPanel({ ...dl }: DownloadProps) {
 
 // ── Internship Types Panel ──────────────────────────────────────────────────
 
-function InternshipTypesPanel({ filters, ...dl }: { filters: any } & DownloadProps) {
+function InternshipTypesPanel({ filters }: { filters: ReportFilters | null }) {
   const [internshipType, setInternshipType] = useState('');
+  const { download, isDownloading } = usePdfDownload();
 
   const { data = [], isFetching } = useQuery({
     queryKey: ['report-internship-types', internshipType],
@@ -264,13 +257,13 @@ function InternshipTypesPanel({ filters, ...dl }: { filters: any } & DownloadPro
         <Button
           variant="outline"
           size="sm"
-          disabled={dl.isDownloading}
-          onClick={() => dl.download(
+          disabled={isDownloading}
+          onClick={() => download(
             () => reportsApi.downloadInternshipTypesPdf(internshipType || undefined),
             'internship-types-report.pdf'
           )}
         >
-          {dl.isDownloading ? 'Downloading…' : 'Download PDF'}
+          {isDownloading ? 'Downloading…' : 'Download PDF'}
         </Button>
       </div>
 
@@ -296,8 +289,9 @@ function InternshipTypesPanel({ filters, ...dl }: { filters: any } & DownloadPro
 
 // ── GPA Panel ───────────────────────────────────────────────────────────────
 
-function GpaPanel({ filters, ...dl }: { filters: any } & DownloadProps) {
+function GpaPanel({ filters }: { filters: ReportFilters | null }) {
   const [params, setParams] = useState<GpaReportParams>({});
+  const { download, isDownloading } = usePdfDownload();
 
   const { data = [], isFetching } = useQuery({
     queryKey: ['report-gpa', params],
@@ -311,7 +305,12 @@ function GpaPanel({ filters, ...dl }: { filters: any } & DownloadProps) {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-4 items-end">
-        <Select label="Year" value={String(params.year ?? '')} onChange={v => setParams(p => ({ ...p, year: v ? Number(v) : undefined }))} options={filters?.years ?? []} />
+        <Select
+          label="Year"
+          value={String(params.year ?? '')}
+          onChange={v => setParams(p => ({ ...p, year: v ? Number(v) : undefined }))}
+          options={filters?.years ?? []}
+        />
         <Select label="Country" value={params.country ?? ''} onChange={v => set('country', v)} options={filters?.countries ?? []} />
         <Select label="University" value={params.university ?? ''} onChange={v => set('university', v)} options={filters?.universities ?? []} />
         <Select label="Location" value={params.universityLocation ?? ''} onChange={v => set('universityLocation', v)} options={filters?.universityLocations ?? []} />
@@ -319,10 +318,10 @@ function GpaPanel({ filters, ...dl }: { filters: any } & DownloadProps) {
         <Button
           variant="outline"
           size="sm"
-          disabled={dl.isDownloading}
-          onClick={() => dl.download(() => reportsApi.downloadGpaPdf(params), 'gpa-report.pdf')}
+          disabled={isDownloading}
+          onClick={() => download(() => reportsApi.downloadGpaPdf(params), 'gpa-report.pdf')}
         >
-          {dl.isDownloading ? 'Downloading…' : 'Download PDF'}
+          {isDownloading ? 'Downloading…' : 'Download PDF'}
         </Button>
       </div>
 
@@ -337,8 +336,8 @@ function GpaPanel({ filters, ...dl }: { filters: any } & DownloadProps) {
             </tr>
           </thead>
           <tbody>
-            {data.length === 0 ? <EmptyRow cols={7} /> : data.map((r, i) => (
-              <tr key={`${r.studentId}-${i}`} className="hover:bg-muted/40">
+            {data.length === 0 ? <EmptyRow cols={7} /> : data.map(r => (
+              <tr key={r.studentId} className="hover:bg-muted/40">
                 <Td>{r.studentId}</Td><Td>{r.fname}</Td><Td>{r.lname}</Td>
                 <Td>{r.university}</Td><Td>{r.universityLocation}</Td>
                 <Td>{r.degreeType}</Td><Td>{r.degreeGpa}</Td>
@@ -353,7 +352,9 @@ function GpaPanel({ filters, ...dl }: { filters: any } & DownloadProps) {
 
 // ── Jobs Panel ──────────────────────────────────────────────────────────────
 
-function JobsPanel({ ...dl }: DownloadProps) {
+function JobsPanel() {
+  const { download, isDownloading } = usePdfDownload();
+
   const { data = [], isFetching } = useQuery({
     queryKey: ['report-jobs'],
     queryFn: () => reportsApi.getJobs(),
@@ -365,10 +366,10 @@ function JobsPanel({ ...dl }: DownloadProps) {
         <Button
           variant="outline"
           size="sm"
-          disabled={dl.isDownloading}
-          onClick={() => dl.download(() => reportsApi.downloadJobsPdf(), 'jobs-report.pdf')}
+          disabled={isDownloading}
+          onClick={() => download(() => reportsApi.downloadJobsPdf(), 'jobs-report.pdf')}
         >
-          {dl.isDownloading ? 'Downloading…' : 'Download PDF'}
+          {isDownloading ? 'Downloading…' : 'Download PDF'}
         </Button>
       </div>
 
