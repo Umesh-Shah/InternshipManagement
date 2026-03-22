@@ -66,9 +66,16 @@ Migration of the Internship Management System from a legacy Eclipse/Spring MVC/J
 - Separate admin and student dashboards
 
 ### Phase 8: Testing
-- Backend: 8 JUnit 5 tests (controller slice tests, repository tests, service tests)
+- Backend: 72 JUnit 5 tests across 9 test classes — full `@WebMvcTest` slice coverage for all 8 REST controllers, repository tests, and application context test
 - Frontend: 10 Vitest tests (component rendering, routing, API integration)
 - All tests passing
+
+### Phase 9: PR Review Fixes
+- **Security**: Externalized CORS origins to `cors.allowed-origins` property / `CORS_ALLOWED_ORIGINS` env var; removed hardcoded `spring.profiles.active: dev` from base config; added JWT expiry check (`exp` claim) in `ProtectedRoute`
+- **Performance**: Eliminated N+1 queries in `JobApplicationService` with a single native JOIN query returning a `JobApplicationProjection`; batched skill saves with `saveAll()`
+- **Reliability**: Moved email send outside `@Transactional` boundary using `@TransactionalEventListener(phase = AFTER_COMMIT)`; made `InternshipStatusService.assign()` idempotent (upsert via `findByStudentIdAndJobId`); added `Integer` overload to `StudentCertificateRepository` to handle legacy VARCHAR `studentId` without entity changes
+- **Error handling**: Added `HttpMessageNotReadableException` → 400, `ResponseStatusException` pass-through, and generic `Exception` → 500 handlers to `GlobalExceptionHandler`
+- **Frontend**: Removed all `any` casts in `ReportsPage`; scoped `usePdfDownload` per panel; fixed wrong-role redirect to own portal (`/admin` or `/student`); added class-component `ErrorBoundary` at router level; fixed GPA table `key` to use stable `studentId`
 
 ## Key Decisions
 
@@ -97,7 +104,7 @@ Migration of the Internship Management System from a legacy Eclipse/Spring MVC/J
 ## Verification
 
 - `mvn clean compile` — backend compiles cleanly
-- `mvn test` — 8/8 tests pass
+- `mvn test` — 72/72 tests pass (9 test classes)
 - `npm test` — 10/10 tests pass
 - `npm run build` — frontend builds without errors
 - `docker compose up -d` — MySQL starts and auto-seeds

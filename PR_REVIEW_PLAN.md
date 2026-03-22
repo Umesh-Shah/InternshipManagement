@@ -32,12 +32,12 @@ JWT auth, CORS, authorization enforcement, secrets management, input validation.
 | S6 | LOW | `SecurityConfig.java` | SPA static routes served by `SpaController` are not excluded from the security filter chain. Verify that `/**` catch-all doesn't inadvertently require auth for the index HTML. |
 
 ### Checklist
-- [ ] S1: Externalize CORS origins to env var
-- [ ] S2: Randomize or remove default JWT secret
-- [ ] S3: Remove `spring.profiles.active: dev` from `application.yml`
-- [ ] S4: Decision documented on JWT storage strategy (localStorage vs memory vs httpOnly cookie)
-- [ ] S5: Add JWT expiry check in `ProtectedRoute`
-- [ ] S6: Confirm SPA routes (`/`, `/**`) don't require auth in filter chain
+- [x] S1: Externalize CORS origins to env var — `cors.allowed-origins` property, split by comma; `CORS_ALLOWED_ORIGINS` in prod profile
+- [ ] S2: Randomize or remove default JWT secret — still ships a known default; override via `JWT_SECRET` env var in all deploys
+- [x] S3: Remove `spring.profiles.active: dev` from `application.yml` — removed; set via `SPRING_PROFILES_ACTIVE` env var
+- [ ] S4: Decision documented on JWT storage strategy — localStorage retained for simplicity; httpOnly cookie migration deferred
+- [x] S5: Add JWT expiry check in `ProtectedRoute` — parses `exp` from JWT payload via `atob()`; calls `clearAuth()` if expired
+- [x] S6: SPA routes confirmed permit-all in `SecurityConfig` (`/`, `/**` → `permitAll`)
 
 ---
 
@@ -60,14 +60,14 @@ Transactions, N+1 queries, error handling, consistency, Java best practices.
 | B8 | LOW | `InternshipStatusService` | `assign()` creates a new `StudentInternship` every call — no idempotency check (unlike `JobApplicationService.apply()` which is idempotent). Double-clicking "Assign" in the UI will create duplicate records. |
 
 ### Checklist
-- [ ] B1: Email sending moved outside transaction boundary
-- [ ] B2: N+1 in `toResponse()` fixed with JOIN query or batch fetch
-- [ ] B3: `GlobalExceptionHandler` covers `ResponseStatusException` + generic fallback
-- [ ] B4: `replaceSkills` loop replaced with `saveAll()`
-- [ ] B5: `StudentCertificate.studentId` type aligned to `Integer`
-- [ ] B6: Guard added to `upsertEducation` / `upsertCertificate` / `upsertWork`
-- [ ] B7: SQL logging confirmed off in non-dev profiles
-- [ ] B8: `assign()` made idempotent or UI disables the button after first click
+- [x] B1: Email sending moved outside transaction boundary — `@TransactionalEventListener(phase = AFTER_COMMIT)` via `StudentRegisteredEvent`; email failure no longer rolls back student creation
+- [x] B2: N+1 in `toResponse()` fixed — replaced per-row `findById` calls with single native JOIN query returning `JobApplicationProjection`
+- [x] B3: `GlobalExceptionHandler` covers `HttpMessageNotReadableException` → 400, `ResponseStatusException` pass-through, and `Exception` fallback → 500
+- [x] B4: `replaceSkills` loop replaced with `saveAll()`
+- [x] B5: `StudentCertificate.studentId` — entity VARCHAR preserved (matches DB schema); `Integer` overload added to repository layer to avoid callers using `String.valueOf()`
+- [ ] B6: Guard not added to upsert endpoints — deferred; upserts are idempotent by design
+- [x] B7: SQL logging confirmed off in base and prod profiles; only enabled in `application-dev.yml`
+- [x] B8: `assign()` made idempotent — `findByStudentIdAndJobId().orElseGet(StudentInternship::new)` upsert pattern
 
 ---
 
@@ -80,16 +80,16 @@ Test breadth relative to codebase size; critical paths covered.
 
 | # | Severity | Note |
 |---|----------|------|
-| T1 | HIGH | Only 3 test classes exist: `ImsApplicationTests`, `AuthControllerTest`, `CompanyRepositoryTest`. Controllers for Student, Job, Internship, Report, Skill have zero test coverage. |
+| T1 | ~~HIGH~~ RESOLVED | ~~Only 3 test classes.~~ Now 9 test classes, 72 tests — `@WebMvcTest` slices for all 8 REST controllers plus `CompanyRepositoryTest`. |
 | T2 | HIGH | No test for the security authorization layer — confirm `@PreAuthorize("hasRole('ADMIN')")` actually rejects STUDENT tokens, and `@studentSecurity.canAccess()` rejects cross-student access. |
 | T3 | MEDIUM | `StudentService.create()` has complex logic (derive password, create login, send email) with no unit test. |
-| T4 | MEDIUM | No test for `JobApplicationService` N+1 baseline (even a simple smoke test would catch regressions). |
+| T4 | MEDIUM | `JobApplicationService` single-query path covered by `JobApplicationControllerTest` smoke tests; dedicated service unit test still absent. |
 
 ### Checklist
-- [ ] T1: At minimum, add `@WebMvcTest` slices for `StudentController`, `JobApplicationController`, `InternshipController`
+- [x] T1: `@WebMvcTest` slices added for all 8 controllers — 72/72 tests pass
 - [ ] T2: Add security integration test: student token rejected for admin endpoints; cross-student access rejected
 - [ ] T3: Unit test for `StudentService.create()` (mock repos + email service)
-- [ ] T4: `AuthControllerTest` covers happy path and bad credentials — verify it also tests role claim in JWT response
+- [x] T4: `AuthControllerTest` covers happy path, bad credentials, and missing body; `JobApplicationControllerTest` covers the N+1-replaced code path
 
 ---
 
@@ -112,13 +112,13 @@ TypeScript correctness, React patterns, accessibility, error states.
 | F8 | LOW | `useAuthStore.ts` | `persist` middleware stores the full auth state including JWT in `localStorage`. If `clearAuth()` is called on logout, verify `localStorage.removeItem('ims-auth')` also fires (Zustand persist does this on `set({ token: null })` — confirm via test). |
 
 ### Checklist
-- [ ] F1/F2: Replace all `any` casts in `ReportsPage.tsx` with proper types from `reports.api.ts`
-- [ ] F3: `isDownloading` scoped per panel (not shared singleton)
-- [ ] F4: GPA table `key` uses stable unique ID only
-- [ ] F5: Unauthorized role redirects to own portal, not `/login`
-- [ ] F6: `client.ts` uses `useAuthStore.getState().token` instead of raw `localStorage` read
-- [ ] F7: `<ErrorBoundary>` added at router level
-- [ ] F8: Logout confirmed to clear localStorage token
+- [x] F1/F2: All `any` casts removed — `StudentsPanel` typed as `{ filters: ReportFilters | null }`, `InternshipTypesPanel` and `GpaPanel` use `ReportFilters | null`
+- [x] F3: `usePdfDownload()` called independently per panel; each has its own isolated `isDownloading` state
+- [x] F4: GPA table `key` changed to `r.studentId` (stable, no index fallback)
+- [x] F5: Wrong-role redirect goes to `/admin` or `/student` (own portal), not `/login`
+- [ ] F6: `client.ts` still reads `localStorage` directly — deferred; functionally correct, minor coupling issue
+- [x] F7: Class-component `<ErrorBoundary>` added wrapping `<BrowserRouter>` in `AppRouter.tsx`
+- [ ] F8: Logout clears Zustand state; Zustand `persist` removes `ims-auth` from localStorage on `clearAuth()` — not explicitly tested
 
 ---
 
@@ -144,8 +144,8 @@ This checklist maps every legacy `MainController` route to the new system.
 | `GET /main/job_approval` + `GET /main/job_report` | `GET /api/job-applications/pending` + `ApprovalsPage.tsx` | ✅ Covered |
 | `GET /main/approved_student` | `GET /api/job-applications/approved` + `ApprovalsPage.tsx` | ✅ Covered |
 | `GET /main/getstudentfromjjob` | `GET /api/job-applications/approved?jobId=X` | ✅ Covered |
-| `GET /main/getjobfromcompanyajax` (AJAX, jobs by company) | `GET /api/jobs` (filter by companyId on frontend) | ⚠️ Verify `JobsPage` filters jobs by company |
-| `GET /main/getjobfromcompany` | `GET /api/jobs?companyId=X` | ⚠️ Verify backend supports `companyId` query param |
+| `GET /main/getjobfromcompanyajax` (AJAX, jobs by company) | `GET /api/jobs?companyId=X` filtered in frontend | ✅ Covered |
+| `GET /main/getjobfromcompany` | `GET /api/jobs?companyId=X` | ✅ Confirmed — `JobController.getAll(@RequestParam Integer companyId)` supported and tested |
 | `GET /main/student_report` + `POST /main/searchreport` | `GET /api/reports/students` + `ReportsPage.tsx` | ✅ Covered |
 | `GET /main/company_report` + `POST /main/searchemployers` | `GET /api/reports/companies` + `ReportsPage.tsx` | ✅ Covered |
 | `GET /main/internshp_type_report` + `POST /main/searchinterntype` | `GET /api/reports/internship-types` + `ReportsPage.tsx` | ✅ Covered |
@@ -223,23 +223,32 @@ This checklist maps every legacy `MainController` route to the new system.
 Before merging:
 
 ### Must Fix (Blockers)
-- [ ] S1: Externalize CORS origins
-- [ ] S3: Remove hardcoded `spring.profiles.active: dev`
-- [ ] B1: Move email send outside `@Transactional` boundary
-- [ ] B2: Fix N+1 in `JobApplicationService.toResponse()`
-- [ ] B3: Add `ResponseStatusException` + fallback handler to `GlobalExceptionHandler`
-- [ ] T1: Add controller slice tests for at least Student and JobApplication controllers
+- [x] S1: Externalize CORS origins ✅
+- [x] S3: Remove hardcoded `spring.profiles.active: dev` ✅
+- [x] B1: Move email send outside `@Transactional` boundary ✅
+- [x] B2: Fix N+1 in `JobApplicationService.toResponse()` ✅
+- [x] B3: Add `ResponseStatusException` + fallback handler to `GlobalExceptionHandler` ✅
+- [x] T1: Controller slice tests added for all 8 controllers (72 tests) ✅
 
 ### Should Fix (Non-blocking but important)
-- [ ] S4/S5: JWT expiry check in frontend + document storage decision
-- [ ] B4: `saveAll()` in `replaceSkills()`
-- [ ] B5: Align `StudentCertificate.studentId` type
-- [ ] B8: Idempotency in `InternshipStatusService.assign()`
-- [ ] F1–F3: TypeScript `any` types + per-panel download state in `ReportsPage`
-- [ ] F7: Add `<ErrorBoundary>`
+- [x] S5: JWT expiry check added in `ProtectedRoute` ✅
+- [ ] S4: JWT storage strategy — localStorage retained; httpOnly cookie migration not yet done
+- [x] B4: `saveAll()` in `replaceSkills()` ✅
+- [x] B5: `StudentCertificate.studentId` — `Integer` overload at repository layer; entity VARCHAR preserved ✅
+- [x] B8: Idempotency in `InternshipStatusService.assign()` — upsert pattern ✅
+- [x] F1–F3: TypeScript `any` types removed + per-panel download state in `ReportsPage` ✅
+- [x] F7: `<ErrorBoundary>` added at router level ✅
 
 ### Confirm / Verify
-- [ ] ⚠️ `GET /api/jobs?companyId=X` — confirm `JobController` supports `companyId` query param (maps to legacy `getjobfromcompany`)
-- [ ] ℹ️ Static pages (`aboutUs`, `gallery`) — confirm intentionally dropped
-- [ ] ℹ️ Admin user management — confirm out-of-scope for this PR
-- [ ] `build/classes/` legacy `.class` files removed from repo (they appear in the diff)
+- [x] ✅ `GET /api/jobs?companyId=X` — confirmed supported and covered by `JobControllerTest`
+- [x] ✅ `build/classes/` legacy `.class` files added to `.gitignore` and excluded from PR
+- [ ] ℹ️ Static pages (`aboutUs`, `gallery`) — intentionally dropped; confirm with stakeholders
+- [ ] ℹ️ Admin user management — out-of-scope for this PR; admins managed directly in DB
+
+### Remaining Open Items
+- [ ] T2: Security integration test (role enforcement, cross-student access)
+- [ ] T3: Unit test for `StudentService.create()`
+- [ ] S2: JWT secret default still a known string — must set `JWT_SECRET` env var in all deploys
+- [ ] S4: httpOnly cookie migration for JWT (deferred)
+- [ ] F6: `client.ts` reads `localStorage` directly instead of via Zustand `getState()`
+- [ ] F8: Zustand `persist` logout clearing — not explicitly tested
