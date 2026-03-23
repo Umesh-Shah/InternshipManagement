@@ -19,9 +19,9 @@ test.describe('Student — Internship Status', () => {
 
     if (cardCount > 0) {
       // Verify card content has expected fields
-      await expect(page.getByText('Company')).toBeVisible();
-      await expect(page.getByText('Job')).toBeVisible();
-      await expect(page.getByText('Internship Type')).toBeVisible();
+      await expect(page.getByText('Company').first()).toBeVisible();
+      await expect(page.getByText('Job').first()).toBeVisible();
+      await expect(page.getByText('Internship Type').first()).toBeVisible();
     }
   });
 });

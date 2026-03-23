@@ -7,7 +7,7 @@ test.describe('Student — Browse Jobs', () => {
     await jobsPage.goto();
     await expect(jobsPage.heading).toBeVisible();
     // Should show seeded jobs
-    await expect(jobsPage.jobCard('Full Stack Developer Intern')).toBeVisible();
+    await expect(jobsPage.jobCard('Full Stack Web Developer')).toBeVisible();
   });
 
   test('apply to a job shows interested state', async ({ page }) => {

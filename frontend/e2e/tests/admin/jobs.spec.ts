@@ -8,8 +8,8 @@ test.describe('Admin — Jobs CRUD', () => {
     await jobsPage.goto();
     await expect(jobsPage.heading).toBeVisible();
     await expect(jobsPage.table).toBeVisible();
-    // Seed data includes "Full Stack Developer Intern"
-    await expect(jobsPage.row('Full Stack Developer Intern')).toBeVisible();
+    // Seed data includes "Full Stack Web Developer"
+    await expect(jobsPage.row('Full Stack Web Developer')).toBeVisible();
   });
 
   test('create a new job', async ({ page }) => {
@@ -36,7 +36,7 @@ test.describe('Admin — Jobs CRUD', () => {
     await jobsPage.goto();
     await expect(jobsPage.table).toBeVisible();
 
-    await jobsPage.editRow('Full Stack Developer Intern');
+    await jobsPage.editRow('Full Stack Web Developer');
 
     const form = new JobFormPage(page);
     await expect(form.heading).toHaveText('Edit Job');

@@ -19,10 +19,10 @@ test.describe('Admin — Internship Status', () => {
 
   test('assign internship form has required dropdowns', async ({ page }) => {
     await page.goto('/admin/internships/assign');
-    await expect(page.getByText('Student')).toBeVisible();
-    await expect(page.getByText('Company')).toBeVisible();
-    await expect(page.getByText('Job')).toBeVisible();
-    await expect(page.getByText('Internship Type')).toBeVisible();
-    await expect(page.getByText('Internship Status')).toBeVisible();
+    await expect(page.getByText('Student', { exact: true })).toBeVisible();
+    await expect(page.getByText('Company', { exact: true })).toBeVisible();
+    await expect(page.getByText('Job', { exact: true })).toBeVisible();
+    await expect(page.getByText('Internship Type', { exact: true })).toBeVisible();
+    await expect(page.getByText('Internship Status', { exact: true })).toBeVisible();
   });
 });
