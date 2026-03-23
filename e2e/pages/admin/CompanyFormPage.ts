@@ -24,25 +24,22 @@ export class CompanyFormPage {
     companyWebsite?: string;
     notes?: string;
   }) {
-    // Labels don't use htmlFor, so locate by label text then the sibling input
-    const fill = async (label: string, value?: string) => {
+    const fill = async (selector: string, value?: string) => {
       if (value == null) return;
-      const container = this.page.locator('div').filter({ hasText: new RegExp(`^${label}`) }).first();
-      const input = container.locator('input, textarea');
-      await input.fill(value);
+      await this.page.locator(selector).fill(value);
     };
 
-    await fill('Company Name', data.companyName);
-    await fill('Email', data.email);
-    await fill('Address', data.address);
-    await fill('City', data.city);
-    await fill('Postal Code', data.postalCode);
-    await fill('Country', data.country);
-    await fill('Contact First Name', data.contactPersonFname);
-    await fill('Contact Last Name', data.contactPersonLname);
-    await fill('Telephone', data.telephone);
-    await fill('Website', data.companyWebsite);
-    await fill('Notes', data.notes);
+    await fill('input[name="companyName"]', data.companyName);
+    await fill('input[name="email"]', data.email);
+    await fill('input[name="address"]', data.address);
+    await fill('input[name="city"]', data.city);
+    await fill('input[name="postalCode"]', data.postalCode);
+    await fill('input[name="country"]', data.country);
+    await fill('input[name="contactPersonFname"]', data.contactPersonFname);
+    await fill('input[name="contactPersonLname"]', data.contactPersonLname);
+    await fill('input[name="telephone"]', data.telephone);
+    await fill('input[name="companyWebsite"]', data.companyWebsite);
+    await fill('textarea[name="notes"]', data.notes);
   }
 
   get submitButton() {

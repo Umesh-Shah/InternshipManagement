@@ -17,26 +17,14 @@ export class JobFormPage {
     requirements?: string;
     responsibilities?: string;
   }) {
-    const fill = async (label: string, value?: string) => {
-      if (value == null) return;
-      const container = this.page.locator('div').filter({ hasText: new RegExp(`^${label}`) }).first();
-      const input = container.locator('input, textarea, select');
-      const tag = await input.evaluate(el => el.tagName.toLowerCase());
-      if (tag === 'select') {
-        await input.selectOption({ label: value });
-      } else {
-        await input.fill(value);
-      }
-    };
-
-    await fill('Position', data.jobPosition);
-    await fill('Company', data.companyName);
-    await fill('Salary', data.salary);
-    await fill('Internship Type', data.internshipType);
-    await fill('Skills', data.jobSkill);
-    await fill('Description', data.description);
-    await fill('Requirements', data.requirements);
-    await fill('Responsibilities', data.responsibilities);
+    await this.page.locator('input[name="jobPosition"]').fill(data.jobPosition);
+    await this.page.locator('select[name="companyId"]').selectOption({ label: data.companyName });
+    if (data.salary != null) await this.page.locator('input[name="salary"]').fill(data.salary);
+    if (data.internshipType != null) await this.page.locator('select[name="internshipType"]').selectOption({ label: data.internshipType });
+    if (data.jobSkill != null) await this.page.locator('input[name="jobSkill"]').fill(data.jobSkill);
+    if (data.description != null) await this.page.locator('textarea[name="description"]').fill(data.description);
+    if (data.requirements != null) await this.page.locator('textarea[name="requirements"]').fill(data.requirements);
+    if (data.responsibilities != null) await this.page.locator('textarea[name="responsibilities"]').fill(data.responsibilities);
   }
 
   get submitButton() {

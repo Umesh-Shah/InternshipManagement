@@ -18,27 +18,15 @@ export class StudentFormPage {
     semester?: string;
     country?: string;
   }) {
-    const fill = async (label: string, value?: string) => {
-      if (value == null) return;
-      const container = this.page.locator('div').filter({ hasText: new RegExp(`^${label}`) }).first();
-      const input = container.locator('input, select');
-      const tag = await input.evaluate(el => el.tagName.toLowerCase());
-      if (tag === 'select') {
-        await input.selectOption(value);
-      } else {
-        await input.fill(value);
-      }
-    };
-
-    await fill('Student ID', data.studentId);
-    await fill('First Name', data.fname);
-    await fill('Last Name', data.lname);
-    await fill('Email', data.stuEmail);
-    await fill('Middle Name', data.mname);
-    await fill('Year', data.year);
-    await fill('Gender', data.gender);
-    await fill('Semester', data.semester);
-    await fill('Country', data.country);
+    await this.page.locator('input[name="studentId"]').fill(data.studentId);
+    await this.page.locator('input[name="fname"]').fill(data.fname);
+    await this.page.locator('input[name="lname"]').fill(data.lname);
+    await this.page.locator('input[name="stuEmail"]').fill(data.stuEmail);
+    if (data.mname != null) await this.page.locator('input[name="mname"]').fill(data.mname);
+    if (data.year != null) await this.page.locator('input[name="year"]').fill(data.year);
+    if (data.gender != null) await this.page.locator('select[name="gender"]').selectOption(data.gender);
+    if (data.semester != null) await this.page.locator('input[name="semester"]').fill(data.semester);
+    if (data.country != null) await this.page.locator('input[name="country"]').fill(data.country);
   }
 
   get submitButton() {

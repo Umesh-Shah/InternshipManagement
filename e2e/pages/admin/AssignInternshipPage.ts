@@ -12,23 +12,19 @@ export class AssignInternshipPage {
   }
 
   async selectStudent(name: string) {
-    const container = this.page.locator('div').filter({ hasText: /^Student/ }).first();
-    await container.locator('select').selectOption({ label: name });
+    await this.page.locator('select[name="studentId"]').selectOption({ label: name });
   }
 
   async selectCompany(name: string) {
-    const container = this.page.locator('div').filter({ hasText: /^Company/ }).first();
-    await container.locator('select').selectOption({ label: name });
+    await this.page.locator('select[name="companyId"]').selectOption({ label: name });
   }
 
   async selectJob(name: string) {
-    const container = this.page.locator('div').filter({ hasText: /^Job/ }).first();
-    await container.locator('select').selectOption({ label: name });
+    await this.page.locator('select[name="jobId"]').selectOption({ label: name });
   }
 
   async selectInternshipType(type: string) {
-    const container = this.page.locator('div').filter({ hasText: /^Internship Type/ }).first();
-    await container.locator('select').selectOption({ label: type });
+    await this.page.locator('select[name="internshipTypeId"]').selectOption({ label: type });
   }
 
   get submitButton() {
