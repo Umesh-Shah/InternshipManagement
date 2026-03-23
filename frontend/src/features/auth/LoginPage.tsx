@@ -25,11 +25,8 @@ export default function LoginPage() {
     setError(null);
     try {
       const res = await login(data);
-      setAuth(res.token, {
-        username: res.username,
-        role: res.role,
-        studentId: res.studentId,
-      });
+      const expiresAt = Date.now() + 8 * 60 * 60 * 1000; // mirrors 8-hour server-side token lifetime
+      setAuth({ username: res.username, role: res.role, studentId: res.studentId }, expiresAt);
       navigate(res.role === 'ROLE_ADMIN' ? '/admin' : '/student', { replace: true });
     } catch {
       setError('Invalid username or password.');

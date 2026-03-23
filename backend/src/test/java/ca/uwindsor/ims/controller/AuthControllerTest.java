@@ -2,6 +2,7 @@ package ca.uwindsor.ims.controller;
 
 import ca.uwindsor.ims.dto.LoginRequest;
 import ca.uwindsor.ims.dto.LoginResponse;
+import ca.uwindsor.ims.service.AuthResult;
 import ca.uwindsor.ims.service.AuthService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -41,17 +43,29 @@ class AuthControllerTest {
     @MockBean AuthService authService;
 
     @Test
-    void loginSuccess_returns200WithToken() throws Exception {
-        LoginResponse resp = new LoginResponse("jwt-token", "ROLE_ADMIN", null, "admin");
-        when(authService.login(any())).thenReturn(resp);
+    void loginSuccess_setsCookieAndReturnsUserWithoutToken() throws Exception {
+        AuthResult result = new AuthResult("jwt-token",
+                new LoginResponse("ROLE_ADMIN", null, "admin"));
+        when(authService.login(any())).thenReturn(result);
 
         mvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(new LoginRequest("admin", "secret"))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").value("jwt-token"))
+                .andExpect(header().string("Set-Cookie", containsString("ims-jwt=jwt-token")))
+                .andExpect(header().string("Set-Cookie", containsString("HttpOnly")))
+                .andExpect(header().string("Set-Cookie", containsString("SameSite=Strict")))
                 .andExpect(jsonPath("$.role").value("ROLE_ADMIN"))
-                .andExpect(jsonPath("$.username").value("admin"));
+                .andExpect(jsonPath("$.username").value("admin"))
+                .andExpect(jsonPath("$.token").doesNotExist());
+    }
+
+    @Test
+    void logout_clearsCookie() throws Exception {
+        mvc.perform(post("/api/auth/logout"))
+                .andExpect(status().isNoContent())
+                .andExpect(header().string("Set-Cookie", containsString("ims-jwt=")))
+                .andExpect(header().string("Set-Cookie", containsString("Max-Age=0")));
     }
 
     @Test

@@ -7,7 +7,6 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  token: string;
   role: Role;
   studentId: number | null;
   username: string;
@@ -15,3 +14,6 @@ export interface LoginResponse {
 
 export const login = (data: LoginRequest) =>
   apiClient.post<LoginResponse>('/auth/login', data).then((r) => r.data);
+
+export const logout = () =>
+  apiClient.post('/auth/logout').then(() => undefined);
