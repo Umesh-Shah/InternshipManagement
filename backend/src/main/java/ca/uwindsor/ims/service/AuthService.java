@@ -27,11 +27,12 @@ public class AuthService {
         this.jwtEncoder = jwtEncoder;
     }
 
-    public LoginResponse login(LoginRequest request) {
+    public AuthResult login(LoginRequest request) {
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.username(), request.password()));
         ImsUserDetails user = (ImsUserDetails) auth.getPrincipal();
-        return new LoginResponse(issueToken(user), user.getRole().authority(), user.getStudentId(), user.getUsername());
+        LoginResponse resp = new LoginResponse(user.getRole().authority(), user.getStudentId(), user.getUsername());
+        return new AuthResult(issueToken(user), resp);
     }
 
     private String issueToken(ImsUserDetails user) {

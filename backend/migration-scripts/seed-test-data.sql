@@ -1,6 +1,10 @@
 -- =============================================================================
--- Test Data Seed Script
+-- Test Data Seed Script  — DEV / CI ONLY. NEVER import into production.
 -- =============================================================================
+-- WARNING: All passwords use the Spring Security {noop} prefix, meaning they
+-- are stored and compared in plain text. This is intentional for development
+-- convenience and would be a critical security vulnerability in production.
+--
 -- Populates all tables with realistic fake data for development/testing.
 --
 -- Run against the `test` database (dev profile uses port 3307):

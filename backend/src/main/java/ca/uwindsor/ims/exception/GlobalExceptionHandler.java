@@ -3,6 +3,7 @@ package ca.uwindsor.ims.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
@@ -44,6 +45,13 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleResponseStatus(ResponseStatusException ex) {
         ProblemDetail pd = ProblemDetail.forStatus(ex.getStatusCode());
         pd.setDetail(ex.getReason() != null ? ex.getReason() : ex.getMessage());
+        return pd;
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ProblemDetail handleAccessDenied(AccessDeniedException ex) {
+        ProblemDetail pd = ProblemDetail.forStatus(HttpStatus.FORBIDDEN);
+        pd.setDetail("Access denied");
         return pd;
     }
 

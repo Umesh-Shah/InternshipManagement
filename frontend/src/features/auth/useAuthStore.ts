@@ -10,19 +10,19 @@ interface AuthUser {
 }
 
 interface AuthState {
-  token: string | null;
+  expiresAt: number | null;
   user: AuthUser | null;
-  setAuth: (token: string, user: AuthUser) => void;
+  setAuth: (user: AuthUser, expiresAt: number) => void;
   clearAuth: () => void;
 }
 
 const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      token: null,
+      expiresAt: null,
       user: null,
-      setAuth: (token, user) => set({ token, user }),
-      clearAuth: () => set({ token: null, user: null }),
+      setAuth: (user, expiresAt) => set({ user, expiresAt }),
+      clearAuth: () => set({ user: null, expiresAt: null }),
     }),
     { name: 'ims-auth' }
   )

@@ -4,11 +4,13 @@ import ca.uwindsor.ims.dto.*;
 import ca.uwindsor.ims.entity.*;
 import ca.uwindsor.ims.repository.*;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -120,6 +122,7 @@ public class StudentService {
     }
 
     public StudentEducation upsertEducation(Integer studentId, StudentEducationRequest req) {
+        requireStudentExists(studentId);
         StudentEducation edu = eduRepo.findByStudentId(studentId).orElseGet(StudentEducation::new);
         edu.setStudentId(studentId);
         edu.setDegreeType(req.degreeType());
@@ -137,6 +140,7 @@ public class StudentService {
     }
 
     public StudentCertificate upsertCertificate(Integer studentId, StudentCertificateRequest req) {
+        requireStudentExists(studentId);
         StudentCertificate cert = certRepo.findByStudentId(studentId)
                 .orElseGet(StudentCertificate::new);
         cert.setStudentId(String.valueOf(studentId));
@@ -152,6 +156,7 @@ public class StudentService {
     }
 
     public StudentWork upsertWork(Integer studentId, StudentWorkRequest req) {
+        requireStudentExists(studentId);
         StudentWork work = workRepo.findByStudentId(studentId).orElseGet(StudentWork::new);
         work.setStudentId(studentId);
         work.setStartDate(req.startDate());
@@ -186,6 +191,15 @@ public class StudentService {
                 })
                 .toList();
         return skillRepo.saveAll(toSave);
+    }
+
+    // ── Guards ─────────────────────────────────────────────────────────────────
+
+    private void requireStudentExists(Integer studentId) {
+        if (!infoRepo.existsById(studentId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Student not found: " + studentId);
+        }
     }
 
     // ── Private helpers ────────────────────────────────────────────────────────
