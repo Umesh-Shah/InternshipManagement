@@ -1,7 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
@@ -14,11 +13,19 @@ export default defineConfig({
   },
 
   projects: [
-    // Auth setup projects — run first to create storageState files
-    { name: 'admin setup', testMatch: /admin\.setup\.ts/, teardown: undefined },
-    { name: 'student setup', testMatch: /student\.setup\.ts/, teardown: undefined },
+    // Auth setup projects — each gets its own testDir so files in ./auth/ are discovered
+    {
+      name: 'admin setup',
+      testDir: './auth',
+      testMatch: /admin\.setup\.ts/,
+    },
+    {
+      name: 'student setup',
+      testDir: './auth',
+      testMatch: /student\.setup\.ts/,
+    },
 
-    // Admin tests — use admin storageState
+    // Admin tests — depend on admin setup having written .auth/admin.json
     {
       name: 'admin',
       testDir: './tests/admin',
@@ -29,7 +36,7 @@ export default defineConfig({
       dependencies: ['admin setup'],
     },
 
-    // Student tests — use student storageState
+    // Student tests — depend on student setup having written .auth/student.json
     {
       name: 'student',
       testDir: './tests/student',
@@ -40,9 +47,10 @@ export default defineConfig({
       dependencies: ['student setup'],
     },
 
-    // Auth tests — no storageState (tests login/logout directly)
+    // Auth tests — no storageState (tests login/logout flows directly)
     {
       name: 'auth',
+      testDir: './tests',
       testMatch: /auth\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
