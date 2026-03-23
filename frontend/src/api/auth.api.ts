@@ -1,4 +1,5 @@
 import apiClient from './client';
+import type { Role } from '@/features/auth/useAuthStore';
 
 export interface LoginRequest {
   username: string;
@@ -7,7 +8,7 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   token: string;
-  role: string;
+  role: Role;
   studentId: number | null;
   username: string;
 }

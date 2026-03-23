@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -50,7 +51,7 @@ public class JasperReportService {
             throw new IllegalArgumentException("Unknown report: " + reportName);
         }
         JRDataSource ds = new JRBeanCollectionDataSource(data);
-        JasperPrint print = JasperFillManager.fillReport(report, Map.of(), ds);
+        JasperPrint print = JasperFillManager.fillReport(report, new HashMap<>(), ds);
         return JasperExportManager.exportReportToPdf(print);
     }
 }

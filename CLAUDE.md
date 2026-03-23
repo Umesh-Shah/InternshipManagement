@@ -11,7 +11,7 @@ Internship Management System (IMS) — a Spring Boot 3.4 + React 19 monorepo for
 docker compose up -d                    # MySQL on port 3307, auto-seeds test data
 
 # Backend
-cd backend && mvn spring-boot:run       # http://localhost:8080
+cd backend && mvn spring-boot:run -Dspring-boot.run.profiles=dev   # http://localhost:8080
 cd backend && mvn test                  # 8 tests
 cd backend && mvn clean compile         # Compile check
 

@@ -31,7 +31,7 @@ public class AuthService {
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.username(), request.password()));
         ImsUserDetails user = (ImsUserDetails) auth.getPrincipal();
-        return new LoginResponse(issueToken(user), user.getRole(), user.getStudentId(), user.getUsername());
+        return new LoginResponse(issueToken(user), user.getRole().authority(), user.getStudentId(), user.getUsername());
     }
 
     private String issueToken(ImsUserDetails user) {
@@ -40,7 +40,7 @@ public class AuthService {
                 .subject(user.getUsername())
                 .issuedAt(now)
                 .expiresAt(now.plus(8, ChronoUnit.HOURS))
-                .claim("role", user.getRole());
+                .claim("role", user.getRole().authority());
         if (user.getStudentId() != null) {
             claimsBuilder.claim("student_id", user.getStudentId());
         }

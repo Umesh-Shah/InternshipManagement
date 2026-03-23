@@ -14,7 +14,7 @@ public interface StudentJobMappingRepository extends JpaRepository<StudentJobMap
     java.util.Optional<StudentJobMapping> findByStudentIdAndJobId(Integer studentId, Integer jobId);
 
     /**
-     * Single-query fetch: joins student_job_master → job → company → student_info.
+     * Single-query fetch: joins student_job_master → job → company → student.
      * Returns a flat projection used by JobApplicationService to avoid N+1.
      */
     @Query(value = """
@@ -28,9 +28,9 @@ public interface StudentJobMappingRepository extends JpaRepository<StudentJobMap
                 CONCAT(s.FNAME, ' ', s.LNAME) AS studentName,
                 m.flag            AS flag
             FROM student_job_master m
-            LEFT JOIN job j          ON j.JOB_ID     = m.JOB_ID
-            LEFT JOIN company c      ON c.COMPANY_ID = j.company_id
-            LEFT JOIN student_info s ON s.STUDENT_ID = m.STUDENT_ID
+            LEFT JOIN job j ON j.JOB_ID     = m.JOB_ID
+            LEFT JOIN company c ON c.COMPANY_ID = j.company_id
+            LEFT JOIN student s ON s.STUDENT_ID = m.STUDENT_ID
             WHERE (:flag IS NULL OR m.flag = :flag)
               AND (:studentId IS NULL OR m.STUDENT_ID = :studentId)
               AND (:jobId IS NULL OR m.JOB_ID = :jobId)
