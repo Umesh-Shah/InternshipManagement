@@ -20,7 +20,7 @@
 
     <properties>
         <java.version>21</java.version>
-        <jasperreports.version>6.21.3</jasperreports.version>
+        <jasperreports.version>7.0.6</jasperreports.version>
     </properties>
 
     <dependencies>
@@ -59,7 +59,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JasperReports 6.21.3 (server-side PDF) -->
+        <!-- JasperReports 7.0.6 (server-side PDF) -->
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
@@ -70,6 +70,23 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- jasperreports-metadata and jasperreports-pdf are optional in the JR 7 POM so must be declared explicitly -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-metadata</artifactId>
+            <version>${jasperreports.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-pdf</artifactId>
+            <version>${jasperreports.version}</version>
+        </dependency>
+        <!-- JDT compiler for Java expressions embedded in JRXML reports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-jdt</artifactId>
+            <version>${jasperreports.version}</version>
         </dependency>
 
         <!-- Email -->
