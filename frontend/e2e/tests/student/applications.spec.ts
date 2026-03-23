@@ -15,7 +15,7 @@ test.describe('Student — My Applications', () => {
 
     // Page must show either application cards or the empty message — never neither
     await expect(
-      page.locator('.border.rounded-lg').or(applicationsPage.emptyMessage)
+      page.locator('.border.rounded-lg').first().or(applicationsPage.emptyMessage)
     ).toBeVisible();
   });
 });
