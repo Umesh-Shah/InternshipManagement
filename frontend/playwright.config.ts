@@ -13,22 +13,22 @@ export default defineConfig({
   },
 
   projects: [
-    // Auth setup projects — each gets its own testDir so files in ./auth/ are discovered
+    // Auth setup projects — each gets its own testDir so files in ./e2e/auth/ are discovered
     {
       name: 'admin setup',
-      testDir: './auth',
+      testDir: './e2e/auth',
       testMatch: /admin\.setup\.ts/,
     },
     {
       name: 'student setup',
-      testDir: './auth',
+      testDir: './e2e/auth',
       testMatch: /student\.setup\.ts/,
     },
 
     // Admin tests — depend on admin setup having written .auth/admin.json
     {
       name: 'admin',
-      testDir: './tests/admin',
+      testDir: './e2e/tests/admin',
       use: {
         ...devices['Desktop Chrome'],
         storageState: '.auth/admin.json',
@@ -39,7 +39,7 @@ export default defineConfig({
     // Student tests — depend on student setup having written .auth/student.json
     {
       name: 'student',
-      testDir: './tests/student',
+      testDir: './e2e/tests/student',
       use: {
         ...devices['Desktop Chrome'],
         storageState: '.auth/student.json',
@@ -50,7 +50,7 @@ export default defineConfig({
     // Auth tests — no storageState (tests login/logout flows directly)
     {
       name: 'auth',
-      testDir: './tests',
+      testDir: './e2e/tests',
       testMatch: /auth\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
