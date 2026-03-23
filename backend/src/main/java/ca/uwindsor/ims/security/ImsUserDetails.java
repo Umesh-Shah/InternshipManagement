@@ -13,10 +13,10 @@ public class ImsUserDetails implements UserDetails {
 
     private final String username;
     private final String password;
-    private final String role;         // e.g. "ROLE_ADMIN" or "ROLE_STUDENT"
+    private final Role role;
     private final Integer studentId;   // null for admin users
 
-    public ImsUserDetails(String username, String password, String role, Integer studentId) {
+    public ImsUserDetails(String username, String password, Role role, Integer studentId) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -24,20 +24,20 @@ public class ImsUserDetails implements UserDetails {
     }
 
     public static ImsUserDetails fromLogin(Login login) {
-        String role = "admin".equalsIgnoreCase(login.getUserType()) ? "ROLE_ADMIN" : "ROLE_STUDENT";
+        Role role = "admin".equalsIgnoreCase(login.getUserType()) ? Role.ROLE_ADMIN : Role.ROLE_STUDENT;
         return new ImsUserDetails(login.getUsername(), login.getPwd(), role, login.getStudentId());
     }
 
     public static ImsUserDetails fromVbctLogin(VbctLogin vl) {
         // vbct_login users are admin/staff (designation-based)
-        return new ImsUserDetails(vl.getLoginName(), vl.getLoginPassword(), "ROLE_ADMIN", null);
+        return new ImsUserDetails(vl.getLoginName(), vl.getLoginPassword(), Role.ROLE_ADMIN, null);
     }
 
-    public String getRole() { return role; }
+    public Role getRole() { return role; }
     public Integer getStudentId() { return studentId; }
 
     @Override public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
+        return List.of(new SimpleGrantedAuthority(role.authority()));
     }
 
     @Override public String getPassword()               { return password; }

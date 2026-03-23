@@ -163,8 +163,8 @@ function StudentsPanel({ filters }: { filters: ReportFilters | null }) {
             </tr>
           </thead>
           <tbody>
-            {data.length === 0 ? <EmptyRow cols={8} /> : data.map(r => (
-              <tr key={r.studentId} className="hover:bg-muted/40">
+            {data.length === 0 ? <EmptyRow cols={8} /> : data.map((r, i) => (
+              <tr key={`${r.studentId}-${i}`} className="hover:bg-muted/40">
                 <Td>{r.studentId}</Td><Td>{r.fname}</Td><Td>{r.lname}</Td>
                 <Td>{r.year}</Td><Td>{r.country}</Td><Td>{r.semester}</Td>
                 <Td>{r.internshipStatus}</Td><Td>{r.studentStatus}</Td>
@@ -336,8 +336,8 @@ function GpaPanel({ filters }: { filters: ReportFilters | null }) {
             </tr>
           </thead>
           <tbody>
-            {data.length === 0 ? <EmptyRow cols={7} /> : data.map(r => (
-              <tr key={r.studentId} className="hover:bg-muted/40">
+            {data.length === 0 ? <EmptyRow cols={7} /> : data.map((r, i) => (
+              <tr key={`${r.studentId}-${r.degreeType}-${i}`} className="hover:bg-muted/40">
                 <Td>{r.studentId}</Td><Td>{r.fname}</Td><Td>{r.lname}</Td>
                 <Td>{r.university}</Td><Td>{r.universityLocation}</Td>
                 <Td>{r.degreeType}</Td><Td>{r.degreeGpa}</Td>

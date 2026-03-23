@@ -13,7 +13,7 @@ public class StudentSecurityHelper {
 
     public boolean canAccess(Authentication authentication, Integer studentId) {
         boolean isAdmin = authentication.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(a -> a.getAuthority().equals(Role.ROLE_ADMIN.authority()));
         if (isAdmin) return true;
 
         if (authentication instanceof JwtAuthenticationToken jat) {
