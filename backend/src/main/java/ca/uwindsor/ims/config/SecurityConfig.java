@@ -1,6 +1,8 @@
 package ca.uwindsor.ims.config;
 
+import ca.uwindsor.ims.controller.AuthController;
 import ca.uwindsor.ims.security.ImsUserDetailsService;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +19,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
+import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -38,7 +42,8 @@ public class SecurityConfig {
     private String allowedOriginsRaw;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, JwtDecoder jwtDecoder) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtDecoder jwtDecoder,
+                                           BearerTokenResolver bearerTokenResolver) throws Exception {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -48,10 +53,32 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2
+                .bearerTokenResolver(bearerTokenResolver)
                 .jwt(jwt -> jwt
                     .decoder(jwtDecoder)
                     .jwtAuthenticationConverter(jwtAuthenticationConverter())));
         return http.build();
+    }
+
+    /**
+     * Reads the JWT from the {@code ims-jwt} httpOnly cookie first.
+     * Falls back to the {@code Authorization: Bearer} header so that MockMvc tests
+     * that send the header directly continue to work without modification.
+     */
+    @Bean
+    public BearerTokenResolver cookieBearerTokenResolver() {
+        DefaultBearerTokenResolver headerResolver = new DefaultBearerTokenResolver();
+        return request -> {
+            if (request.getCookies() != null) {
+                for (Cookie cookie : request.getCookies()) {
+                    if (AuthController.COOKIE_NAME.equals(cookie.getName())) {
+                        String value = cookie.getValue();
+                        if (value != null && !value.isBlank()) return value;
+                    }
+                }
+            }
+            return headerResolver.resolve(request);
+        };
     }
 
     /**
