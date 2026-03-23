@@ -6,9 +6,9 @@ interface Props {
 }
 
 export default function ProtectedRoute({ requiredRole }: Props) {
-  const { expiresAt, user, clearAuth } = useAuthStore();
+  const { user, clearAuth, isExpired } = useAuthStore();
 
-  if (!user || !expiresAt || expiresAt < Date.now()) {
+  if (!user || isExpired()) {
     if (user) clearAuth();
     return <Navigate to="/login" replace />;
   }

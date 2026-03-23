@@ -15,6 +15,7 @@ export function DataTable<TData>({
   isLoading,
   emptyMessage = 'No data.',
 }: DataTableProps<TData>) {
+  'use no memo'; // opt out of React Compiler — useReactTable returns unstable references
   const table = useReactTable({
     data,
     columns,
