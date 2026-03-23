@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
-                http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="gpa" pageWidth="842" pageHeight="595" orientation="Landscape"
+<jasperReport name="gpa" pageWidth="842" pageHeight="595" orientation="Landscape"
               columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
               whenNoDataType="AllSectionsNoDetail">
 
@@ -15,110 +11,69 @@
     <field name="degreeType"         class="java.lang.String"/>
     <field name="degreeGpa"          class="java.lang.String"/>
 
-    <title>
-        <band height="40">
-            <staticText>
-                <reportElement x="0" y="5" width="802" height="30"/>
-                <textElement textAlignment="Center">
-                    <font size="18" isBold="true"/>
-                </textElement>
-                <text><![CDATA[GPA Report]]></text>
-            </staticText>
-        </band>
+    <title height="40">
+        <element kind="staticText" x="0" y="5" width="802" height="30" hTextAlign="Center" fontSize="18.0" bold="true">
+            <text><![CDATA[GPA Report]]></text>
+        </element>
     </title>
 
-    <columnHeader>
-        <band height="22">
-            <rectangle>
-                <reportElement x="0" y="0" width="802" height="22" backcolor="#4472C4" forecolor="#4472C4"/>
-                <graphicElement><pen lineWidth="0"/></graphicElement>
-            </rectangle>
-            <staticText>
-                <reportElement x="0"   y="2" width="45"  height="18" forecolor="#FFFFFF"/>
-                <textElement><font isBold="true" size="9"/></textElement>
-                <text><![CDATA[ID]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="45"  y="2" width="100" height="18" forecolor="#FFFFFF"/>
-                <textElement><font isBold="true" size="9"/></textElement>
-                <text><![CDATA[First Name]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="145" y="2" width="100" height="18" forecolor="#FFFFFF"/>
-                <textElement><font isBold="true" size="9"/></textElement>
-                <text><![CDATA[Last Name]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="245" y="2" width="180" height="18" forecolor="#FFFFFF"/>
-                <textElement><font isBold="true" size="9"/></textElement>
-                <text><![CDATA[University]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="425" y="2" width="130" height="18" forecolor="#FFFFFF"/>
-                <textElement><font isBold="true" size="9"/></textElement>
-                <text><![CDATA[Location]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="555" y="2" width="130" height="18" forecolor="#FFFFFF"/>
-                <textElement><font isBold="true" size="9"/></textElement>
-                <text><![CDATA[Degree Type]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="685" y="2" width="117" height="18" forecolor="#FFFFFF"/>
-                <textElement textAlignment="Right"><font isBold="true" size="9"/></textElement>
-                <text><![CDATA[GPA]]></text>
-            </staticText>
-        </band>
+    <columnHeader height="22">
+        <element kind="rectangle" x="0" y="0" width="802" height="22" backcolor="#4472C4" forecolor="#4472C4">
+            <pen lineWidth="0.0"/>
+        </element>
+        <element kind="staticText" x="0"   y="2" width="45"  height="18" forecolor="#FFFFFF" bold="true" fontSize="9.0">
+            <text><![CDATA[ID]]></text>
+        </element>
+        <element kind="staticText" x="45"  y="2" width="100" height="18" forecolor="#FFFFFF" bold="true" fontSize="9.0">
+            <text><![CDATA[First Name]]></text>
+        </element>
+        <element kind="staticText" x="145" y="2" width="100" height="18" forecolor="#FFFFFF" bold="true" fontSize="9.0">
+            <text><![CDATA[Last Name]]></text>
+        </element>
+        <element kind="staticText" x="245" y="2" width="180" height="18" forecolor="#FFFFFF" bold="true" fontSize="9.0">
+            <text><![CDATA[University]]></text>
+        </element>
+        <element kind="staticText" x="425" y="2" width="130" height="18" forecolor="#FFFFFF" bold="true" fontSize="9.0">
+            <text><![CDATA[Location]]></text>
+        </element>
+        <element kind="staticText" x="555" y="2" width="130" height="18" forecolor="#FFFFFF" bold="true" fontSize="9.0">
+            <text><![CDATA[Degree Type]]></text>
+        </element>
+        <element kind="staticText" x="685" y="2" width="117" height="18" forecolor="#FFFFFF" hTextAlign="Right" bold="true" fontSize="9.0">
+            <text><![CDATA[GPA]]></text>
+        </element>
     </columnHeader>
 
     <detail>
         <band height="18">
-            <textField isBlankWhenNull="true">
-                <reportElement x="0"   y="1" width="45"  height="16"/>
-                <textElement><font size="9"/></textElement>
-                <textFieldExpression><![CDATA[$F{studentId}]]></textFieldExpression>
-            </textField>
-            <textField isBlankWhenNull="true">
-                <reportElement x="45"  y="1" width="100" height="16"/>
-                <textElement><font size="9"/></textElement>
-                <textFieldExpression><![CDATA[$F{fname}]]></textFieldExpression>
-            </textField>
-            <textField isBlankWhenNull="true">
-                <reportElement x="145" y="1" width="100" height="16"/>
-                <textElement><font size="9"/></textElement>
-                <textFieldExpression><![CDATA[$F{lname}]]></textFieldExpression>
-            </textField>
-            <textField isBlankWhenNull="true">
-                <reportElement x="245" y="1" width="180" height="16"/>
-                <textElement><font size="9"/></textElement>
-                <textFieldExpression><![CDATA[$F{university}]]></textFieldExpression>
-            </textField>
-            <textField isBlankWhenNull="true">
-                <reportElement x="425" y="1" width="130" height="16"/>
-                <textElement><font size="9"/></textElement>
-                <textFieldExpression><![CDATA[$F{universityLocation}]]></textFieldExpression>
-            </textField>
-            <textField isBlankWhenNull="true">
-                <reportElement x="555" y="1" width="130" height="16"/>
-                <textElement><font size="9"/></textElement>
-                <textFieldExpression><![CDATA[$F{degreeType}]]></textFieldExpression>
-            </textField>
-            <textField isBlankWhenNull="true">
-                <reportElement x="685" y="1" width="117" height="16"/>
-                <textElement textAlignment="Right"><font size="9"/></textElement>
-                <textFieldExpression><![CDATA[$F{degreeGpa}]]></textFieldExpression>
-            </textField>
+            <element kind="textField" x="0"   y="1" width="45"  height="16" fontSize="9.0" blankWhenNull="true">
+                <expression><![CDATA[$F{studentId}]]></expression>
+            </element>
+            <element kind="textField" x="45"  y="1" width="100" height="16" fontSize="9.0" blankWhenNull="true">
+                <expression><![CDATA[$F{fname}]]></expression>
+            </element>
+            <element kind="textField" x="145" y="1" width="100" height="16" fontSize="9.0" blankWhenNull="true">
+                <expression><![CDATA[$F{lname}]]></expression>
+            </element>
+            <element kind="textField" x="245" y="1" width="180" height="16" fontSize="9.0" blankWhenNull="true">
+                <expression><![CDATA[$F{university}]]></expression>
+            </element>
+            <element kind="textField" x="425" y="1" width="130" height="16" fontSize="9.0" blankWhenNull="true">
+                <expression><![CDATA[$F{universityLocation}]]></expression>
+            </element>
+            <element kind="textField" x="555" y="1" width="130" height="16" fontSize="9.0" blankWhenNull="true">
+                <expression><![CDATA[$F{degreeType}]]></expression>
+            </element>
+            <element kind="textField" x="685" y="1" width="117" height="16" hTextAlign="Right" fontSize="9.0" blankWhenNull="true">
+                <expression><![CDATA[$F{degreeGpa}]]></expression>
+            </element>
         </band>
     </detail>
 
-    <noData>
-        <band height="30">
-            <staticText>
-                <reportElement x="0" y="5" width="802" height="20"/>
-                <textElement textAlignment="Center"><font size="11"/></textElement>
-                <text><![CDATA[No data found for the selected filters.]]></text>
-            </staticText>
-        </band>
+    <noData height="30">
+        <element kind="staticText" x="0" y="5" width="802" height="20" hTextAlign="Center" fontSize="11.0">
+            <text><![CDATA[No data found for the selected filters.]]></text>
+        </element>
     </noData>
 
 </jasperReport>
