@@ -6,7 +6,7 @@ test.describe('Authentication', () => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login('admin', 'admin123');
-    await page.waitForURL('/admin/**');
+    await page.waitForURL(/\/admin/);
     expect(page.url()).toContain('/admin');
   });
 
@@ -14,7 +14,7 @@ test.describe('Authentication', () => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login('alice.nguyen', 'pass1001');
-    await page.waitForURL('/student/**');
+    await page.waitForURL(/\/student/);
     expect(page.url()).toContain('/student');
   });
 
@@ -37,7 +37,7 @@ test.describe('Authentication', () => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login('admin', 'admin123');
-    await page.waitForURL('/admin/**');
+    await page.waitForURL(/\/admin/);
     await page.getByRole('button', { name: 'Sign out' }).click();
     await page.waitForURL('/login');
     expect(page.url()).toContain('/login');
@@ -47,7 +47,7 @@ test.describe('Authentication', () => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login('alice.nguyen', 'pass1001');
-    await page.waitForURL('/student/**');
+    await page.waitForURL(/\/student/);
     await page.getByRole('button', { name: 'Sign out' }).click();
     await page.waitForURL('/login');
     expect(page.url()).toContain('/login');
