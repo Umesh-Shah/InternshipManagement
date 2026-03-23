@@ -2,13 +2,15 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
 import { StudentSidebar } from './StudentSidebar';
 import useAuthStore from '@/features/auth/useAuthStore';
+import { logout } from '@/api/auth.api';
 
 export function StudentShell() {
   const clearAuth = useAuthStore(s => s.clearAuth);
   const user = useAuthStore(s => s.user);
   const navigate = useNavigate();
 
-  function handleSignOut() {
+  async function handleSignOut() {
+    await logout().catch(() => {});
     clearAuth();
     navigate('/login');
   }

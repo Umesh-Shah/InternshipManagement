@@ -2,12 +2,14 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
 import { AdminSidebar } from './AdminSidebar';
 import useAuthStore from '@/features/auth/useAuthStore';
+import { logout } from '@/api/auth.api';
 
 export function AdminShell() {
   const clearAuth = useAuthStore(s => s.clearAuth);
   const navigate = useNavigate();
 
-  function handleSignOut() {
+  async function handleSignOut() {
+    await logout().catch(() => {});
     clearAuth();
     navigate('/login');
   }

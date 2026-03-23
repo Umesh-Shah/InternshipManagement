@@ -52,12 +52,7 @@ describe('LoginPage', () => {
   });
 
   it('navigates to /admin on successful admin login', async () => {
-    mockLogin.mockResolvedValueOnce({
-      token: 'tok',
-      role: 'ROLE_ADMIN',
-      studentId: null,
-      username: 'admin',
-    });
+    mockLogin.mockResolvedValueOnce({ role: 'ROLE_ADMIN', studentId: null, username: 'admin' });
 
     renderLoginPage();
     await userEvent.type(screen.getByLabelText(/username/i), 'admin');
@@ -67,16 +62,12 @@ describe('LoginPage', () => {
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith('/admin', { replace: true });
     });
-    expect(useAuthStore.getState().token).toBe('tok');
+    expect(useAuthStore.getState().user?.username).toBe('admin');
+    expect(useAuthStore.getState().expiresAt).toBeGreaterThan(Date.now());
   });
 
   it('navigates to /student on successful student login', async () => {
-    mockLogin.mockResolvedValueOnce({
-      token: 'stok',
-      role: 'ROLE_STUDENT',
-      studentId: 3,
-      username: 'student1',
-    });
+    mockLogin.mockResolvedValueOnce({ role: 'ROLE_STUDENT', studentId: 3, username: 'student1' });
 
     renderLoginPage();
     await userEvent.type(screen.getByLabelText(/username/i), 'student1');

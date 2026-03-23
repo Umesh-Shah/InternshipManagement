@@ -18,5 +18,8 @@ server:
 
 # JWT HMAC-HS256 secret — must be at least 32 bytes (256 bits).
 # Override via JWT_SECRET environment variable in production; never commit a real secret.
+# jwt.cookie.secure: set to true in production (HTTPS). False here for local HTTP dev.
 jwt:
   secret: ${JWT_SECRET:change-this-in-production-use-env-var!}
+  cookie:
+    secure: false

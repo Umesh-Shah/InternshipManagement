@@ -1,6 +1,7 @@
 services:
   mysql:
-    image: mysql:8.4
+    # Pinned to 8.0 LTS. Update to 8.4 only after testing the upgrade.
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: test
@@ -14,6 +15,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+# NOTE: When running the backend locally against this DB, set:
+#   JWT_SECRET=<at-least-32-char-random-string>
+# The application-prod profile requires this env var; the dev profile falls back
+# to a known default which must NEVER be used in production.
 
 volumes:
   mysql_data:
