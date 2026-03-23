@@ -77,6 +77,16 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
+      - run: cd e2e && npm ci
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ hashFiles('e2e/package-lock.json') }}
+
+      - run: cd e2e && npx playwright install chromium --with-deps
+
       # Start backend first — Hibernate creates the schema via ddl-auto: update
       - run: cd backend && mvn spring-boot:run -Dspring-boot.run.profiles=dev &
       - name: Wait for backend health
@@ -92,9 +102,6 @@ jobs:
       - run: cd frontend && npm ci && npm run dev &
       - run: sleep 5
 
-      # Install Playwright and run tests
-      - run: cd e2e && npm ci
-      - run: cd e2e && npx playwright install chromium --with-deps
       - run: cd e2e && npx playwright test
 
       - uses: actions/upload-artifact@v4
