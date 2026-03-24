@@ -7,9 +7,9 @@ test.describe('Admin — Job Application Approvals', () => {
     await approvalsPage.goto();
     await expect(approvalsPage.heading).toBeVisible();
     // Either shows pending applications table or empty message
-    const hasTable = await approvalsPage.table.isVisible().catch(() => false);
-    const hasEmpty = await approvalsPage.emptyMessage.isVisible().catch(() => false);
-    expect(hasTable || hasEmpty).toBeTruthy();
+    await expect(
+      approvalsPage.table.or(approvalsPage.emptyMessage)
+    ).toBeVisible();
   });
 
   test('approve a pending application if available', async ({ page }) => {

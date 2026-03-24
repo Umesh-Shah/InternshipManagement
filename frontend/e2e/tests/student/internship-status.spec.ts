@@ -13,11 +13,11 @@ test.describe('Student — Internship Status', () => {
     await statusPage.goto();
     await expect(statusPage.heading).toBeVisible();
 
-    const cardCount = await statusPage.cards.count();
-    const hasEmpty = await statusPage.emptyMessage.isVisible().catch(() => false);
-    expect(cardCount > 0 || hasEmpty).toBeTruthy();
+    await expect(
+      statusPage.cards.first().or(statusPage.emptyMessage)
+    ).toBeVisible();
 
-    if (cardCount > 0) {
+    if (await statusPage.cards.count() > 0) {
       // Verify card content has expected fields
       await expect(page.getByText('Company').first()).toBeVisible();
       await expect(page.getByText('Job').first()).toBeVisible();

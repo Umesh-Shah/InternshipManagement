@@ -13,6 +13,9 @@ test.describe('Admin — Companies CRUD', () => {
   });
 
   test('create a new company', async ({ page }) => {
+    const uid = Date.now().toString().slice(-6);
+    const name = `E2E Corp ${uid}`;
+
     const companiesPage = new CompaniesPage(page);
     await companiesPage.goto();
     await companiesPage.clickAdd();
@@ -20,8 +23,8 @@ test.describe('Admin — Companies CRUD', () => {
     const form = new CompanyFormPage(page);
     await expect(form.heading).toHaveText('Add Company');
     await form.fillForm({
-      companyName: 'E2E Test Corp',
-      email: 'test@e2ecorp.com',
+      companyName: name,
+      email: `test-${uid}@e2ecorp.com`,
       city: 'Toronto',
       country: 'Canada',
     });
@@ -29,7 +32,7 @@ test.describe('Admin — Companies CRUD', () => {
 
     // Should redirect back to list and show new company
     await page.waitForURL('/admin/companies');
-    await expect(companiesPage.row('E2E Test Corp')).toBeVisible();
+    await expect(companiesPage.row(name)).toBeVisible();
   });
 
   test('edit an existing company', async ({ page }) => {

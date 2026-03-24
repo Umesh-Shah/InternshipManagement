@@ -11,17 +11,20 @@ test.describe('Admin — Skills CRUD', () => {
   });
 
   test('create a new skill', async ({ page }) => {
+    const uid = Date.now().toString().slice(-6);
+    const name = `E2E Skill ${uid}`;
+
     const skillsPage = new SkillsPage(page);
     await skillsPage.goto();
     await skillsPage.clickAdd();
 
     const form = new SkillFormPage(page);
     await expect(form.heading).toHaveText('Add Skill');
-    await form.fillForm({ skillName: 'E2E Testing', skillType: 'Technical' });
+    await form.fillForm({ skillName: name, skillType: 'Technical' });
     await form.submit();
 
     await page.waitForURL('/admin/skills');
-    await expect(skillsPage.row('E2E Testing')).toBeVisible();
+    await expect(skillsPage.row(name)).toBeVisible();
   });
 
   test('edit a skill', async ({ page }) => {
