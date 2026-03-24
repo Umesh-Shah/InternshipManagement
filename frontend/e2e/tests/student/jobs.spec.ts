@@ -23,7 +23,7 @@ test.describe('Student — Browse Jobs', () => {
     if (count > 0) {
       await markInterestButtons.first().click();
       // After clicking, the button should change to "Interested"
-      await expect(page.getByRole('button', { name: 'Interested' })).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Interested' }).first()).toBeVisible();
     }
   });
 

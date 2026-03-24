@@ -48,11 +48,13 @@ export default defineConfig({
     },
 
     // Auth tests — no storageState (tests login/logout flows directly)
+    // Depends on setup projects to avoid concurrent logins invalidating sessions
     {
       name: 'auth',
       testDir: './e2e/tests',
       testMatch: /auth\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
+      dependencies: ['admin setup', 'student setup'],
     },
   ],
 });

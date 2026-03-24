@@ -10,6 +10,10 @@ test.describe('Admin — Internship Types CRUD', () => {
   });
 
   test('create a new internship type', async ({ page }) => {
+    const uid = Date.now().toString().slice(-6);
+    const name = `E2E Type ${uid}`;
+    const code = `E2E${uid}`;
+
     const typesPage = new InternshipTypesPage(page);
     await typesPage.goto();
     await typesPage.clickAdd();
@@ -18,14 +22,14 @@ test.describe('Admin — Internship Types CRUD', () => {
 
     // Fill form fields
     const nameContainer = page.locator('div').filter({ hasText: /^Name/ }).first();
-    await nameContainer.locator('input').fill('E2E Test Type');
+    await nameContainer.locator('input').fill(name);
 
     const typeContainer = page.locator('div').filter({ hasText: /^Type Code/ }).first();
-    await typeContainer.locator('input').fill('E2ETEST');
+    await typeContainer.locator('input').fill(code);
 
     await page.getByRole('button', { name: /Create/ }).click();
     await page.waitForURL('/admin/internship-types');
-    await expect(typesPage.row('E2E Test Type')).toBeVisible();
+    await expect(typesPage.row(name)).toBeVisible();
   });
 
   test('delete an internship type', async ({ page }) => {

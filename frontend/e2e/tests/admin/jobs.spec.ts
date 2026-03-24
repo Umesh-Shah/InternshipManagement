@@ -13,6 +13,9 @@ test.describe('Admin — Jobs CRUD', () => {
   });
 
   test('create a new job', async ({ page }) => {
+    const uid = Date.now().toString().slice(-6);
+    const name = `E2E Job ${uid}`;
+
     const jobsPage = new JobsPage(page);
     await jobsPage.goto();
     await jobsPage.clickAdd();
@@ -20,7 +23,7 @@ test.describe('Admin — Jobs CRUD', () => {
     const form = new JobFormPage(page);
     await expect(form.heading).toHaveText('Add Job');
     await form.fillForm({
-      jobPosition: 'E2E Test Position',
+      jobPosition: name,
       companyName: 'TechNova Solutions',
       salary: '50000',
       description: 'A test job created by E2E tests',
@@ -28,7 +31,7 @@ test.describe('Admin — Jobs CRUD', () => {
     await form.submit();
 
     await page.waitForURL('/admin/jobs');
-    await expect(jobsPage.row('E2E Test Position')).toBeVisible();
+    await expect(jobsPage.row(name)).toBeVisible();
   });
 
   test('edit an existing job', async ({ page }) => {
@@ -46,6 +49,9 @@ test.describe('Admin — Jobs CRUD', () => {
   });
 
   test('delete a job', async ({ page }) => {
+    const uid = Date.now().toString().slice(-6);
+    const name = `Del Job ${uid}`;
+
     // Create a job to delete
     const jobsPage = new JobsPage(page);
     await jobsPage.goto();
@@ -53,15 +59,15 @@ test.describe('Admin — Jobs CRUD', () => {
 
     const form = new JobFormPage(page);
     await form.fillForm({
-      jobPosition: 'Delete Me Job',
+      jobPosition: name,
       companyName: 'TechNova Solutions',
     });
     await form.submit();
     await page.waitForURL('/admin/jobs');
-    await expect(jobsPage.row('Delete Me Job')).toBeVisible();
+    await expect(jobsPage.row(name)).toBeVisible();
 
     page.on('dialog', dialog => dialog.accept());
-    await jobsPage.deleteRow('Delete Me Job');
-    await expect(jobsPage.row('Delete Me Job')).toBeHidden();
+    await jobsPage.deleteRow(name);
+    await expect(jobsPage.row(name)).toBeHidden();
   });
 });
