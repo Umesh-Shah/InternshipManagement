@@ -73,6 +73,7 @@ export function AssignInternshipPage() {
           <div>
             <label className="block text-sm font-medium text-foreground mb-1">Student</label>
             <select
+              name="studentId"
               className={selectClass}
               value={studentId ?? ''}
               onChange={e => setStudentId(e.target.value ? Number(e.target.value) : undefined)}
@@ -90,6 +91,7 @@ export function AssignInternshipPage() {
           <div>
             <label className="block text-sm font-medium text-foreground mb-1">Company</label>
             <select
+              name="companyId"
               className={selectClass}
               value={companyId ?? ''}
               onChange={e => handleCompanyChange(e.target.value)}
@@ -107,6 +109,7 @@ export function AssignInternshipPage() {
           <div>
             <label className="block text-sm font-medium text-foreground mb-1">Job</label>
             <select
+              name="jobId"
               className={selectClass}
               value={jobId ?? ''}
               onChange={e => setJobId(e.target.value ? Number(e.target.value) : undefined)}
@@ -127,6 +130,7 @@ export function AssignInternshipPage() {
           <div>
             <label className="block text-sm font-medium text-foreground mb-1">Internship Type</label>
             <select
+              name="internshipTypeId"
               className={selectClass}
               value={internshipId ?? ''}
               onChange={e => handleInternshipTypeChange(e.target.value)}
