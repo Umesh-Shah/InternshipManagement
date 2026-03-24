@@ -76,6 +76,16 @@ cd frontend && npm run build
 | Admin | admin | admin123 |
 | Student | alice.nguyen | pass1001 |
 
+## Architecture Docs
+
+| Document | Description |
+|----------|-------------|
+| [Architecture Overview](docs/architecture-diagram.md) | High-level system diagram and index |
+| [Frontend Architecture](docs/frontend-architecture.md) | React feature modules, routing, API client layer, shared components |
+| [Backend Architecture](docs/backend-architecture.md) | Security, controller, service, and repository layers |
+| [Database Schema](docs/database-schema.md) | 13 tables with ER diagram and column definitions |
+| [Workflows](docs/workflows.md) | Authentication, job application, and student registration sequence diagrams |
+
 ## Project Structure
 
 ```
