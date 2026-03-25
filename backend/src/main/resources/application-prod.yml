@@ -19,6 +19,14 @@ spring:
       ddl-auto: validate
 
 logging:
+  structured:
+    format:
+      console: ecs
+      file: ecs
+    ecs:
+      service:
+        name: ims-backend
+        environment: production
   level:
     root: WARN
     ca.uwindsor.ims: INFO

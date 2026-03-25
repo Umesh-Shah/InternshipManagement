@@ -4,6 +4,8 @@ import ca.uwindsor.ims.dto.JobApplicationRequest;
 import ca.uwindsor.ims.dto.JobApplicationResponse;
 import ca.uwindsor.ims.service.JobApplicationService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/job-applications")
 public class JobApplicationController {
+
+    private static final Logger log = LoggerFactory.getLogger(JobApplicationController.class);
 
     private final JobApplicationService service;
 
@@ -26,7 +30,9 @@ public class JobApplicationController {
     @PostMapping
     @PreAuthorize("@studentSecurity.canAccess(authentication, #req.studentId())")
     public JobApplicationResponse apply(@Valid @RequestBody JobApplicationRequest req) {
-        return service.apply(req);
+        JobApplicationResponse result = service.apply(req);
+        log.info("Job application submitted: studentId={}, jobId={}", req.studentId(), req.jobId());
+        return result;
     }
 
     /**
@@ -48,12 +54,14 @@ public class JobApplicationController {
     }
 
     /**
-     * Admin: approve an application (flag N → A).
+     * Admin: approve an application (flag N -> A).
      */
     @PutMapping("/{id}/approve")
     @PreAuthorize("hasRole('ADMIN')")
     public JobApplicationResponse approve(@PathVariable Integer id) {
-        return service.approve(id);
+        JobApplicationResponse result = service.approve(id);
+        log.info("Job application approved: id={}", id);
+        return result;
     }
 
     /**

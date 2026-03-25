@@ -4,15 +4,20 @@ import ca.uwindsor.ims.dto.*;
 import ca.uwindsor.ims.entity.*;
 import ca.uwindsor.ims.service.StudentService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
+
+    private static final Logger log = LoggerFactory.getLogger(StudentController.class);
 
     private final StudentService service;
 
@@ -33,7 +38,9 @@ public class StudentController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public StudentInfo create(@Valid @RequestBody StudentCreateRequest request) {
-        return service.create(request);
+        StudentInfo created = service.create(request);
+        log.info("Student created: id={}", created.getStudentId());
+        return created;
     }
 
     // ── Info ───────────────────────────────────────────────────────────────────
@@ -51,9 +58,9 @@ public class StudentController {
     public ResponseEntity<StudentInfo> updateInfo(
             @PathVariable Integer studentId,
             @RequestBody StudentInfoRequest request) {
-        return service.updateInfo(studentId, request)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Optional<StudentInfo> result = service.updateInfo(studentId, request);
+        result.ifPresent(s -> log.info("Student info updated: id={}", studentId));
+        return result.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     // ── Education ──────────────────────────────────────────────────────────────

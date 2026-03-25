@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- DEV: Human-readable console with trace correlation IDs -->
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] [%X{traceId:-},%X{spanId:-}] %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="ca.uwindsor.ims" level="DEBUG"/>
+        <logger name="org.springframework.security" level="DEBUG"/>
+    </springProfile>
+
+    <!-- PROD: Rolling file + console, with separate audit log -->
+    <springProfile name="prod">
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>logs/ims.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>logs/ims.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+                <maxFileSize>50MB</maxFileSize>
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>1GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder>
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="AUDIT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>logs/audit.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>logs/audit.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+                <maxFileSize>50MB</maxFileSize>
+                <maxHistory>90</maxHistory>
+                <totalSizeCap>2GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%d{ISO8601} %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="AUDIT" level="INFO" additivity="false">
+            <appender-ref ref="AUDIT_FILE"/>
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <root level="WARN">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+        </root>
+        <logger name="ca.uwindsor.ims" level="INFO"/>
+    </springProfile>
+
+    <!-- TEST: Minimal logging -->
+    <springProfile name="test">
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        <root level="WARN">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+</configuration>
