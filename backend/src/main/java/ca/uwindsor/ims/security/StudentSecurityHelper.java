@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.security;
 
+import ca.uwindsor.ims.Constants;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class StudentSecurityHelper {
         if (isAdmin) return true;
 
         if (authentication instanceof JwtAuthenticationToken jat) {
-            Object claim = jat.getToken().getClaim("student_id");
+            Object claim = jat.getToken().getClaim(Constants.JWT_CLAIM_STUDENT_ID);
             if (claim instanceof Number n) {
                 return n.intValue() == studentId;
             }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { login } from '@/api/auth.api';
+import { ROLE_ADMIN, ROUTES } from '@/constants';
 import useAuthStore from './useAuthStore';
 import { Button } from '@/components/ui/button';
 
@@ -26,7 +27,7 @@ export default function LoginPage() {
     try {
       const res = await login(data);
       setAuth({ username: res.username, role: res.role, studentId: res.studentId });
-      navigate(res.role === 'ROLE_ADMIN' ? '/admin' : '/student', { replace: true });
+      navigate(res.role === ROLE_ADMIN ? ROUTES.ADMIN : ROUTES.STUDENT, { replace: true });
     } catch {
       setError('Invalid username or password.');
     }

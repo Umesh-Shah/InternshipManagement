@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.aspect;
 
+import ca.uwindsor.ims.config.AppProperties;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,7 +13,11 @@ import org.springframework.stereotype.Component;
 public class LoggingAspect {
 
     private static final Logger log = LoggerFactory.getLogger(LoggingAspect.class);
-    private static final long SLOW_REQUEST_MS = 1000;
+    private final long slowRequestMs;
+
+    public LoggingAspect(AppProperties appProperties) {
+        this.slowRequestMs = appProperties.slowRequestThresholdMs();
+    }
 
     @Around("within(ca.uwindsor.ims.controller..*)")
     public Object logController(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -23,7 +28,7 @@ public class LoggingAspect {
             Object result = joinPoint.proceed();
             long duration = System.currentTimeMillis() - start;
             log.debug("<- {} [{}ms]", method, duration);
-            if (duration > SLOW_REQUEST_MS) {
+            if (duration > slowRequestMs) {
                 log.warn("Slow request: {} [{}ms]", method, duration);
             }
             return result;

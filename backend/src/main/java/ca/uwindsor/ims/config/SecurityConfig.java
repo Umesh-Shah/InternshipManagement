@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.config;
 
+import ca.uwindsor.ims.Constants;
 import ca.uwindsor.ims.controller.AuthController;
 import ca.uwindsor.ims.security.ImsUserDetailsService;
 import jakarta.servlet.http.Cookie;
@@ -89,7 +90,7 @@ public class SecurityConfig {
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
         converter.setJwtGrantedAuthoritiesConverter(jwt -> {
-            String role = jwt.getClaimAsString("role");
+            String role = jwt.getClaimAsString(Constants.JWT_CLAIM_ROLE);
             if (role == null) return List.of();
             return List.of(new SimpleGrantedAuthority(role));
         });

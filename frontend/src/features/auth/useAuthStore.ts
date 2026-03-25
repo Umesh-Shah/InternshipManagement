@@ -1,9 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { AUTH_STORAGE_KEY, SESSION_DURATION_MS } from '@/constants';
 
 export type Role = 'ROLE_ADMIN' | 'ROLE_STUDENT';
-
-const SESSION_DURATION = 8 * 60 * 60 * 1000; // 8 hours, mirrors server-side token lifetime
 
 interface AuthUser {
   username: string;
@@ -24,14 +23,14 @@ const useAuthStore = create<AuthState>()(
     (set, get) => ({
       expiresAt: null,
       user: null,
-      setAuth: (user) => set({ user, expiresAt: Date.now() + SESSION_DURATION }),
+      setAuth: (user) => set({ user, expiresAt: Date.now() + SESSION_DURATION_MS }),
       clearAuth: () => set({ user: null, expiresAt: null }),
       isExpired: () => {
         const { expiresAt } = get();
         return !expiresAt || expiresAt < Date.now();
       },
     }),
-    { name: 'ims-auth' }
+    { name: AUTH_STORAGE_KEY }
   )
 );
 

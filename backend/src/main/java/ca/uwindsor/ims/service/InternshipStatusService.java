@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.service;
 
+import ca.uwindsor.ims.Constants;
 import ca.uwindsor.ims.dto.InternshipStatusRequest;
 import ca.uwindsor.ims.dto.InternshipStatusResponse;
 import ca.uwindsor.ims.entity.Company;
@@ -49,7 +50,7 @@ public class InternshipStatusService {
         StudentInternship saved = studentInternshipRepository.save(si);
 
         studentInfoRepository.findByStudentId(req.studentId()).ifPresent(info -> {
-            info.setStudentStatus("Hired");
+            info.setStudentStatus(Constants.STUDENT_STATUS_HIRED);
             info.setInternshipStatus(req.internshipType());
             studentInfoRepository.save(info);
         });

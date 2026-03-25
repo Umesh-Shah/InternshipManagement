@@ -1,5 +1,7 @@
 package ca.uwindsor.ims.service;
 
+import ca.uwindsor.ims.Constants;
+import ca.uwindsor.ims.config.AppProperties;
 import ca.uwindsor.ims.dto.LoginRequest;
 import ca.uwindsor.ims.dto.LoginResponse;
 import ca.uwindsor.ims.security.ImsUserDetails;
@@ -25,10 +27,13 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtEncoder jwtEncoder;
+    private final int tokenExpiryHours;
 
-    public AuthService(AuthenticationManager authenticationManager, JwtEncoder jwtEncoder) {
+    public AuthService(AuthenticationManager authenticationManager, JwtEncoder jwtEncoder,
+                       AppProperties appProperties) {
         this.authenticationManager = authenticationManager;
         this.jwtEncoder = jwtEncoder;
+        this.tokenExpiryHours = appProperties.tokenExpiryHours();
     }
 
     public AuthResult login(LoginRequest request) {
@@ -42,15 +47,15 @@ public class AuthService {
     }
 
     private String issueToken(ImsUserDetails user) {
-        log.debug("Issuing JWT for user={}, expiresIn=8h", user.getUsername());
+        log.debug("Issuing JWT for user={}, expiresIn={}h", user.getUsername(), tokenExpiryHours);
         Instant now = Instant.now();
         JwtClaimsSet.Builder claimsBuilder = JwtClaimsSet.builder()
                 .subject(user.getUsername())
                 .issuedAt(now)
-                .expiresAt(now.plus(8, ChronoUnit.HOURS))
-                .claim("role", user.getRole().authority());
+                .expiresAt(now.plus(tokenExpiryHours, ChronoUnit.HOURS))
+                .claim(Constants.JWT_CLAIM_ROLE, user.getRole().authority());
         if (user.getStudentId() != null) {
-            claimsBuilder.claim("student_id", user.getStudentId());
+            claimsBuilder.claim(Constants.JWT_CLAIM_STUDENT_ID, user.getStudentId());
         }
         JwtClaimsSet claims = claimsBuilder.build();
         JwsHeader header = JwsHeader.with(MacAlgorithm.HS256).build();
