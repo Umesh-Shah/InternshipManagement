@@ -29,4 +29,7 @@ logging:
         environment: production
   level:
     root: WARN
+    # Change to DEBUG to see detailed service/controller logs for debugging.
+    # Can also be overridden without editing this file via env var:
+    #   LOGGING_LEVEL_CA_UWINDSOR_IMS=DEBUG
     ca.uwindsor.ims: INFO
