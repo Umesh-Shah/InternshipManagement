@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.security;
 
+import ca.uwindsor.ims.Constants;
 import ca.uwindsor.ims.entity.Login;
 import ca.uwindsor.ims.entity.VbctLogin;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +25,7 @@ public class ImsUserDetails implements UserDetails {
     }
 
     public static ImsUserDetails fromLogin(Login login) {
-        Role role = "admin".equalsIgnoreCase(login.getUserType()) ? Role.ROLE_ADMIN : Role.ROLE_STUDENT;
+        Role role = Constants.USER_TYPE_ADMIN.equalsIgnoreCase(login.getUserType()) ? Role.ROLE_ADMIN : Role.ROLE_STUDENT;
         return new ImsUserDetails(login.getUsername(), login.getPwd(), role, login.getStudentId());
     }
 

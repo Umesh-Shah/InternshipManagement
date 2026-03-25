@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
+import { ROUTES } from '@/constants';
 
 interface Props {
   children: ReactNode;
@@ -30,7 +31,7 @@ export class ErrorBoundary extends Component<Props, State> {
           <p className="text-muted-foreground text-sm max-w-md">{this.state.message}</p>
           <button
             className="px-4 py-2 rounded bg-primary text-primary-foreground text-sm"
-            onClick={() => window.location.assign('/login')}
+            onClick={() => window.location.assign(ROUTES.LOGIN)}
           >
             Back to login
           </button>

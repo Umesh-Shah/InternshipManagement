@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import LoginPage from '../LoginPage';
 import * as authApi from '@/api/auth.api';
 import useAuthStore from '../useAuthStore';
+import { ROLE_ADMIN, ROLE_STUDENT, ROUTES } from '@/constants';
 
 // Mock the login API call
 vi.mock('@/api/auth.api');
@@ -52,7 +53,7 @@ describe('LoginPage', () => {
   });
 
   it('navigates to /admin on successful admin login', async () => {
-    mockLogin.mockResolvedValueOnce({ role: 'ROLE_ADMIN', studentId: null, username: 'admin' });
+    mockLogin.mockResolvedValueOnce({ role: ROLE_ADMIN, studentId: null, username: 'admin' });
 
     renderLoginPage();
     await userEvent.type(screen.getByLabelText(/username/i), 'admin');
@@ -60,14 +61,14 @@ describe('LoginPage', () => {
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/admin', { replace: true });
+      expect(mockNavigate).toHaveBeenCalledWith(ROUTES.ADMIN, { replace: true });
     });
     expect(useAuthStore.getState().user?.username).toBe('admin');
     expect(useAuthStore.getState().expiresAt).toBeGreaterThan(Date.now());
   });
 
   it('navigates to /student on successful student login', async () => {
-    mockLogin.mockResolvedValueOnce({ role: 'ROLE_STUDENT', studentId: 3, username: 'student1' });
+    mockLogin.mockResolvedValueOnce({ role: ROLE_STUDENT, studentId: 3, username: 'student1' });
 
     renderLoginPage();
     await userEvent.type(screen.getByLabelText(/username/i), 'student1');
@@ -75,7 +76,7 @@ describe('LoginPage', () => {
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/student', { replace: true });
+      expect(mockNavigate).toHaveBeenCalledWith(ROUTES.STUDENT, { replace: true });
     });
   });
 

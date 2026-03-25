@@ -3,6 +3,7 @@ import { LogOut } from 'lucide-react';
 import { AdminSidebar } from './AdminSidebar';
 import useAuthStore from '@/features/auth/useAuthStore';
 import { logout } from '@/api/auth.api';
+import { ROUTES } from '@/constants';
 
 export function AdminShell() {
   const clearAuth = useAuthStore(s => s.clearAuth);
@@ -11,7 +12,7 @@ export function AdminShell() {
   async function handleSignOut() {
     await logout().catch(() => {});
     clearAuth();
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   }
 
   return (

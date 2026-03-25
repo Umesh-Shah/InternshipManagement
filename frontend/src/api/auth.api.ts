@@ -1,5 +1,6 @@
 import apiClient from './client';
 import type { Role } from '@/features/auth/useAuthStore';
+import { API_PATHS } from '@/constants';
 
 export interface LoginRequest {
   username: string;
@@ -13,7 +14,7 @@ export interface LoginResponse {
 }
 
 export const login = (data: LoginRequest) =>
-  apiClient.post<LoginResponse>('/auth/login', data).then((r) => r.data);
+  apiClient.post<LoginResponse>(API_PATHS.AUTH_LOGIN, data).then((r) => r.data);
 
 export const logout = () =>
-  apiClient.post('/auth/logout').then(() => undefined);
+  apiClient.post(API_PATHS.AUTH_LOGOUT).then(() => undefined);

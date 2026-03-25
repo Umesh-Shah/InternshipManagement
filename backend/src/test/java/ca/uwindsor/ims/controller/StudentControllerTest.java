@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.controller;
 
+import ca.uwindsor.ims.Constants;
 import ca.uwindsor.ims.dto.StudentCreateRequest;
 import ca.uwindsor.ims.entity.StudentInfo;
 import ca.uwindsor.ims.service.StudentService;
@@ -125,8 +126,8 @@ class StudentControllerTest {
         s.setFname(fname);
         s.setLname(lname);
         s.setStuEmail(fname.toLowerCase() + "@example.com");
-        s.setInternshipStatus("Pending");
-        s.setStudentStatus("Active");
+        s.setInternshipStatus(Constants.INTERNSHIP_STATUS_PENDING);
+        s.setStudentStatus(Constants.STUDENT_STATUS_ACTIVE);
         return s;
     }
 }

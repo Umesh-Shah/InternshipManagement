@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import useAuthStore from '../useAuthStore';
+import { AUTH_STORAGE_KEY, ROLE_ADMIN, ROLE_STUDENT, SESSION_DURATION_MS } from '@/constants';
 
-const ADMIN_USER = { username: 'admin', role: 'ROLE_ADMIN' as const, studentId: null };
+const ADMIN_USER = { username: 'admin', role: ROLE_ADMIN, studentId: null };
 
 // Reset the store state between tests
 beforeEach(() => {
@@ -20,9 +21,9 @@ describe('useAuthStore', () => {
     useAuthStore.getState().setAuth(ADMIN_USER);
     const { expiresAt, user } = useAuthStore.getState();
     expect(user?.username).toBe('admin');
-    expect(user?.role).toBe('ROLE_ADMIN');
+    expect(user?.role).toBe(ROLE_ADMIN);
     expect(user?.studentId).toBeNull();
-    expect(expiresAt).toBeGreaterThanOrEqual(before + 8 * 60 * 60 * 1000);
+    expect(expiresAt).toBeGreaterThanOrEqual(before + SESSION_DURATION_MS);
   });
 
   it('clearAuth resets to null', () => {
@@ -34,7 +35,7 @@ describe('useAuthStore', () => {
 
   it('studentId is preserved', () => {
     useAuthStore.getState().setAuth(
-      { username: 's1', role: 'ROLE_STUDENT', studentId: 7 },
+      { username: 's1', role: ROLE_STUDENT, studentId: 7 },
     );
     expect(useAuthStore.getState().user?.studentId).toBe(7);
   });
@@ -50,12 +51,12 @@ describe('useAuthStore', () => {
 
   it('clearAuth persists nulled state to localStorage', () => {
     useAuthStore.getState().setAuth(ADMIN_USER);
-    const before = JSON.parse(localStorage.getItem('ims-auth')!);
+    const before = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY)!);
     expect(before.state.expiresAt).toBeGreaterThan(0);
 
     useAuthStore.getState().clearAuth();
 
-    const after = JSON.parse(localStorage.getItem('ims-auth')!);
+    const after = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY)!);
     expect(after.state.expiresAt).toBeNull();
     expect(after.state.user).toBeNull();
   });

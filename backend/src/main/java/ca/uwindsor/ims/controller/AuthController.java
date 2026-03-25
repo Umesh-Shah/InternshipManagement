@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.controller;
 
+import ca.uwindsor.ims.config.AppProperties;
 import ca.uwindsor.ims.dto.LoginRequest;
 import ca.uwindsor.ims.dto.LoginResponse;
 import ca.uwindsor.ims.logging.AuditLogger;
@@ -27,16 +28,18 @@ import java.time.Duration;
 public class AuthController {
 
     public static final String COOKIE_NAME = "ims-jwt";
-    private static final Duration COOKIE_MAX_AGE = Duration.ofHours(8);
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     private final AuthService authService;
     private final boolean cookieSecure;
+    private final Duration cookieMaxAge;
 
     public AuthController(AuthService authService,
-                          @Value("${jwt.cookie.secure:false}") boolean cookieSecure) {
+                          @Value("${jwt.cookie.secure:false}") boolean cookieSecure,
+                          AppProperties appProperties) {
         this.authService = authService;
         this.cookieSecure = cookieSecure;
+        this.cookieMaxAge = Duration.ofHours(appProperties.tokenExpiryHours());
     }
 
     @PostMapping("/login")
@@ -51,7 +54,7 @@ public class AuthController {
             AuthResult result = authService.login(loginRequest);
             log.info("Login successful for user: {}", username);
             AuditLogger.logLogin(username, true, ip);
-            addJwtCookie(response, result.token(), COOKIE_MAX_AGE);
+            addJwtCookie(response, result.token(), cookieMaxAge);
             return ResponseEntity.ok(result.user());
         } catch (RuntimeException ex) {
             log.warn("Login failed for user: {}", username);

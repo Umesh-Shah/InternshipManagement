@@ -3,6 +3,7 @@ import { LogOut } from 'lucide-react';
 import { StudentSidebar } from './StudentSidebar';
 import useAuthStore from '@/features/auth/useAuthStore';
 import { logout } from '@/api/auth.api';
+import { ROUTES } from '@/constants';
 
 export function StudentShell() {
   const clearAuth = useAuthStore(s => s.clearAuth);
@@ -12,7 +13,7 @@ export function StudentShell() {
   async function handleSignOut() {
     await logout().catch(() => {});
     clearAuth();
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   }
 
   return (

@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.service;
 
+import ca.uwindsor.ims.Constants;
 import ca.uwindsor.ims.dto.JobApplicationRequest;
 import ca.uwindsor.ims.dto.JobApplicationResponse;
 import ca.uwindsor.ims.entity.StudentJobMapping;
@@ -40,7 +41,7 @@ public class JobApplicationService {
                     StudentJobMapping m = new StudentJobMapping();
                     m.setStudentId(req.studentId());
                     m.setJobId(req.jobId());
-                    m.setFlag("N");
+                    m.setFlag(Constants.FLAG_PENDING);
                     return toResponseFromEntity(mappingRepo.save(m));
                 });
     }
@@ -56,7 +57,7 @@ public class JobApplicationService {
     // ── Admin: list pending (flag='N') applications ─────────────────────────────
 
     public List<JobApplicationResponse> getPending() {
-        return mappingRepo.findApplications("N", null, null).stream()
+        return mappingRepo.findApplications(Constants.FLAG_PENDING, null, null).stream()
                 .map(this::toResponse)
                 .toList();
     }
@@ -69,14 +70,14 @@ public class JobApplicationService {
         StudentJobMapping m = mappingRepo.findById(studentJobId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.debug("Changing flag: {} -> A for studentId={}, jobId={}", m.getFlag(), m.getStudentId(), m.getJobId());
-        m.setFlag("A");
+        m.setFlag(Constants.FLAG_ACTIVE);
         return toResponseFromEntity(mappingRepo.save(m));
     }
 
     // ── Admin: approved students for a specific job ─────────────────────────────
 
     public List<JobApplicationResponse> getApprovedByJob(Integer jobId) {
-        return mappingRepo.findApplications("A", null, jobId).stream()
+        return mappingRepo.findApplications(Constants.FLAG_ACTIVE, null, jobId).stream()
                 .map(this::toResponse)
                 .toList();
     }

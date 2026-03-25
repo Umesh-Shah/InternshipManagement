@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.service;
 
+import ca.uwindsor.ims.Constants;
 import ca.uwindsor.ims.dto.StudentCreateRequest;
 import ca.uwindsor.ims.entity.Login;
 import ca.uwindsor.ims.entity.StudentInfo;
@@ -50,8 +51,8 @@ class StudentServiceTest {
         verify(infoRepo).save(captor.capture());
         StudentInfo saved = captor.getValue();
         assertThat(saved.getStudentId()).isEqualTo(1001);
-        assertThat(saved.getInternshipStatus()).isEqualTo("Pending");
-        assertThat(saved.getStudentStatus()).isEqualTo("Active");
+        assertThat(saved.getInternshipStatus()).isEqualTo(Constants.INTERNSHIP_STATUS_PENDING);
+        assertThat(saved.getStudentStatus()).isEqualTo(Constants.STUDENT_STATUS_ACTIVE);
     }
 
     @Test
@@ -69,9 +70,9 @@ class StudentServiceTest {
         verify(loginRepo).save(captor.capture());
         Login login = captor.getValue();
         assertThat(login.getUsername()).isEqualTo("alice");
-        assertThat(login.getUserType()).isEqualTo("Student");
+        assertThat(login.getUserType()).isEqualTo(Constants.USER_TYPE_STUDENT);
         assertThat(login.getStudentId()).isEqualTo(1001);
-        assertThat(login.getFlag()).isEqualTo("A");
+        assertThat(login.getFlag()).isEqualTo(Constants.FLAG_ACTIVE);
 
         // rawPassword = "alic" (first 4 chars of "alice@uwindsor.ca") + 1001
         verify(passwordEncoder).encode("alic1001");

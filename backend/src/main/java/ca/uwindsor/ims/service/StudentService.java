@@ -1,5 +1,6 @@
 package ca.uwindsor.ims.service;
 
+import ca.uwindsor.ims.Constants;
 import ca.uwindsor.ims.dto.*;
 import ca.uwindsor.ims.entity.*;
 import ca.uwindsor.ims.repository.*;
@@ -88,8 +89,8 @@ public class StudentService {
         log.debug("Creating student: id={}, email={}", req.studentId(), req.stuEmail());
         StudentInfo info = new StudentInfo();
         applyCreate(info, req);
-        info.setInternshipStatus("Pending");
-        info.setStudentStatus("Active");
+        info.setInternshipStatus(Constants.INTERNSHIP_STATUS_PENDING);
+        info.setStudentStatus(Constants.STUDENT_STATUS_ACTIVE);
         infoRepo.save(info);
 
         // Derive credentials from email
@@ -102,9 +103,9 @@ public class StudentService {
         Login login = new Login();
         login.setUsername(username);
         login.setPwd(encodedPassword);
-        login.setUserType("Student");
+        login.setUserType(Constants.USER_TYPE_STUDENT);
         login.setStudentId(req.studentId());
-        login.setFlag("A");
+        login.setFlag(Constants.FLAG_ACTIVE);
         loginRepo.save(login);
 
         eventPublisher.publishEvent(new StudentRegisteredEvent(email, username, rawPassword, req.studentId()));
