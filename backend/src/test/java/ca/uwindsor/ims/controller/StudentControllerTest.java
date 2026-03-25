@@ -15,6 +15,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import ca.uwindsor.ims.dto.StudentCertificateRequest;
+import ca.uwindsor.ims.dto.StudentInfoRequest;
+import ca.uwindsor.ims.dto.StudentSkillsRequest;
+import ca.uwindsor.ims.dto.StudentWorkRequest;
+import ca.uwindsor.ims.entity.StudentCertificate;
+import ca.uwindsor.ims.entity.StudentSkill;
+import ca.uwindsor.ims.entity.StudentWork;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -116,6 +124,115 @@ class StudentControllerTest {
 
         mvc.perform(get("/api/students/9999/education"))
                 .andExpect(status().isNotFound());
+    }
+
+    // ── PUT /api/students/{id}/info ──────────────────────────────────────────
+
+    @Test
+    void updateInfo_validRequest_returns200() throws Exception {
+        StudentInfo updated = studentInfo(1001, "Carol", "White");
+        when(studentService.updateInfo(eq(1001), any())).thenReturn(Optional.of(updated));
+
+        mvc.perform(put("/api/students/1001/info")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(
+                        new StudentInfoRequest(null, "Carol", null, null, null, null, null, null, null, null, null, null))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.fname").value("Carol"));
+    }
+
+    @Test
+    void updateInfo_unknownStudent_returns404() throws Exception {
+        when(studentService.updateInfo(eq(9999), any())).thenReturn(Optional.empty());
+
+        mvc.perform(put("/api/students/9999/info")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{}"))
+                .andExpect(status().isNotFound());
+    }
+
+    // ── GET /api/students/{id}/work ──────────────────────────────────────────
+
+    @Test
+    void getWork_returns200() throws Exception {
+        StudentWork work = new StudentWork();
+        work.setStudentId(1001);
+        work.setCompany("Acme");
+        when(studentService.getWork(1001)).thenReturn(Optional.of(work));
+
+        mvc.perform(get("/api/students/1001/work"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.company").value("Acme"));
+    }
+
+    @Test
+    void updateWork_validRequest_returns200() throws Exception {
+        StudentWork work = new StudentWork();
+        work.setStudentId(1001);
+        work.setPosition("Intern");
+        when(studentService.upsertWork(eq(1001), any())).thenReturn(work);
+
+        mvc.perform(put("/api/students/1001/work")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(
+                        new StudentWorkRequest("2024-01", "2024-04", "Acme", "Windsor", "Intern"))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.position").value("Intern"));
+    }
+
+    // ── GET /api/students/{id}/certificates ──────────────────────────────────
+
+    @Test
+    void getCertificates_returns200() throws Exception {
+        StudentCertificate cert = new StudentCertificate();
+        cert.setCertificateTitle("AWS Dev");
+        when(studentService.getCertificate(1001)).thenReturn(Optional.of(cert));
+
+        mvc.perform(get("/api/students/1001/certificates"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.certificateTitle").value("AWS Dev"));
+    }
+
+    @Test
+    void updateCertificates_validRequest_returns200() throws Exception {
+        StudentCertificate cert = new StudentCertificate();
+        cert.setCertificateTitle("AWS Dev");
+        when(studentService.upsertCertificate(eq(1001), any())).thenReturn(cert);
+
+        mvc.perform(put("/api/students/1001/certificates")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(
+                        new StudentCertificateRequest("AWS Dev", "Body text"))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.certificateTitle").value("AWS Dev"));
+    }
+
+    // ── GET /api/students/{id}/skills ────────────────────────────────────────
+
+    @Test
+    void getSkills_returns200() throws Exception {
+        StudentSkill ss = new StudentSkill();
+        ss.setSkillId(5);
+        ss.setSkillName("Java");
+        when(studentService.getSkills(1001)).thenReturn(List.of(ss));
+
+        mvc.perform(get("/api/students/1001/skills"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].skillName").value("Java"));
+    }
+
+    @Test
+    void updateSkills_validRequest_returns200() throws Exception {
+        StudentSkill ss = new StudentSkill();
+        ss.setSkillId(5);
+        ss.setSkillName("Java");
+        when(studentService.replaceSkills(eq(1001), any())).thenReturn(List.of(ss));
+
+        mvc.perform(put("/api/students/1001/skills")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(new StudentSkillsRequest(List.of(5)))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].skillName").value("Java"));
     }
 
     // ── Helpers ──────────────────────────────────────────────────────────────
