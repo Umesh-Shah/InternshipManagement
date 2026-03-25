@@ -3,6 +3,8 @@ package ca.uwindsor.ims.service;
 import ca.uwindsor.ims.dto.*;
 import ca.uwindsor.ims.entity.*;
 import ca.uwindsor.ims.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,8 @@ import java.util.Optional;
 
 @Service
 public class StudentService {
+
+    private static final Logger log = LoggerFactory.getLogger(StudentService.class);
 
     private final StudentInfoRepository infoRepo;
     private final StudentEducationRepository eduRepo;
@@ -81,6 +85,7 @@ public class StudentService {
      */
     @Transactional
     public StudentInfo create(StudentCreateRequest req) {
+        log.debug("Creating student: id={}, email={}", req.studentId(), req.stuEmail());
         StudentInfo info = new StudentInfo();
         applyCreate(info, req);
         info.setInternshipStatus("Pending");
@@ -93,6 +98,7 @@ public class StudentService {
         String rawPassword = email.substring(0, Math.min(4, email.length())) + req.studentId();
         String encodedPassword = passwordEncoder.encode(rawPassword);
 
+        log.debug("Creating login record: username={}, studentId={}", username, req.studentId());
         Login login = new Login();
         login.setUsername(username);
         login.setPwd(encodedPassword);
@@ -109,6 +115,7 @@ public class StudentService {
     // ── Info ───────────────────────────────────────────────────────────────────
 
     public Optional<StudentInfo> updateInfo(Integer studentId, StudentInfoRequest req) {
+        log.debug("Updating info for studentId={}", studentId);
         return infoRepo.findByStudentId(studentId).map(info -> {
             applyInfo(info, req);
             return infoRepo.save(info);
@@ -179,6 +186,7 @@ public class StudentService {
      */
     @Transactional
     public List<StudentSkill> replaceSkills(Integer studentId, StudentSkillsRequest req) {
+        log.debug("Replacing skills for studentId={}, count={}", studentId, req.skillIds().size());
         skillRepo.deleteByStudentId(studentId);
         List<StudentSkill> toSave = req.skillIds().stream()
                 .map(skillId -> {

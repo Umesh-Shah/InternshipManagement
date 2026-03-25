@@ -5,6 +5,8 @@ import ca.uwindsor.ims.dto.JobApplicationResponse;
 import ca.uwindsor.ims.entity.StudentJobMapping;
 import ca.uwindsor.ims.repository.StudentJobMappingRepository;
 import ca.uwindsor.ims.repository.StudentJobMappingRepository.JobApplicationProjection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Service
 public class JobApplicationService {
+
+    private static final Logger log = LoggerFactory.getLogger(JobApplicationService.class);
 
     private final StudentJobMappingRepository mappingRepo;
 
@@ -25,9 +29,14 @@ public class JobApplicationService {
 
     @Transactional
     public JobApplicationResponse apply(JobApplicationRequest req) {
+        log.debug("Applying: studentId={}, jobId={}", req.studentId(), req.jobId());
         return mappingRepo.findByStudentIdAndJobId(req.studentId(), req.jobId())
-                .map(this::toResponseFromEntity)
+                .map(existing -> {
+                    log.debug("Application already exists: studentJobId={}, flag={}", existing.getStudentJobId(), existing.getFlag());
+                    return toResponseFromEntity(existing);
+                })
                 .orElseGet(() -> {
+                    log.debug("New application, creating record for studentId={}, jobId={}", req.studentId(), req.jobId());
                     StudentJobMapping m = new StudentJobMapping();
                     m.setStudentId(req.studentId());
                     m.setJobId(req.jobId());
@@ -56,8 +65,10 @@ public class JobApplicationService {
 
     @Transactional
     public JobApplicationResponse approve(Integer studentJobId) {
+        log.debug("Approving application: studentJobId={}", studentJobId);
         StudentJobMapping m = mappingRepo.findById(studentJobId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        log.debug("Changing flag: {} -> A for studentId={}, jobId={}", m.getFlag(), m.getStudentId(), m.getJobId());
         m.setFlag("A");
         return toResponseFromEntity(mappingRepo.save(m));
     }
