@@ -6,6 +6,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -25,6 +27,8 @@ public class RateLimitingFilter extends OncePerRequestFilter {
     private static final int CAPACITY = 5;
     private static final Duration WINDOW = Duration.ofMinutes(1);
 
+    private static final Logger log = LoggerFactory.getLogger(RateLimitingFilter.class);
+
     private final ConcurrentHashMap<String, Bucket> buckets = new ConcurrentHashMap<>();
 
     @Override
@@ -35,6 +39,7 @@ public class RateLimitingFilter extends OncePerRequestFilter {
             String ip = resolveClientIp(request);
             Bucket bucket = buckets.computeIfAbsent(ip, this::newBucket);
             if (!bucket.tryConsume(1)) {
+                log.warn("Rate limit exceeded for IP: {}", ip);
                 response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
                 response.setContentType("application/json");
                 response.getWriter().write("{\"error\":\"Too many login attempts. Please wait a minute.\"}");

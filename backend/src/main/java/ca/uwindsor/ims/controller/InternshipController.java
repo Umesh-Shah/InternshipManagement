@@ -3,6 +3,8 @@ package ca.uwindsor.ims.controller;
 import ca.uwindsor.ims.dto.InternshipStatusRequest;
 import ca.uwindsor.ims.dto.InternshipStatusResponse;
 import ca.uwindsor.ims.service.InternshipStatusService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/internships")
 public class InternshipController {
+
+    private static final Logger log = LoggerFactory.getLogger(InternshipController.class);
 
     private final InternshipStatusService internshipStatusService;
 
@@ -21,7 +25,10 @@ public class InternshipController {
     @PostMapping("/status")
     @PreAuthorize("hasRole('ADMIN')")
     public InternshipStatusResponse assign(@RequestBody InternshipStatusRequest req) {
-        return internshipStatusService.assign(req);
+        InternshipStatusResponse result = internshipStatusService.assign(req);
+        log.info("Internship assigned: studentId={}, companyId={}, jobId={}, status={}",
+                req.studentId(), req.companyId(), req.jobId(), req.internshipStatus());
+        return result;
     }
 
     @GetMapping("/status")

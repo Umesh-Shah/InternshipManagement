@@ -113,6 +113,12 @@
             <version>8.10.1</version>
         </dependency>
 
+        <!-- Tracing: auto-populates traceId/spanId in MDC -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
