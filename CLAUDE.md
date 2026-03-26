@@ -12,12 +12,12 @@ docker compose up -d                    # MySQL on port 3307, auto-seeds test da
 
 # Backend
 cd backend && mvn spring-boot:run -Dspring-boot.run.profiles=dev   # http://localhost:8080
-cd backend && mvn test                  # 8 tests
+cd backend && mvn test                  # 211 tests
 cd backend && mvn clean compile         # Compile check
 
 # Frontend
 cd frontend && npm run dev              # http://localhost:5173
-cd frontend && npm test                 # 10 tests
+cd frontend && npm test                 # 39 tests
 cd frontend && npm run build            # Production build
 ```
 
