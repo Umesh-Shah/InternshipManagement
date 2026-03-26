@@ -50,10 +50,10 @@ Frontend runs on `http://localhost:5173` and proxies API requests to the backend
 ## Running Tests
 
 ```bash
-# Backend (8 tests)
+# Backend (211 tests)
 cd backend && mvn test
 
-# Frontend (10 tests)
+# Frontend (39 tests)
 cd frontend && npm test
 ```
 
