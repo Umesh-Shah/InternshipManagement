@@ -8,7 +8,7 @@ An academic web application for managing student internships, companies, and job
 |-------|-----------|
 | Backend | Java 21, Spring Boot 3.4, Spring Security, Spring Data JPA, Hibernate |
 | Frontend | React 19, TypeScript, Vite, Tailwind CSS v4, React Router, TanStack Query/Table |
-| Database | MySQL 8.4 |
+| Database | MySQL 8.0 |
 | Testing | JUnit 5, Spring Boot Test (backend); Vitest, React Testing Library (frontend) |
 
 ## Prerequisites
