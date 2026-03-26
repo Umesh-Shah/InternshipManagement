@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Vitest coverage output
+coverage/
+
 # Playwright E2E
 .auth/
 playwright-report/
