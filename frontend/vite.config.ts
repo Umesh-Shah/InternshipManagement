@@ -26,5 +26,23 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.ts'],
     css: false,
     exclude: ['**/node_modules/**', 'e2e/**'],
+    coverage: {
+      provider: 'v8',
+      include: ['src/**'],
+      exclude: [
+        'src/main.tsx',
+        'src/App.tsx',
+        'src/router/**',
+        'src/api/**',
+        'src/features/admin/**',
+        'src/features/student/**',
+        'src/**/*.d.ts',
+      ],
+      thresholds: {
+        lines: 60,
+        functions: 60,
+        branches: 50,
+      },
+    },
   },
 })
