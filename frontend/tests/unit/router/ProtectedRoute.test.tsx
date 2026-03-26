@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import useAuthStore from '@/features/auth/useAuthStore';
 import { ROLE_ADMIN, ROLE_STUDENT, ROUTES } from '@/constants';
-import ProtectedRoute from '../ProtectedRoute';
+import ProtectedRoute from '@/router/ProtectedRoute';
 
 beforeEach(() => {
   useAuthStore.getState().clearAuth();

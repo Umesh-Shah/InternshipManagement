@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import useAuthStore from '../useAuthStore';
+import useAuthStore from '@/features/auth/useAuthStore';
 import { AUTH_STORAGE_KEY, ROLE_ADMIN, ROLE_STUDENT, SESSION_DURATION_MS } from '@/constants';
 
 const ADMIN_USER = { username: 'admin', role: ROLE_ADMIN, studentId: null };

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { usePdfDownload } from '../usePdfDownload';
+import { usePdfDownload } from '@/hooks/usePdfDownload';
 
 // Stub URL APIs not available in jsdom
 const createObjectURLMock = vi.fn(() => 'blob:mock-url');

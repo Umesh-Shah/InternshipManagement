@@ -2,9 +2,9 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import LoginPage from '../LoginPage';
+import LoginPage from '@/features/auth/LoginPage';
 import * as authApi from '@/api/auth.api';
-import useAuthStore from '../useAuthStore';
+import useAuthStore from '@/features/auth/useAuthStore';
 import { ROLE_ADMIN, ROLE_STUDENT, ROUTES } from '@/constants';
 
 // Mock the login API call

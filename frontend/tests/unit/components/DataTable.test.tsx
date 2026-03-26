@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import type { ColumnDef } from '@tanstack/react-table';
-import { DataTable } from '../DataTable';
+import { DataTable } from '@/components/DataTable';
 
 interface Row {
   id: number;

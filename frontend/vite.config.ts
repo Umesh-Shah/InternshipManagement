@@ -25,7 +25,8 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
     css: false,
-    exclude: ['**/node_modules/**', 'e2e/**'],
+    include: ['tests/unit/**/*.{test,spec}.{ts,tsx}'],
+    exclude: ['**/node_modules/**', 'tests/e2e/**'],
     coverage: {
       provider: 'v8',
       include: ['src/**'],
