@@ -19,6 +19,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.mock.web.MockCookie;
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -129,6 +131,56 @@ class SecurityIntegrationTest {
         mvc.perform(get("/api/students/2/education")
                         .header("Authorization", "Bearer admin-token"))
                 .andExpect(status().isNotFound());
+    }
+
+    // ── Cookie BearerTokenResolver ───────────────────────────────────────────
+
+    @Test
+    void cookieToken_validImsJwtCookie_authenticates() throws Exception {
+        when(jwtDecoder.decode("admin-token")).thenReturn(adminJwt());
+        when(companyService.findAll()).thenReturn(List.of());
+
+        mvc.perform(get("/api/companies")
+                        .cookie(new MockCookie("ims-jwt", "admin-token")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void cookieToken_blankCookie_fallsBackToAuthorizationHeader() throws Exception {
+        when(jwtDecoder.decode(anyString())).thenReturn(adminJwt());
+        when(companyService.findAll()).thenReturn(List.of());
+
+        mvc.perform(get("/api/companies")
+                        .cookie(new MockCookie("ims-jwt", "  "))
+                        .header("Authorization", "Bearer admin-token"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void cookieToken_wrongCookieName_fallsBackToAuthorizationHeader() throws Exception {
+        when(jwtDecoder.decode(anyString())).thenReturn(adminJwt());
+        when(companyService.findAll()).thenReturn(List.of());
+
+        mvc.perform(get("/api/companies")
+                        .cookie(new MockCookie("other-cookie", "admin-token"))
+                        .header("Authorization", "Bearer admin-token"))
+                .andExpect(status().isOk());
+    }
+
+    // ── JwtAuthenticationConverter ────────────────────────────────────────────
+
+    @Test
+    void jwtToken_missingRoleClaim_returns403() throws Exception {
+        Jwt jwtWithoutRole = Jwt.withTokenValue("no-role-token")
+                .header("alg", "HS256")
+                .issuedAt(Instant.now())
+                .expiresAt(Instant.now().plus(1, ChronoUnit.HOURS))
+                .build();
+        when(jwtDecoder.decode(anyString())).thenReturn(jwtWithoutRole);
+
+        mvc.perform(get("/api/companies")
+                        .header("Authorization", "Bearer no-role-token"))
+                .andExpect(status().isForbidden());
     }
 
     // ── Helpers ──────────────────────────────────────────────────────────────

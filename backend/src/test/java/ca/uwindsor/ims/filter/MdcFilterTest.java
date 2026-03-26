@@ -65,4 +65,32 @@ class MdcFilterTest {
         assertThat(MDC.get("method")).isNull();
         assertThat(MDC.get("uri")).isNull();
     }
+
+    @Test
+    void doFilter_withXForwardedFor_usesForwardedIp() throws ServletException, IOException {
+        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/api/health");
+        request.addHeader("X-Forwarded-For", "203.0.113.1");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        String[] capturedIp = {null};
+        FilterChain chain = (req, res) -> capturedIp[0] = MDC.get("clientIp");
+
+        filter.doFilter(request, response, chain);
+
+        assertThat(capturedIp[0]).isEqualTo("203.0.113.1");
+    }
+
+    @Test
+    void doFilter_withMultipleForwardedIps_usesFirstOnly() throws ServletException, IOException {
+        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/api/health");
+        request.addHeader("X-Forwarded-For", "203.0.113.1, 10.0.0.1, 192.168.0.1");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        String[] capturedIp = {null};
+        FilterChain chain = (req, res) -> capturedIp[0] = MDC.get("clientIp");
+
+        filter.doFilter(request, response, chain);
+
+        assertThat(capturedIp[0]).isEqualTo("203.0.113.1");
+    }
 }
