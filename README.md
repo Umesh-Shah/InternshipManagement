@@ -1,12 +1,12 @@
 # Internship Management System (IMS)
 
-An academic web application for managing student internships, companies, and job postings. Modernized from a legacy Spring MVC/JSP stack to **Spring Boot 3.4 + React 19**.
+An academic web application for managing student internships, companies, and job postings. Modernized from a legacy Spring MVC/JSP stack to **Spring Boot 4.1 + React 19**.
 
 ## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| Backend | Java 21, Spring Boot 3.4, Spring Security, Spring Data JPA, Hibernate |
+| Backend | Java 21, Spring Boot 4.1, Spring Security 7, Spring Data JPA, Hibernate 7 |
 | Frontend | React 19, TypeScript, Vite, Tailwind CSS v4, React Router, TanStack Query/Table |
 | Database | MySQL 8.4 |
 | Testing | JUnit 5, Spring Boot Test (backend); Vitest, React Testing Library (frontend) |
@@ -50,7 +50,7 @@ Frontend runs on `http://localhost:5173` and proxies API requests to the backend
 ## Running Tests
 
 ```bash
-# Backend (211 tests)
+# Backend (205 tests)
 cd backend && mvn test
 
 # Frontend (39 tests)
@@ -76,6 +76,12 @@ cd frontend && npm run build
 | Admin | admin | admin123 |
 | Student | alice.nguyen | pass1001 |
 
+## Dependency Updates
+
+Dependabot checks for Maven, npm, and GitHub Actions updates weekly (see [.github/dependabot.yml](.github/dependabot.yml)), grouping patch/minor bumps into single PRs. A CI security gate (`npm audit --audit-level=high`) fails the build if a high/critical vulnerability regresses into the frontend lockfile.
+
+Patch/minor Dependabot PRs auto-merge once CI passes ([.github/workflows/auto-merge-dependabot.yml](.github/workflows/auto-merge-dependabot.yml)). Major-version bumps always stay open for manual review.
+
 ## Architecture Docs
 
 | Document | Description |
@@ -97,6 +103,7 @@ cd frontend && npm run build
 ├── frontend/                 React SPA
 │   ├── src/                  Components, features, hooks, API layer
 │   └── src/test/             Vitest tests
+├── .github/                  CI workflows, Dependabot config, auto-merge policy
 ├── docker-compose.yml        MySQL dev environment
 └── docker/mysql/             MySQL Docker customization
 ```
