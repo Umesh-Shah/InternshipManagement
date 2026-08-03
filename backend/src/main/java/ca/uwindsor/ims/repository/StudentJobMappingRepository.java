@@ -2,7 +2,7 @@ package ca.uwindsor.ims.repository;
 
 import ca.uwindsor.ims.entity.StudentJobMapping;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public interface StudentJobMappingRepository extends JpaRepository<StudentJobMap
      * Single-query fetch: joins student_job_master → job → company → student.
      * Returns a flat projection used by JobApplicationService to avoid N+1.
      */
-    @Query(value = """
+    @NativeQuery("""
             SELECT
                 m.STUDENT_JOB_ID  AS studentJobId,
                 m.JOB_ID          AS jobId,
@@ -34,7 +34,7 @@ public interface StudentJobMappingRepository extends JpaRepository<StudentJobMap
             WHERE (:flag IS NULL OR m.flag = :flag)
               AND (:studentId IS NULL OR m.STUDENT_ID = :studentId)
               AND (:jobId IS NULL OR m.JOB_ID = :jobId)
-            """, nativeQuery = true)
+            """)
     List<JobApplicationProjection> findApplications(
             @Param("flag") String flag,
             @Param("studentId") Integer studentId,
