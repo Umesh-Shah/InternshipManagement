@@ -15,7 +15,7 @@ An academic web application for managing student internships, companies, and job
 
 - Docker (for MySQL)
 - Java 21+
-- Node.js 18+
+- Node.js 22.15.0+ (see [frontend/.nvmrc](frontend/.nvmrc))
 - Maven 3.9+
 
 ## Quick Start
