@@ -14,9 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ import static org.mockito.Mockito.when;
 })
 class LoggingAspectTest {
 
-    @MockBean CompanyRepository companyRepository;
+    @MockitoBean CompanyRepository companyRepository;
 
     @Autowired HealthController healthController;
     @Autowired CompanyController companyController;
